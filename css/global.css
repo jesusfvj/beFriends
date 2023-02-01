@@ -16,7 +16,6 @@
   margin: 0;
   padding: 0;
   font-family: var(--font);
-  overflow-x: hidden;
 }
 
 .feed__body {
@@ -24,6 +23,7 @@
   grid-template-columns: 1fr 2fr 1fr;
   width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .feed__aside {
@@ -33,6 +33,10 @@
   justify-content: flex-start;
   padding: 4rem;
   background-color: rgb(190, 205, 254);
+}
+
+.feed__aside-nav-container {
+  position: fixed;
 }
 
 .feed__aside-logo {
@@ -127,7 +131,7 @@
 }
 
 .feed__post-comments-container {
-  padding-top: 2rem;
+  margin-top: 2rem;
   padding-left: 2rem;
   max-height: 20vh;
   overflow-y: auto;
@@ -149,7 +153,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 3rem;
+  padding-top: 4rem;
+  padding-right: 4rem;
   gap: 1rem;
 }
 
@@ -161,10 +166,31 @@
 }
 
 .feed__friends-suggestions-friends {
+  position: fixed;
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
+}
+
+.feed__friends-suggestions-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(150, 150, 255);
+  height: 2rem;
+  width: 2rem;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__friends-suggestions-add-btn:hover {
+  transition-duration: 0.3s;
+  background-color: rgb(113, 113, 251);
 }

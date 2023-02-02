@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beFriends - feed</title>
-    <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
     <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
 </head>
 
@@ -45,37 +45,9 @@
                 </div>
             </div>
             <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
-            <div class="feed__article-comments-container">
-                <div class="feed__post-icons-container">
-                    <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
-                    <p>5 likes</p>
-                    <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
-                </div>
-                <div class="feed__post-comments-container">
-                    <div class="feed__post-comment">
-                        <p class="feed__post-comment-author">Wilson</p>
-                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
-                    </div>
-                    <div class="feed__post-comment">
-                        <p class="feed__post-comment-author">Wilson</p>
-                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
-                    </div>
-                    <div class="feed__post-comment">
-                        <p class="feed__post-comment-author">Wilson</p>
-                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
-                    </div>
-                </div>
+            <div class="feed__post-message-container">
+                <p class="feed__post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
             </div>
-        </article>
-        <article class="feed__post">
-            <div class="feed__article-header">
-                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
-                <div>
-                    <p class="feed__post-profile-name">MIQUEL_ABELLA - <span class="feed__post-profile-follow-text">follow</span></p>
-                    <p class="feed__post-timestamp">1 week ago</p>
-                </div>
-            </div>
-            <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
             <div class="feed__article-comments-container">
                 <div class="feed__post-icons-container">
                     <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
@@ -104,6 +76,14 @@
             <p>Suggested friends for you</p>
         </div>
     </aside>
+    <div class="feed__create-post-modal">
+        <form class="feed__create-post-form" id="createPostForm">
+            <label for="postImageUpload" class="feed__post-image-label">Add image</label>
+            <input id="postImageUpload" class="hidden" type="file" />
+            <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6"></textarea>
+            <input type="submit" value="Post!" class="feed__create-post-form-button" />
+        </form>
+    </div>
 </body>
 
 </html>

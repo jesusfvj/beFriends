@@ -93,6 +93,73 @@
   border-bottom: 1px solid var(--border-grey);
 }
 
+.feed__post-message-container {
+  color: var(--text-grey);
+  font-size: var(--font-md);
+  padding: 1rem;
+}
+
+.feed__create-post-modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  backdrop-filter: brightness(30%);
+}
+
+.feed__create-post-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  height: 60%;
+  width: 40%;
+  padding: 5rem;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.feed__post-image-label {
+  font-family: "Roboto";
+  width: 30%;
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid var(--btn-primary);
+  border-radius: 15px;
+  color: var(--text-grey);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.feed__create-post-form-textarea {
+  font-family: "Roboto";
+  width: 80%;
+  padding: 2rem;
+  font-size: 20px;
+  border-radius: 15px;
+  outline: none;
+  resize: none;
+}
+
+.feed__create-post-form-button {
+  font-family: "Roboto";
+  width: 30%;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--btn-primary);
+  text-align: center;
+  border-radius: 15px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .feed__article-header {
   display: flex;
   align-items: center;
@@ -206,4 +273,8 @@
 .feed__friends-suggestions-add-btn:hover {
   transition-duration: 0.3s;
   background-color: rgb(113, 113, 251);
+}
+
+.hidden {
+  display: none;
 }

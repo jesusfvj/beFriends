@@ -10,6 +10,7 @@
   --font-semibold: 500;
   --font-light: 300;
   --border-grey: rgb(200, 200, 200);
+  --btn-primary: #1896f5;
 }
 
 * {
@@ -20,7 +21,7 @@
 
 .feed__body {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr;
   width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
@@ -69,6 +70,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.feed__create-post-button {
+  padding: 0.75rem;
+  margin-top: 2rem;
+  border-radius: 0.3rem;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  background-color: var(--btn-primary);
+  color: white;
+  width: 50%;
 }
 
 .feed__post {

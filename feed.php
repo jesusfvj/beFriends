@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beFriends - feed</title>
-    <link rel="stylesheet" href="./css/global.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="./css/global.css?v=<?php echo time();  ?>">
+    <script src="script.js?v=<?php echo time();  ?>" defer></script>
 </head>
 
 <body class="feed__body">
@@ -15,6 +15,10 @@
         <div class="feed__aside-nav-container">
             <img src="./assets/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
+                <div class="feed__nav-item">
+                    <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
+                    <p>Friends</p>
+                </div>
                 <div class="feed__nav-item">
                     <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Profile</p>
@@ -31,6 +35,7 @@
         </div>
     </aside>
     <main class="feed__main">
+        <button class="feed__create-post-button">Create post</button>
         <article class="feed__post">
             <div class="feed__article-header">
                 <img class="feed__post-profile-img" src="./assets/profileImg.JPG" alt="" />

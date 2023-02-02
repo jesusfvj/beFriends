@@ -10,10 +10,6 @@ showParagraph.forEach((element) => {
 
 document.body.addEventListener("load", getUsers());
 function getUsers() {
-  let msg = new SpeechSynthesisUtterance();
-  msg.text = "Hola Wilson, Jesus y sus aliados te saludan";
-  msg.lang = "es-ES";
-  window.speechSynthesis.speak(msg);
   fetch("./controllers/users/getAll.php")
     .then((res) => res.json())
     .then((data) => {

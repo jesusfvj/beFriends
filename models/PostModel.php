@@ -28,4 +28,17 @@ class PostModel extends DbConection
             return [false, $e];
         }
     }
+
+    function delete($id)
+    {
+        $query = $this->db->connect()->prepare("DELETE FROM post WHERE id = ?");
+        $query->bindParam(1, $id);
+
+        try {
+            $query->execute();
+            return [true];
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
 }

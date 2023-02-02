@@ -7,8 +7,7 @@ class UserModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT U.id, U.name, U.email
-        FROM user U;");
+        $query = $this->db->connect()->prepare("SELECT * FROM user;");
 
         try {
             $query->execute();

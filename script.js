@@ -1,11 +1,10 @@
 const showParagraph = document.querySelectorAll(".paragraph-show__text");
-const inputPassword = document.querySelectorAll(".input__password");
 
 showParagraph.forEach(element => {
-    element.addEventListener("click", showPassword);
+    element.addEventListener("click", togglePassword);
 });
 
-function showPassword(event){
+function togglePassword(event){
     const clickedShow = document.querySelector("#"+event.target.id);
     const clickedInput = document.querySelector("#"+event.target.nextElementSibling.id);
     clickedInput.type=='password'?(clickedInput.type='text', clickedShow.textContent="Hide", clickedShow.style.color="rgb(161, 161, 161)"):

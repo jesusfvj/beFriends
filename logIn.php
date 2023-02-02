@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="html__container--background-image" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,6 @@
 <body>
     <header></header>
     <main>
-
         <section class="section__container">
             <section class="section-first-body__container">
                 <img class="section__img--size" src="./assets/logoBeFriends.png" alt="logo beFriends">

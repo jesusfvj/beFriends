@@ -76,7 +76,7 @@
             <p>Suggested friends for you</p>
         </div>
     </aside>
-    <div class="feed__create-post-modal">
+    <div class="feed__create-post-modal hidden">
         <form class="feed__create-post-form" id="createPostForm">
             <label for="postImageUpload" class="feed__post-image-label">Add image</label>
             <input id="postImageUpload" class="hidden" type="file" />

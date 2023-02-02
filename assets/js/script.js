@@ -63,14 +63,16 @@ async function createPost(e) {
       console.log(data);
     });
 
-  await fetch("./controllers/posts/create.php", {
-    method: "POST",
-    body: formData,
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+  if (text.length) {
+    await fetch("./controllers/posts/create.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
 }
 
 function addFriend(event) {

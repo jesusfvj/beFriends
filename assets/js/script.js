@@ -28,6 +28,24 @@ function getUsers() {
     });
 }
 
+document.body.addEventListener("load", createPost());
+function createPost() {
+  const formData = new FormData();
+  
+  formData.append("user_id", 1);
+  formData.append("content", 'Content lorem ipsum content');
+  formData.append("image", 'postImage.png');
+
+  fetch("./controllers/posts/create.php", {
+    method: "POST",
+    body: formData
+  })
+    .then((res) => res.json())
+    .then((data) => {
+
+    });
+}
+
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));
 }

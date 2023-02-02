@@ -1,5 +1,4 @@
 <?php
-
 class DbConection
 {
     protected $db;
@@ -8,5 +7,3 @@ class DbConection
         $this->db = new Database();
     }
 }
-
-?>

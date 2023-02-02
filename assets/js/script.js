@@ -4,10 +4,9 @@ const friendsSuggestionsContainer = document.querySelector(
 
 document.body.addEventListener("load", getUsers());
 function getUsers() {
-  fetch("./controllers/getUsers.php")
+  fetch("./controllers/users/getAll.php")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data.length) {
         data.forEach((user) => {
           friendsSuggestionsContainer.innerHTML += `

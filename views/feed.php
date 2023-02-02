@@ -6,29 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beFriends - feed</title>
-    <link rel="stylesheet" href="./css/global.css?v=<?php echo time();  ?>">
-    <script src="script.js?v=<?php echo time();  ?>" defer></script>
+    <link rel="stylesheet" href="./assets/css/global.css?v=<?php echo time(); ?>">
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
 </head>
 
 <body class="feed__body">
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
-            <img src="./assets/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
+            <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item">
-                    <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
+                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Friends</p>
                 </div>
                 <div class="feed__nav-item">
-                    <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
+                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Profile</p>
                 </div>
                 <div class="feed__nav-item">
-                    <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
+                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Search</p>
                 </div>
                 <div class="feed__nav-item">
-                    <img src="./assets/profile.png" alt="nav-icon" class="nav__image" />
+                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Logout</p>
                 </div>
             </nav>
@@ -38,18 +38,18 @@
         <button class="feed__create-post-button">Create post</button>
         <article class="feed__post">
             <div class="feed__article-header">
-                <img class="feed__post-profile-img" src="./assets/profileImg.JPG" alt="" />
+                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
                 <div>
                     <p class="feed__post-profile-name">MIQUEL_ABELLA - <span class="feed__post-profile-follow-text">follow</span></p>
                     <p class="feed__post-timestamp">1 week ago</p>
                 </div>
             </div>
-            <img class="feed__post-img" src="./assets/mockImage.JPG" alt="" />
+            <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
             <div class="feed__article-comments-container">
                 <div class="feed__post-icons-container">
-                    <img class="feed__post-icon" src="./assets/heart.png" alt="" />
+                    <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
                     <p>5 likes</p>
-                    <img class="feed__post-icon" src="./assets/message.png" alt="" />
+                    <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
                 </div>
                 <div class="feed__post-comments-container">
                     <div class="feed__post-comment">
@@ -69,18 +69,18 @@
         </article>
         <article class="feed__post">
             <div class="feed__article-header">
-                <img class="feed__post-profile-img" src="./assets/profileImg.JPG" alt="" />
+                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
                 <div>
                     <p class="feed__post-profile-name">MIQUEL_ABELLA - <span class="feed__post-profile-follow-text">follow</span></p>
                     <p class="feed__post-timestamp">1 week ago</p>
                 </div>
             </div>
-            <img class="feed__post-img" src="./assets/mockImage.JPG" alt="" />
+            <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
             <div class="feed__article-comments-container">
                 <div class="feed__post-icons-container">
-                    <img class="feed__post-icon" src="./assets/heart.png" alt="" />
+                    <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
                     <p>5 likes</p>
-                    <img class="feed__post-icon" src="./assets/message.png" alt="" />
+                    <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
                 </div>
                 <div class="feed__post-comments-container">
                     <div class="feed__post-comment">

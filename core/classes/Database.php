@@ -2,21 +2,6 @@
 
 class Database
 {
-    private $host;
-    private $db;
-    private $user;
-    private $password;
-    private $charset;
-    private $error;
-
-    public function __construct()
-    {
-        $this->host = HOST;
-        $this->db = DB;
-        $this->user = USER;
-        $this->password = PASSWORD;
-        $this->charset = CHARSET;
-    }
     function connect()
     {
         try {
@@ -38,5 +23,4 @@ class Database
             throw new ErrorException($e);
         }
     }
-
 }

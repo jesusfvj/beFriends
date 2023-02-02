@@ -1,7 +1,5 @@
 <?php
-require_once('../config/db.php');
-require_once('../Database.php');
-require_once('../DbConection.php');
+require_once("../core/classes/DbConection.php");
 
 class UserModel extends DbConection
 {

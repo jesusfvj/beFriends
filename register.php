@@ -10,7 +10,7 @@
 </head>
 <body>
     <header></header>
-    <main>
+    <main class="main__container">
         <section class="section__container">
             <section class="section-first-body__container">
                 <img class="section__img--size" src="./assets/logoBeFriends.png" alt="logo beFriends">

@@ -9,6 +9,10 @@
     min-height: 100vh;
 }
 
+.main__container{
+    display: flex;
+}
+
 .section__container{
     display: flex;
     flex-direction: column;

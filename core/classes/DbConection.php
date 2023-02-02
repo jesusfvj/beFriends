@@ -1,4 +1,5 @@
 <?php
+
 class DbConection
 {
     protected $db;

@@ -60,18 +60,17 @@ async function createPost(e) {
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
+      console.log(data);
     });
 
-  if (text.length && image.length) {
-    await fetch("./controllers/posts/createPost.php", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }
+  await fetch("./controllers/posts/create.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
 function addFriend(event) {

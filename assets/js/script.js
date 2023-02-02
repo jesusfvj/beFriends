@@ -8,12 +8,13 @@ function getUsers() {
     .then((res) => res.json())
     .then((data) => {
       if (data.length) {
+        console.log(data);
         data.forEach((user) => {
           friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
-                <p>${user.name}</p>
+                <p>${user.nickname}</p>
             </div>
     `;
         });

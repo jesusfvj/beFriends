@@ -48,6 +48,15 @@
                         <p id="show3" class="paragraph-show__text">Show</p>
                         <input class="form__input input__password" id="inputPasswordRepeat" type="password" name="inputPasswordRepeat" required>
                         <p class="paragraph-placeholder__text">Repeat Password</p>
+                        <div class="password-verification__div--display">
+                            <div class="password-verification-square__div">
+
+                            </div>
+                            <div class="password-verification-content__div">
+                                <img class="password-verification__image" src="./assets/images/alert.png" alt="alert-icon">
+                                <p class="password-verification__paragraph">Both passwords must match</p>
+                            </div>
+                        </div>
                     </div>
                     <input type="submit" class="form__button" value="Register">
                 </form>
@@ -63,6 +72,28 @@
         </section>
     </main>
     <footer></footer>
+    <section class="modal-success-register__section">
+        <div class="modal-success-register__div">
+            <div class="modal-success-register__header">
+                <p class="modal-success-register__title">Sucess Register</p>
+            </div>
+            <div class="modal-success-register__content">
+                <img src="./assets/images/okIcon.png">
+                <p class="modal-success-register__paragraph">The registration has been a success</p>
+            </div>
+        </div>
+    </section>
+    <section class="modal-error-register__section">
+        <div class="modal-error-register__div">
+            <div class="modal-error-register__header">
+                <p class="modal-error-register__title">Error Register</p>
+            </div>
+            <div class="modal-error-register__content">
+                <img src="./assets/images/notOkIcon.png">
+                <p class="modal-error-register__paragraph">Sorry, the email or nickname exists, try to enter a new one</p>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

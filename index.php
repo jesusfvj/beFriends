@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html class="html__container--background-image" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-    <script src="./assets/js/script.js?v=<?php echo time();?>" defer></script>
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/register.js?v=<?php echo time(); ?>" defer></script>
     <title>beFriends - index</title>
 </head>
+
 <body>
     <header></header>
     <main class="main__container">
@@ -43,7 +46,7 @@
                 <p class="paragraph-register__text">Register</p>
             </section>
             <section class="section-third-body__container">
-                <p class="paragraph-download__text" >Download the app</p>
+                <p class="paragraph-download__text">Download the app</p>
                 <div class="div-app-icons__container">
                     <img class="icons__img" src="./assets/images/appIcon.png" alt="App store download icon">
                     <img class="icons__img" src="./assets/images/googlePlayIcon.png" alt="Google Play store download icon">
@@ -53,4 +56,5 @@
     </main>
     <footer></footer>
 </body>
+
 </html>

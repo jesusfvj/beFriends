@@ -12,6 +12,7 @@ CREATE TABLE user(
     nickname VARCHAR(50) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(50) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
     avatar VARCHAR(200),
     role VARCHAR(25) NOT NULL,
     created_at DATE,
@@ -41,11 +42,11 @@ CREATE TABLE comment(
     FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
 
-INSERT INTO user(name, nickname, email, password, avatar, role, created_at, updated_at)
-VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
-       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
-       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'avatar.png', 'user', '2019-12-31', '2019-12-31'),
-       ('Wilson Mandela', 'Arbitruxo', 'wilson@robocop.com', 'password', 'avatar.png', 'user', '2019-12-31', '2019-12-31');
+INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at)
+VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'male', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
+       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'male', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
+       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'male', 'avatar.png', 'user', '2019-12-31', '2019-12-31'),
+       ('Wilson Mandela', 'Arbitruxo', 'wilson@robocop.com', 'password', 'male', 'avatar.png', 'user', '2019-12-31', '2019-12-31');
 
 INSERT INTO post(user_id, title, content, image, likes, created_at, updated_at)
 VALUES (1, 'Post title 1', 'Post lorem ipsum content', 'image.jpg', 0, '2019-12-31', '2019-12-31'),

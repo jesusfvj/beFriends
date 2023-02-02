@@ -8,5 +8,3 @@ class DbConection
         $this->db = new Database();
     }
 }
-
-?>

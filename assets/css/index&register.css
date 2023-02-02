@@ -3,7 +3,7 @@
 }
 
 .html__container--background-image{
-    background-image: url("../assets/background.jpg");
+    background-image: url("../images/background.jpg");
     background-position: center;
     background-size: cover;
     min-height: 100vh;
@@ -121,6 +121,7 @@
 
 .hr__line{
     width: 9rem;
+    visibility: hidden;
 }
 
 .section-div-facebook__container{

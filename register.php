@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
-    <script src="./script.js" defer></script>
-    <title>beFriends</title>
+    <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <title>beFriends - register</title>
 </head>
 <body>
     <header></header>
     <main class="main__container">
         <section class="section__container">
             <section class="section-first-body__container">
-                <img class="section__img--size" src="./assets/logoBeFriends.png" alt="logo beFriends">
+                <img class="section__img--size" src="./assets/images/logoBeFriends.png" alt="logo beFriends">
                 <form class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User</p>
@@ -48,8 +48,8 @@
             <section class="section-third-body__container">
                 <p class="paragraph-download__text" >Download the app</p>
                 <div class="div-app-icons__container">
-                    <img class="icons__img" src="./assets/appIcon.png" alt="App store download icon">
-                    <img class="icons__img" src="./assets/googlePlayIcon.png" alt="Google Play store download icon">
+                    <img class="icons__img" src="./assets/images/appIcon.png" alt="App store download icon">
+                    <img class="icons__img" src="./assets/images/googlePlayIcon.png" alt="Google Play store download icon">
                 </div>
             </section>
         </section>

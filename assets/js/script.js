@@ -187,9 +187,9 @@ function deleteUser() {
   fetch(`./controllers/users/delete.php`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       deleteConfirmationModal.classList.toggle("hidden");
       editProfileModal.classList.toggle("hidden");
+      window.location.href = "index.php";
     });
 }
 

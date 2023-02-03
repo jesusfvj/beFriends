@@ -84,6 +84,7 @@ class UserModel extends DbConection
             $data = $query->fetch(PDO::FETCH_OBJ);
             $hashedPassword = $data->password;
             $db = null;
+            //push that!
             if ($user && password_verify($password, $hashedPassword)) {
                 session_start();
                 $_SESSION['id'] = $data->id;

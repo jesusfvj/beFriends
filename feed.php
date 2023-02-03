@@ -125,8 +125,8 @@
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">
+                <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
             </form>
-            <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
         </div>
     </div>
     <!-- delete confirmation modal -->

@@ -191,7 +191,8 @@ function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));
 }
 
-function toggleDeleteConfirmationModal() {
+function toggleDeleteConfirmationModal(e) {
+  e.preventDefault();
   deleteConfirmationModal.classList.toggle("hidden");
 }
 

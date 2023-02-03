@@ -52,21 +52,17 @@ class UserModel extends DbConection
     function login($username, $email, $password)
     {
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?) AND password=?");
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?)");
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);
-        $query->bindParam(3, $password);
-
-
         try {
             $query->execute();
             $user = $query->rowCount();
             $data = $query->fetch(PDO::FETCH_OBJ);
+            $hashedPassword = $data->password;
             $db = null;
-            if ($user) {
+            if ($user && password_verify($password, $hashedPassword)) {
                 session_start();
                 $_SESSION['id'] = $data->id;
                 $_SESSION['name'] = $data->name;

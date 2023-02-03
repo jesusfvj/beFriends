@@ -69,11 +69,10 @@ class UserModel extends DbConection
         } catch (PDOException $e) {
             return [false, $e];
         }
-    
+    }
 
     function login($username, $email, $password)
     {
-        // this works
         $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?)");
 
         $query->bindParam(1, $username);
@@ -99,7 +98,7 @@ class UserModel extends DbConection
             return [false, $e];
         }
     }
-}
+
 
     function delete($id)
     {

@@ -131,9 +131,10 @@ async function submitEditForm(e) {
   let image = editProfileImageToUpload;
 
   const formData = new FormData();
-  formData.append("name", inputUserEditProfile);
-  formData.append("nickname", inputNameEditProfile);
-  formData.append("gender", inputGenderEditProfile);
+  formData.append("fullname", inputUserEditProfile.value);
+  formData.append("username", inputNameEditProfile.value);
+  formData.append("gender", inputGenderEditProfile.value);
+  formData.append("id", 1);
 
   if (image) {
     const imgFormData = new FormData();
@@ -141,28 +142,26 @@ async function submitEditForm(e) {
     imgFormData.append("api_key", "461164283284341");
     imgFormData.append("upload_preset", "j24srhjm");
 
-    await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/detroy", {
+    await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
       method: "POST",
       body: imgFormData,
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        formData.append("image", data.secure_url);
+        formData.append("avatar", data.secure_url);
       });
   }
 
-  //   await fetch("./controllers/users/update.php", {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
+  await fetch("./controllers/users/update.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
-
-// toggle modals functions
 
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));

@@ -105,11 +105,11 @@
             <p class="modal-close-btn" id="editModalCloseBtn">x</p>
             <form class="edit-form__container" id="editProfileForm">
                 <div class="edit-form-div__input">
-                    <p class="paragraph-placeholder__text">User</p>
+                    <p class="paragraph-placeholder__text">Name</p>
                     <input class="edit-form__input" id="inputUserEditProfile" type="text" name="inputUserEditProfile" required>
                 </div>
                 <div class="edit-form-div__input">
-                    <p class="paragraph-placeholder__text">Name</p>
+                    <p class="paragraph-placeholder__text">User</p>
                     <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" required>
                 </div>
                 <div class="edit-form-div__input">

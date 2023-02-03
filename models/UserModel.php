@@ -7,7 +7,7 @@ class UserModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM user;");
+        $query = $this->db->connect()->prepare("SELECT * FROM user");
 
         try {
             $query->execute();
@@ -43,6 +43,40 @@ class UserModel extends DbConection
         try {
             $query->execute();
             return [true];
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
+
+
+    function login($username, $email, $password)
+    {
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=:$username OR email=:$email) AND password=:$hashedPassword");
+
+
+        $query->bindParam(1, $username);
+        $query->bindParam(2, $email);
+        $query->bindParam(3, $hashedPassword);
+
+
+        try {
+            $query->execute();
+            $user = $query->rowCount();
+            $data = $query->fetch(PDO::FETCH_OBJ);
+            $db = null;
+            if ($user) {
+                session_start();
+                $_SESSION['id'] = $data->id;
+                $_SESSION['name'] = $data->name;
+                $_SESSION['nickname'] = $data->nickname;
+                $_SESSION['gender'] = $data->gender;
+                return [true];
+            } else {
+                return [false];
+            }
         } catch (PDOException $e) {
             return [false, $e];
         }

@@ -51,7 +51,7 @@ class UserModel extends DbConection
 
     function login($username, $email, $password)
     {
-
+        // this works
         $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?)");
 
         $query->bindParam(1, $username);

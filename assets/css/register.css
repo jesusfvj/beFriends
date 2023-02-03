@@ -240,7 +240,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: #1896F5;
     height: 30%;
 }
 
@@ -282,7 +282,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: rgb(255, 91, 91);
     height: 30%;
 }
 

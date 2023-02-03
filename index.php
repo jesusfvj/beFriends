@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <!-- <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script> -->
     <script src="./assets/js/logIn.js?v=<?php echo time(); ?>" defer></script>
     <title>beFriends - index</title>
 </head>

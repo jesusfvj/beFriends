@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,7 +107,7 @@
     <div class="modal hidden" id="editProfileModal">
         <div class="feed__edit-profile">
             <p class="modal-close-btn" id="editModalCloseBtn">x</p>
-            <form class="edit-form__container" id="editProfileForm">
+            <form class="edit-form__container" id="editProfileForm" userId=<?php echo $_SESSION['id'] ?>>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Name</p>
                     <input class="edit-form__input" id="inputUserEditProfile" type="text" name="inputUserEditProfile" required>

@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-    <script src="./assets/js/register.js?v=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/logIn.js?v=<?php echo time(); ?>" defer></script>
     <title>beFriends - index</title>
 </head>
 
@@ -16,7 +17,7 @@
         <section class="section__container">
             <section class="section-first-body__container">
                 <img class="section__img--size" src="./assets/images/logoBeFriends.png" alt="logo beFriends">
-                <form class="form__container">
+                <form id="formContainerLogIn" class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User or Email</p>
                         <input class="form__input" id="inputUserLogIn" type="text" name="inputUserLogIn">
@@ -26,7 +27,7 @@
                         <input class="form__input input__password" id="inputPasswordLogIn" type="password" name="inputPasswordLogIn">
                         <p class="paragraph-placeholder__text">Password</p>
                     </div>
-                    <button class="form__button">Enter</button>
+                    <input type="submit" class="form__button" value="Enter">
                 </form>
                 <div class="section-div-or__container">
                     <hr class="hr__line">

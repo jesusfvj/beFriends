@@ -16,7 +16,7 @@
         <section class="section__container">
             <section class="section-first-body__container">
                 <img class="section__img--size" src="./assets/images/logoBeFriends.png" alt="logo beFriends">
-                <form class="form__container">
+                <form id="formContainerRegister" class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User</p>
                         <input class="form__input" id="inputUserRegister" type="text" name="inputUserRegister" required>
@@ -60,7 +60,10 @@
                     </div>
                     <input type="submit" class="form__button" value="Register">
                 </form>
-
+            </section>
+            <section class="section-second-body__container">
+                <p>Go back to</p>
+                <p class="paragraph-log-in__text">Log in</p>
             </section>
             <section class="section-third-body__container">
                 <p class="paragraph-download__text">Download the app</p>
@@ -75,22 +78,22 @@
     <section class="modal-success-register__section">
         <div class="modal-success-register__div">
             <div class="modal-success-register__header">
-                <p class="modal-success-register__title">Sucess Register</p>
+                <p class="modal-success-register__title">Sucess registration</p>
             </div>
             <div class="modal-success-register__content">
                 <img src="./assets/images/okIcon.png">
-                <p class="modal-success-register__paragraph">The registration has been a success</p>
+                <p class="modal-success-register__paragraph">The registration has been a success.</p>
             </div>
         </div>
     </section>
     <section class="modal-error-register__section">
         <div class="modal-error-register__div">
             <div class="modal-error-register__header">
-                <p class="modal-error-register__title">Error Register</p>
+                <p class="modal-error-register__title">Error in registration</p>
             </div>
             <div class="modal-error-register__content">
                 <img src="./assets/images/notOkIcon.png">
-                <p class="modal-error-register__paragraph">Sorry, the email or nickname exists, try to enter a new one</p>
+                <p class="modal-error-register__paragraph">Sorry, the email or nickname already exists, please enter a new one.</p>
             </div>
         </div>
     </section>

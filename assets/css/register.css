@@ -161,10 +161,16 @@ section {
     font-size: 1.1rem;
 }
 
-.paragraph-register__text {
+.paragraph-register__text, .paragraph-log-in__text {
     margin-left: 0.3rem;
     color: #2398DA;
     font-weight: 800;
+}
+
+.paragraph-register__text:hover, .paragraph-log-in__text:hover{
+    color: #114462;
+    cursor: pointer;
+    transition: 500ms;
 }
 
 .paragraph-download__text {
@@ -240,7 +246,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: #1896F5;
     height: 30%;
 }
 
@@ -282,7 +288,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: rgb(255, 91, 91);
     height: 30%;
 }
 
@@ -304,6 +310,8 @@ section {
     color: black;
     margin-right: 8rem;
 }
+
+
 
 
 textarea:focus,

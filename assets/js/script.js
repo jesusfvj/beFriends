@@ -1,8 +1,14 @@
 document.body.addEventListener("load", getUsers());
 
-const friendsSuggestionsContainer = document.querySelector(
-  "#friendsSuggestionsContainer"
-);
+const friendsSuggestionsContainer = document.querySelector("#friendsSuggestionsContainer");
+const registerText = document.querySelector(".paragraph-register__text");
+const logInForm = document.querySelector("#formContainerLogIn");
+
+registerText.addEventListener("click", sendToRegister);
+
+function sendToRegister() {
+  window.location = "./register.php";
+}
 
 // create post form
 const createPostForm = document.getElementById("createPostForm");
@@ -66,6 +72,7 @@ feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
 editModalCloseBtn.addEventListener("click", toggleEditModal);
 // toggle modals controllers
 
+
 function getUsers() {
   fetch("./controllers/users/getAll.php")
     .then((res) => res.json())
@@ -79,7 +86,7 @@ function getUsers() {
                 <p>${user.nickname}</p>
             </div>
     `;
-        });
+      });
       } else {
         friendsSuggestionsContainer.innerHTML += `
               <div class="feed__friends-suggestions-profile">

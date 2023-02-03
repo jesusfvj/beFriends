@@ -73,7 +73,7 @@ class UserModel extends DbConection
 
     function login($username, $email, $password)
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?)");
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (nickname=? OR email=?)");
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);

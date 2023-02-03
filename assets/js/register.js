@@ -30,10 +30,10 @@ function sendRegisterData(event) {
 
           setTimeout(() => {
             sucessAlert.style.display = "none";
-          }, 3000);
+          }, 2000);
           setTimeout(() => {
             window.location.href = "./index.php";
-          }, 3500);
+          }, 2200);
           
         } else{
           errorAlert.style.display = "block";

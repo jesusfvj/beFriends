@@ -1,14 +1,3 @@
-//========== DELETE USER ===========//
-function deleteUser(id) {
-  fetch(`./controllers/users/delete.php?id=${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-
-    });
-}
-deleteUser(1);
-//==================================//
-
 document.body.addEventListener("load", getUsers());
 
 const friendsSuggestionsContainer = document.querySelector(
@@ -29,6 +18,7 @@ postImageUpload.addEventListener("change", getFiles);
 // create post form
 
 // edit profile form
+const editProfileModal = document.getElementById("editProfileModal");
 const editProfileForm = document.getElementById("editProfileForm");
 const inputUserEditProfile = document.getElementById("inputUserEditProfile");
 const inputNameEditProfile = document.getElementById("inputNameEditProfile");
@@ -187,7 +177,15 @@ async function submitEditForm(e) {
     });
 }
 
-function deleteUser() {}
+function deleteUser() {
+  fetch(`./controllers/users/delete.php`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      deleteConfirmationModal.classList.toggle("hidden");
+      editProfileModal.classList.toggle("hidden");
+    });
+}
 
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));

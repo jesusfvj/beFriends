@@ -126,6 +126,17 @@
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">
             </form>
+            <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
+        </div>
+    </div>
+    <!-- delete confirmation modal -->
+    <div class="modal hidden" id="deleteConfirmationModal">
+        <div class="feed__delete-confirmation-modal">
+            <h2>Are your sure?</h2>
+            <div class="feed__delete-confirmation-modal-btn-group">
+                <button class="feed__delete-confirmation-modal-btn feed__delete-confirmation-modal-btn-accept" id="deleteUserConfirm">Yes</button>
+                <button class="feed__delete-confirmation-modal-btn feed__delete-confirmation-modal-btn-decline" id="deleteUserDecline">No</button>
+            </div>
         </div>
     </div>
 </body>

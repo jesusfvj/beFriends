@@ -11,6 +11,7 @@
   --font-light: 300;
   --border-grey: rgb(200, 200, 200);
   --btn-primary: #1896f5;
+  --btn-danger: rgb(255, 73, 73);
 }
 
 * {
@@ -260,7 +261,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 73, 73);
+  background-color: var(--btn-danger);
   color: white;
   border-radius: 50%;
   height: 2rem;
@@ -388,6 +389,44 @@
   border-radius: 0.3rem;
   color: white;
   font-size: 1rem;
+}
+
+.feed__delete-confirmation-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  height: 20%;
+  width: 20%;
+  padding: 5rem;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.feed__delete-confirmation-modal-btn-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.feed__delete-confirmation-modal-btn {
+  height: 2rem;
+  width: 40%;
+  border-radius: 0.3rem;
+  border: none;
+  outline: none;
+}
+.feed__delete-confirmation-modal-btn-accept {
+  background-color: var(--btn-primary);
+  color: white;
+}
+
+.feed__delete-confirmation-modal-btn-decline {
+  background-color: var(--btn-danger);
+  color: white;
 }
 
 /* // hidden */

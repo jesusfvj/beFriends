@@ -24,11 +24,24 @@ const inputNameEditProfile = document.getElementById("inputNameEditProfile");
 const inputGenderEditProfile = document.getElementById(
   "inputGenderEditProfile"
 );
+const deleteAccountBtn = document.getElementById("deleteAccountBtn");
 const updateProfileImgInput = document.getElementById("updateProfileImgInput");
 
 editProfileForm.addEventListener("submit", submitEditForm);
 updateProfileImgInput.addEventListener("change", uploadEditProfileImg);
+deleteAccountBtn.addEventListener("click", toggleDeleteConfirmationModal);
 // edit profile form
+
+// delete confirmation
+
+const deleteConfirmationModal = document.getElementById(
+  "deleteConfirmationModal"
+);
+const deleteUserConfirm = document.getElementById("deleteUserConfirm");
+const deleteUserDecline = document.getElementById("deleteUserDecline");
+deleteUserConfirm.addEventListener("click", deleteUser);
+deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
+//
 
 // toggle modals controllers
 const feedOpenFriendsModalBtn = document.getElementById(
@@ -163,8 +176,14 @@ async function submitEditForm(e) {
     });
 }
 
+function deleteUser() {}
+
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));
+}
+
+function toggleDeleteConfirmationModal() {
+  deleteConfirmationModal.classList.toggle("hidden");
 }
 
 function toggleCreatePostModal() {

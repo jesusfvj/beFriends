@@ -15,11 +15,11 @@
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
-                <div class="feed__nav-item">
-                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
+                <div class="feed__nav-item" id="feedOpenFriendsModalBtn">
+                    <img src=" ./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Friends</p>
                 </div>
-                <div class="feed__nav-item">
+                <div class="feed__nav-item" id="feedEditOpenModalBtn">
                     <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
                     <p>Profile</p>
                 </div>
@@ -35,7 +35,7 @@
         </div>
     </aside>
     <main class="feed__main">
-        <button class="feed__create-post-button">Create post</button>
+        <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
         <article class="feed__post">
             <div class="feed__article-header">
                 <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
@@ -76,13 +76,57 @@
             <p>Suggested friends for you</p>
         </div>
     </aside>
-    <div class="feed__create-post-modal hidden">
+
+    <!-- create post modal -->
+
+    <div class="modal hidden" id="feedCreatePostModal">
         <form class="feed__create-post-form" id="createPostForm">
             <label for="postImageUpload" class="feed__post-image-label">Add image</label>
             <input id="postImageUpload" class="hidden" type="file" />
-            <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6"></textarea>
+            <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6" placeholder="What are your thoughts?"></textarea>
             <input type="submit" value="Post!" class="feed__create-post-form-button" />
+            <p class="modal-close-btn" id="createPostModalCloseBtn">x</p>
         </form>
+    </div>
+
+    <!-- list friends modal -->
+
+    <div class="modal hidden" id="feedFriendsListModal">
+        <div class=" feed__friends-list">
+            <h2>Friends</h2>
+            <p class="modal-close-btn" id="feedFriendsModalCloseBtn">x</p>
+        </div>
+    </div>
+
+    <!-- edit profile -->
+
+    <div class="modal hidden" id="editProfileModal">
+        <div class="feed__edit-profile">
+            <p class="modal-close-btn" id="editModalCloseBtn">x</p>
+            <form class="edit-form__container" id="editProfileForm">
+                <div class="edit-form-div__input">
+                    <p class="paragraph-placeholder__text">User</p>
+                    <input class="edit-form__input" id="inputUserEditProfile" type="text" name="inputUserEditProfile" required>
+                </div>
+                <div class="edit-form-div__input">
+                    <p class="paragraph-placeholder__text">Name</p>
+                    <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" required>
+                </div>
+                <div class="edit-form-div__input">
+                    <p class="paragraph-placeholder__text">Gender</p>
+                    <select class="edit-form__input" id="inputGenderEditProfile" type="text" name="inputGenderEditProfile" required>
+                        <option></option select>
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Non binary</option>
+                        <option>Doesn't apply</option>
+                    </select>
+                </div>
+                <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
+                <input id="updateProfileImgInput" class="hidden" type="file" />
+                <input type="submit" class="edit-form__button" value="Edit">
+            </form>
+        </div>
     </div>
 </body>
 

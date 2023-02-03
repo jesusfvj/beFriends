@@ -9,7 +9,7 @@ USE be_friends;
 CREATE TABLE user(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    nickname VARCHAR(50) NOT NULL,
+    nickname VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
     gender VARCHAR(10) NOT NULL,

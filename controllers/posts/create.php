@@ -1,7 +1,8 @@
 <?php
 require_once('../../models/PostModel.php');
 
-$user_id = $_POST['user_id'];
+// $user_id = $_POST['user_id'];
+$user_id = 1;
 $content = $_POST['content'];
 $image = $_POST['image'];
 

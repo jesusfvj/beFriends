@@ -48,6 +48,28 @@ class UserModel extends DbConection
         }
     }
 
+    function update($id, $fullname, $username, $gender, $avatar)
+    {
+        $updatedDate = date("Y-m-d H:i:s");
+
+        $query = $this->db->connect()->prepare("UPDATE user
+        SET name = ?, nickname = ?, gender = ?, avatar = ?, updated_at = ? 
+        WHERE id = ?;");
+
+        $query->bindParam(1, $fullname);
+        $query->bindParam(2, $username);
+        $query->bindParam(3, $gender);
+        $query->bindParam(4, $avatar);
+        $query->bindParam(5, $updatedDate);
+        $query->bindParam(6, $id);
+
+        try {
+            $query->execute();
+            return [true];
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    
 
     function login($username, $email, $password)
     {
@@ -73,6 +95,20 @@ class UserModel extends DbConection
             } else {
                 return [false];
             }
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
+}
+
+    function delete($id)
+    {
+        $query = $this->db->connect()->prepare("DELETE FROM user WHERE id = ?");
+        $query->bindParam(1, $id);
+
+        try {
+            $query->execute();
+            return [true];
         } catch (PDOException $e) {
             return [false, $e];
         }

@@ -1,3 +1,14 @@
+//========== DELETE USER ===========//
+function deleteUser(id) {
+  fetch(`./controllers/users/delete.php?id=${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+
+    });
+}
+deleteUser(1);
+//==================================//
+
 document.body.addEventListener("load", getUsers());
 
 const friendsSuggestionsContainer = document.querySelector(

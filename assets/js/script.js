@@ -46,6 +46,27 @@ function createPost() {
     });
 }
 
+// function updateUser() {
+//   const formData = new FormData();
+  
+//   formData.append("id", 1);
+//   formData.append("fullname", 'New fullname de los palotes');
+//   formData.append("username", 'NewUsername');
+//   formData.append("gender", 'Non binary');
+//   formData.append("avatar", 'new-image.png');
+
+//   fetch("./controllers/users/update.php", {
+//     method: "POST",
+//     body: formData
+//   })
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// }
+// updateUser();
+
+
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));
 }

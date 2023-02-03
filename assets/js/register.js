@@ -2,13 +2,21 @@ const showParagraph = document.querySelectorAll(".paragraph-show__text");
 const passwordAlert = document.querySelector(".password-verification__div--display");
 const sucessAlert = document.querySelector(".modal-success-register__div");
 const errorAlert = document.querySelector(".modal-error-register__div");
+const logInText = document.querySelector(".paragraph-log-in__text");
+const registerForm = document.querySelector("#formContainerRegister");
 
 showParagraph.forEach((element) => {
   element.addEventListener("click", togglePassword);
 });
 
-const registerForm = document.querySelector(".form__container");
 registerForm.addEventListener("submit", sendRegisterData);
+
+logInText.addEventListener("click", sendToLogIn);
+
+
+function sendToLogIn(){
+  window.location="./index.php";
+}
 
 function sendRegisterData(event) {
   event.preventDefault();
@@ -25,31 +33,30 @@ function sendRegisterData(event) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data[0] === true) {
-          sucessAlert.style.display = "block";
-
-          setTimeout(() => {
-            sucessAlert.style.display = "none";
-          }, 2000);
-          setTimeout(() => {
-            window.location.href = "./index.php";
-          }, 2200);
-          
-        } else{
-          errorAlert.style.display = "block";
-
-          setTimeout(() => {
-            errorAlert.style.display = "none";
-          }, 3000);
-        }
+        modalVerifications(data);
       });
-
-
   } else {
     showPasswordVerification();
   }
-
 }
+
+function modalVerifications(data){
+  if (data[0] === true) {
+    sucessAlert.style.display = "block";
+    setTimeout(() => {
+      sucessAlert.style.display = "none";
+    }, 2000);
+    setTimeout(() => {
+      window.location.href = "./index.php";
+    }, 2200);
+  } else{
+    errorAlert.style.display = "block";
+    setTimeout(() => {
+      errorAlert.style.display = "none";
+    }, 3000);
+  }
+}
+
 
 function showPasswordVerification() {
   passwordAlert.style.display = "block";

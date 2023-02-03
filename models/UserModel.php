@@ -54,12 +54,11 @@ class UserModel extends DbConection
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=:$username OR email=:$email) AND password=:$hashedPassword");
-
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE (name=? OR email=?) AND password=?");
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);
-        $query->bindParam(3, $hashedPassword);
+        $query->bindParam(3, $password);
 
 
         try {

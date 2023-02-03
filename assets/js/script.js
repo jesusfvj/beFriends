@@ -1,8 +1,15 @@
-const friendsSuggestionsContainer = document.querySelector(
-  "#friendsSuggestionsContainer"
-);
+const friendsSuggestionsContainer = document.querySelector("#friendsSuggestionsContainer");
+const registerText = document.querySelector(".paragraph-register__text");
+const logInForm = document.querySelector("#formContainerLogIn");
+
+registerText.addEventListener("click", sendToRegister);
+
+function sendToRegister() {
+  window.location = "./register.php";
+}
 
 document.body.addEventListener("load", getUsers());
+
 function getUsers() {
   fetch("./controllers/users/getAll.php")
     .then((res) => res.json())
@@ -17,7 +24,7 @@ function getUsers() {
                 <p>${user.nickname}</p>
             </div>
     `;
-        });
+      });
       } else {
         friendsSuggestionsContainer.innerHTML += `
               <div class="feed__friends-suggestions-profile">
@@ -29,17 +36,18 @@ function getUsers() {
 }
 
 document.body.addEventListener("load", createPost());
+
 function createPost() {
   const formData = new FormData();
-  
+
   formData.append("user_id", 1);
   formData.append("content", 'Content lorem ipsum content');
   formData.append("image", 'postImage.png');
 
   fetch("./controllers/posts/create.php", {
-    method: "POST",
-    body: formData
-  })
+      method: "POST",
+      body: formData
+    })
     .then((res) => res.json())
     .then((data) => {
 
@@ -49,3 +57,4 @@ function createPost() {
 function addFriend(event) {
   console.log("Adding " + event.target.getAttribute("userId"));
 }
+

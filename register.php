@@ -16,7 +16,7 @@
         <section class="section__container">
             <section class="section-first-body__container">
                 <img class="section__img--size" src="./assets/images/logoBeFriends.png" alt="logo beFriends">
-                <form class="form__container">
+                <form id="formContainerRegister" class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User</p>
                         <input class="form__input" id="inputUserRegister" type="text" name="inputUserRegister" required>
@@ -60,7 +60,10 @@
                     </div>
                     <input type="submit" class="form__button" value="Register">
                 </form>
-
+            </section>
+            <section class="section-second-body__container">
+                <p>Go back to</p>
+                <p class="paragraph-log-in__text">Log in</p>
             </section>
             <section class="section-third-body__container">
                 <p class="paragraph-download__text">Download the app</p>

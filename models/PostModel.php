@@ -1,7 +1,7 @@
 <?php
-require_once("../../core/classes/DbConection.php");
-require_once("../../core/classes/Database.php");
-require_once("../../config/db.php");
+require_once("../core/classes/DbConection.php");
+require_once("../core/classes/Database.php");
+require_once("../config/db.php");
 
 class PostModel extends DbConection
 {
@@ -13,6 +13,19 @@ class PostModel extends DbConection
             $query->execute();
             $posts = $query->fetchAll();
             return $posts;
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    function getById($id)
+    {
+        $query = $this->db->connect()->prepare("SELECT * FROM post WHERE id = $id;");
+
+        try {
+            $query->execute();
+            $post = $query->fetchAll();
+            return $post;
         } catch (PDOException $e) {
             return [];
         }

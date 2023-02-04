@@ -71,6 +71,8 @@ feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
 editModalCloseBtn.addEventListener("click", toggleEditModal);
 // toggle modals controllers
+feedLogoutBtn = document.getElementById("feedLogoutBtn");
+feedLogoutBtn.addEventListener("click", logout);
 
 function getUsers() {
   fetch("./controllers/users/getAll.php")
@@ -81,7 +83,7 @@ function getUsers() {
           friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
-                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
+                <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
     `;
@@ -168,7 +170,6 @@ async function submitEditForm(e) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         formData.append("avatar", data.secure_url);
       });
   }
@@ -212,4 +213,10 @@ function toggleFriendsModal() {
 
 function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
+}
+
+function logout() {
+  fetch("./controllers/users/logout.php").then(
+    () => (window.location.href = "index.php")
+  );
 }

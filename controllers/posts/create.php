@@ -1,8 +1,7 @@
 <?php
 require_once('../../models/PostModel.php');
-
-// $user_id = $_POST['user_id'];
-$user_id = 1;
+session_start();
+$user_id = $_SESSION['id'];
 $content = $_POST['content'];
 $image = $_POST['image'];
 

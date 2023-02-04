@@ -1,3 +1,14 @@
+//================ Fetching new methods =================//
+function getPosts() {
+  fetch("./controllers/posts/get.php")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+getPosts();
+//=======================================================//
+
 document.body.addEventListener("load", getUsers());
 
 const friendsSuggestionsContainer = document.querySelector("#friendsSuggestionsContainer");

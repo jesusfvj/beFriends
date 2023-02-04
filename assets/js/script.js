@@ -1,12 +1,21 @@
 //================ Fetching new methods =================//
 function getPosts() {
-  fetch("./controllers/posts/get.php")
+  fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
     });
 }
 getPosts();
+
+function getPostById(id) {
+  fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+    });
+}
+getPostById(2);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());
@@ -138,7 +147,7 @@ async function createPost(e) {
     });
 
   if (text.length) {
-    await fetch("./controllers/posts/create.php", {
+    await fetch("./controllers/posts.php?controller=createpost", {
       method: "POST",
       body: formData,
     })

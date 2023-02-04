@@ -41,7 +41,8 @@ function getPostById()
 
 function createPost()
 {
-    $user_id = 1;
+    session_start();
+    $user_id = $_SESSION['id'];
     $content = $_POST['content'];
     $image = $_POST['image'];
 
@@ -52,7 +53,7 @@ function createPost()
 function deletePost()
 {
     $id = $_GET["id"];
-    
+
     $deletePost = new PostModel();
     echo json_encode($deletePost->delete($id));
 }

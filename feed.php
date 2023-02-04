@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['id'])) {
+    header("location: ./index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,26 +23,91 @@ session_start();
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item" id="feedOpenFriendsModalBtn">
-                    <img src=" ./assets/images/profile.png" alt="nav-icon" class="nav__image" />
-                    <p>Friends</p>
+                    <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />
                 </div>
                 <div class="feed__nav-item" id="feedEditOpenModalBtn">
-                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
-                    <p>Profile</p>
+                    <img src="./assets/images/editProfile.png" alt="nav-icon" class="nav__image" />
                 </div>
                 <div class="feed__nav-item">
-                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
-                    <p>Search</p>
+                    <img src="./assets/images/searchFriends.png" alt="nav-icon" class="nav__image" />
                 </div>
-                <div class="feed__nav-item">
-                    <img src="./assets/images/profile.png" alt="nav-icon" class="nav__image" />
-                    <p>Logout</p>
+                <div class="feed__nav-item" id="feedLogoutBtn">
+                    <img src="./assets/images/logout.png" alt="nav-icon" class="nav__image" />
                 </div>
             </nav>
         </div>
     </aside>
     <main class="feed__main">
         <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
+        <article class="feed__post">
+            <div class="feed__article-header">
+                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
+                <div>
+                    <p class="feed__post-profile-name">MIQUEL_ABELLA - <span class="feed__post-profile-follow-text">follow</span></p>
+                    <p class="feed__post-timestamp">1 week ago</p>
+                </div>
+            </div>
+            <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
+            <div class="feed__post-message-container">
+                <p class="feed__post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+            </div>
+            <div class="feed__article-comments-container">
+                <div class="feed__post-icons-container">
+                    <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
+                    <p>5 likes</p>
+                    <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
+                </div>
+                <div class="feed__post-comments-container">
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="feed__post">
+            <div class="feed__article-header">
+                <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
+                <div>
+                    <p class="feed__post-profile-name">MIQUEL_ABELLA - <span class="feed__post-profile-follow-text">follow</span></p>
+                    <p class="feed__post-timestamp">1 week ago</p>
+                </div>
+            </div>
+            <img class="feed__post-img" src="./assets/images/mockImage.JPG" alt="" />
+            <div class="feed__post-message-container">
+                <p class="feed__post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+            </div>
+            <div class="feed__article-comments-container">
+                <div class="feed__post-icons-container">
+                    <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
+                    <p>5 likes</p>
+                    <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
+                </div>
+                <div class="feed__post-comments-container">
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                    <div class="feed__post-comment">
+                        <p class="feed__post-comment-author">Wilson</p>
+                        <p class="feed__post-comment-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque cum consequuntur iusto illo illum quis sunt facere, ullam expedita, repellendus, ab esse! Velit, saepe quis. Perferendis doloremque ipsum rem beatae.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        </article>
         <article class="feed__post">
             <div class="feed__article-header">
                 <img class="feed__post-profile-img" src="./assets/images/profileImg.JPG" alt="" />
@@ -103,27 +171,25 @@ session_start();
     </div>
 
     <!-- edit profile -->
-
     <div class="modal hidden" id="editProfileModal">
         <div class="feed__edit-profile">
             <p class="modal-close-btn" id="editModalCloseBtn">x</p>
             <form class="edit-form__container" id="editProfileForm" userId=<?php echo $_SESSION['id'] ?>>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Name</p>
-                    <input class="edit-form__input" id="inputUserEditProfile" type="text" name="inputUserEditProfile" required>
+                    <input class="edit-form__input" id="inputUserEditProfile" type="text" name="inputUserEditProfile" value=<?php echo $_SESSION['name']; ?> required>
                 </div>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">User</p>
-                    <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" required>
+                    <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" value=<?php echo $_SESSION['nickname']; ?> required>
                 </div>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Gender</p>
                     <select class="edit-form__input" id="inputGenderEditProfile" type="text" name="inputGenderEditProfile" required>
-                        <option></option select>
-                        <option>Female</option>
-                        <option>Male</option>
-                        <option>Non binary</option>
-                        <option>Doesn't apply</option>
+                        <option <?php if ($_SESSION['gender'] === "Female") echo 'selected' ?> value="Female">Female</option>
+                        <option <?php if ($_SESSION['gender'] === "Male") echo 'selected' ?> value="Male">Male</option>
+                        <option <?php if ($_SESSION['gender'] === "Non binary") echo 'selected' ?> value="Non binary">Non binary</option>
+                        <option <?php if ($_SESSION['gender'] === "Doesn't apply") echo 'selected' ?> value="Doesn't apply">Doesn't apply</option>
                     </select>
                 </div>
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>

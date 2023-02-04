@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['id'])) {
+    header("location: ./feed.php");
+}
+?>
+
 <!DOCTYPE html>
 <html class="html__container--background-image" lang="en">
 

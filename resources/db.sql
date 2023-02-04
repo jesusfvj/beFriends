@@ -42,10 +42,10 @@ CREATE TABLE comment(
 );
 
 INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at)
-VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'male', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
-       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'male', 'avatar.png', 'admin', '2019-12-31', '2019-12-31'),
-       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'male', 'avatar.png', 'user', '2019-12-31', '2019-12-31'),
-       ('Wilson Mandela', 'Arbitruxo', 'wilson@robocop.com', 'password', 'male', 'avatar.png', 'user', '2019-12-31', '2019-12-31');
+VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2019-12-31', '2019-12-31'),
+       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2019-12-31', '2019-12-31'),
+       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', '2019-12-31', '2019-12-31'),
+       ('Wilson Mandela', 'Arbitruxo', 'wilson@robocop.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', '2019-12-31', '2019-12-31');
 
 INSERT INTO post(user_id, content, image, likes, created_at, updated_at)
 VALUES (1, 'Post lorem ipsum content', 'image.jpg', 0, '2019-12-31', '2019-12-31'),

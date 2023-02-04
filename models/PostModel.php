@@ -5,6 +5,19 @@ require_once("../../config/db.php");
 
 class PostModel extends DbConection
 {
+    function get()
+    {
+        $query = $this->db->connect()->prepare("SELECT * FROM post");
+
+        try {
+            $query->execute();
+            $posts = $query->fetchAll();
+            return $posts;
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
     function create($user_id, $content, $image)
     {
         $likes = 0;

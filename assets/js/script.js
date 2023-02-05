@@ -7,14 +7,21 @@ function getPostById(id) {
       // console.log(data);
     });
 }
-getPostById(2);
+// getPostById(2);
 
-function postLike(id) {
-  fetch(`./controllers/posts.php?id=${id}&controller=postlike`)
+function getLikesByPosts(id) {
+  fetch(`./controllers/likes.php?id=${id}&controller=checkunchecklike`)
     .then((res) => res.json())
     .then((data) => {});
 }
-postLike(4);
+// getLikesByPosts(4);
+
+function getLikesByPost(postId) {
+  fetch(`./controllers/likes.php?id=${postId}&controller=getlikesbypost`)
+    .then((res) => res.json())
+    .then((data) => {});
+}
+getLikesByPost(1);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());

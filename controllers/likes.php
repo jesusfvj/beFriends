@@ -4,7 +4,6 @@ require_once('../models/LikesModel.php');
 $controller = $_GET['controller'];
 
 switch ($controller) {
-
     case 'getlikesbypost':
         getLikesByPost();
         break;

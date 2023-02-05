@@ -9,12 +9,12 @@ function getPostById(id) {
 }
 // getPostById(2);
 
-function getLikesByPosts(id) {
-  fetch(`./controllers/likes.php?id=${id}&controller=checkunchecklike`)
+function checkUncheckLike(postId) {
+  fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
     .then((res) => res.json())
     .then((data) => {});
 }
-// getLikesByPosts(4);
+checkUncheckLike(4);
 
 function getLikesByPost(postId) {
   fetch(`./controllers/likes.php?id=${postId}&controller=getlikesbypost`)

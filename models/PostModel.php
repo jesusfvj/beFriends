@@ -7,7 +7,17 @@ class PostModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM post");
+        // $query = $this->db->connect()->prepare("SELECT P.content as postContent, P.image, P.created_at, P.likes, U.nickname, U.avatar, U.id as postOwner 
+        //                                         FROM post P JOIN user U ON U.id = P.user_id
+        //                                         ORDER BY P.created_at DESC");
+        $query = $this->db->connect()->prepare("
+            SELECT T2.*, user.nickname FROM
+                (SELECT T.*, comment.content as commentContent, comment.created_at as commentTimeStamp, comment.user_id as commentOwnerId FROM
+                    (SELECT user_id, content as postContent, image, likes, post.created_at as postTimeStamp, post.id as postId, user.nickname, user.avatar FROM post 
+                    INNER JOIN user ON user.id = post.user_id) AS T
+                        INNER JOIN comment ON T.postId = comment.post_id) AS T2 
+                            INNER JOIN user ON T2.commentOwnerId = user.id
+        ");
 
         try {
             $query->execute();

@@ -67,9 +67,8 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
-//////////////////////////////////////////////////
-feedPostsContainer.addEventListener("click", toggleCreatePostModal);
-//////////////////////////////////////////////////
+feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
 feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);

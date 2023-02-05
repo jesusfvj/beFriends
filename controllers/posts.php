@@ -20,10 +20,6 @@ switch ($controller) {
         deletePost();
         break;
 
-    case 'postlike':
-        postLike();
-        break;
-
     default:
         echo 'Invalid controller';
         break;
@@ -60,12 +56,4 @@ function deletePost()
 
     $deletePost = new PostModel();
     echo json_encode($deletePost->delete($id));
-}
-
-function postLike()
-{
-    $id = $_GET['id'];
-
-    $postLike = new PostModel();
-    echo json_encode($postLike->postLike($id));
 }

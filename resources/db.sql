@@ -58,3 +58,4 @@ VALUES (4, 1, 'Comment ArbitruxoMachine', '2019-12-31'),
        (3, 2, 'Comment MikibeeMachine', '2019-12-31'),
        (2, 3, 'Comment JesusitoMachine', '2019-12-31'),
        (1, 4, 'Comment DaveMachine', '2019-12-31');
+       (1, 3, 'Comment newComment', '2019-12-31');

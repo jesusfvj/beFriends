@@ -13,7 +13,7 @@ function sendLogInData(event) {
     : (formData.append("username", inputUserLogIn.value),
       formData.append("email", ""));
   formData.append("password", inputPasswordLogIn.value);
-  fetch("./controllers/users/logIn.php", {
+  fetch("./controllers/users.php?controller=login", {
     method: "POST",
     body: formData,
   })

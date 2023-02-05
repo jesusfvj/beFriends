@@ -27,7 +27,7 @@ function sendRegisterData(event) {
     formData.append("email", inputEmailRegister.value);
     formData.append("password", inputPasswordRegister.value);
     formData.append("gender", inputGenderRegister.value);
-    fetch("./controllers/users/register.php", {
+    fetch("./controllers/users.php?controller=register", {
       method: "POST",
       body: formData,
     })

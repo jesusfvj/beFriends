@@ -95,7 +95,7 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 function getUsers() {
-  fetch("./controllers/users/getAll.php")
+  fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
       if (data.length) {
@@ -194,7 +194,7 @@ async function submitEditForm(e) {
       });
   }
 
-  await fetch("./controllers/users/update.php", {
+  await fetch("./controllers/users.php?controller=update", {
     method: "POST",
     body: formData,
   })
@@ -205,7 +205,7 @@ async function submitEditForm(e) {
 }
 
 function deleteUser() {
-  fetch(`./controllers/users/delete.php`)
+  fetch(`./controllers/users.php?controller=delete`)
     .then((res) => res.json())
     .then((data) => {
       deleteConfirmationModal.classList.toggle("hidden");
@@ -236,7 +236,7 @@ function toggleEditModal() {
 }
 
 function logout() {
-  fetch("./controllers/users/logout.php").then(
+  fetch("./controllers/users.php?controller=logout").then(
     () => (window.location.href = "index.php")
   );
 }

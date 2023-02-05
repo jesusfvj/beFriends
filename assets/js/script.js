@@ -8,6 +8,13 @@ function getPostById(id) {
     });
 }
 getPostById(2);
+
+function postLike(id) {
+  fetch(`./controllers/posts.php?id=${id}&controller=postlike`)
+    .then((res) => res.json())
+    .then((data) => {});
+}
+postLike(4);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());

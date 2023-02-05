@@ -1,12 +1,4 @@
 //================ Fetching new methods =================//
-function getPosts() {
-  fetch("./controllers/posts.php?controller=getposts")
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-    });
-}
-getPosts();
 
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
@@ -19,16 +11,9 @@ getPostById(2);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());
+document.body.addEventListener("load", getPosts());
 
-// const friendsSuggestionsContainer = document.querySelector("#friendsSuggestionsContainer");
-// const registerText = document.querySelector(".paragraph-register__text");
-// const logInForm = document.querySelector("#formContainerLogIn");
-
-// registerText.addEventListener("click", sendToRegister);
-
-// function sendToRegister() {
-//   window.location = "./register.php";
-// }
+const feedPostsContainer = document.getElementById("feedPostsContainer");
 
 // create post form
 const createPostForm = document.getElementById("createPostForm");
@@ -82,7 +67,9 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
-feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+//////////////////////////////////////////////////
+feedPostsContainer.addEventListener("click", toggleCreatePostModal);
+//////////////////////////////////////////////////
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
 feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);
@@ -115,6 +102,50 @@ function getUsers() {
               </div>
       `;
       }
+    });
+}
+
+function getPosts() {
+  fetch("./controllers/posts.php?controller=getposts")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((post) => {
+        feedPostsContainer.innerHTML += ` 
+            <article class="feed__post">
+                <div class="feed__article-header">
+                    <img class="feed__post-profile-img" src=${
+                      post.avatar
+                    } alt="" />
+                    <div>
+                        <p class="feed__post-profile-name">${post.nickname}</p>
+                        <p class="feed__post-timestamp">${post.created_at}</p>
+                    </div>
+                </div>
+                <img class="feed__post-img" src=${post.image} alt="" />
+                <div class="feed__post-message-container">
+                    <p class="feed__post-message">${post.postContent}</p>
+                </div>
+                <div class="feed__article-comments-container">
+                    <div class="feed__post-icons-container">
+                        <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
+                        <p>${post.likes} likes</p>
+                        <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
+                    </div>
+                    <div class="feed__post-comments-container">
+                    ${post.comments.map((comment) => {
+                      return `
+                            <div class="feed__post-comment">
+                                <p class="feed__post-comment-author">${comment.nickname}</p>
+                                <p class="feed__post-comment-message">${comment.postContent}</p>
+                            </div>
+                            `;
+                    })}
+                    </div>
+                </div>
+            </article>
+            `;
+      });
     });
 }
 

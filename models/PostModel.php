@@ -7,11 +7,37 @@ class PostModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM post");
+        $queryPost = $this->db->connect()->prepare("SELECT P.content as postContent, P.image, P.created_at, P.likes, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
+                                                FROM post P JOIN user U ON U.id = P.user_id
+                                                ORDER BY P.created_at DESC");
+
+        $queryComments = $this->db->connect()->prepare("
+                    SELECT T.*, user.nickname FROM
+                    (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
+                        INNER JOIN comment ON post.id = comment.post_id) AS T
+                            INNER JOIN user ON T.commentOwnerId = user.id
+        ");
 
         try {
-            $query->execute();
-            $posts = $query->fetchAll();
+            $queryPost->execute();
+            $posts = $queryPost->fetchAll();
+            $queryComments->execute();
+            $comments = $queryComments->fetchAll();
+
+
+
+            foreach ($posts as &$post) {
+                $post["comments"] = [];
+            }
+
+            for ($i = 0; $i < count($posts); $i++) {
+                for ($j = 0; $j < count($comments); $j++) {
+                    if ($posts[$i]["postId"] == $comments[$j]["postId"]) {
+                        array_push($posts[$i]["comments"], $comments[$j]);
+                    }
+                }
+            }
+
             return $posts;
         } catch (PDOException $e) {
             return [];
@@ -25,7 +51,7 @@ class PostModel extends DbConection
         try {
             $query->execute();
             $post = $query->fetchAll();
-            return $post;
+            return [$post];
         } catch (PDOException $e) {
             return [];
         }

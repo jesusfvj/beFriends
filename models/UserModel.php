@@ -11,7 +11,8 @@ class UserModel extends DbConection
             "SELECT * FROM user WHERE user.id
             NOT IN (SELECT friend_id as friendId FROM friends
             WHERE friends.user_id = $userId)
-            AND user.id <> $userId;");
+            AND user.id <> $userId;"
+        );
 
         /* SELECT * FROM user WHERE user.id <> $userId */
 

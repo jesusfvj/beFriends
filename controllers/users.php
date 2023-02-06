@@ -12,6 +12,10 @@ switch ($controller) {
         getById();
         break;
 
+    case 'getbyid':
+        getById();
+        break;
+
     case 'register':
         register();
         break;

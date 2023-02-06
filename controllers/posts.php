@@ -41,7 +41,6 @@ function getPostById()
 
 function createPost()
 {
-
     $user_id = $_SESSION['id'];
     $content = $_POST['content'];
     $image = $_POST['image'];

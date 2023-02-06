@@ -33,6 +33,7 @@ function sendLogInData(event) {
     .then((data) => {
       console.log(data);
       if (data[0] === true) {
+        localStorage.setItem("userId", JSON.stringify(data.userId));
         window.location = "./feed.php";
       } else {
         console.log("bad");

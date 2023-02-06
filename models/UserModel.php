@@ -26,9 +26,7 @@ class UserModel extends DbConection
 
     function getById($id)
     {
-        // session_start();
-        // $likeUserId = $_SESSION['id'];
-        $query = $this->db->connect()->prepare("SELECT id FROM user WHERE id = $id");
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE id = $id");
 
         try {
             $query->execute();
@@ -98,7 +96,7 @@ class UserModel extends DbConection
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);
-        
+
         try {
             $query->execute();
             $user = $query->rowCount();
@@ -111,7 +109,7 @@ class UserModel extends DbConection
                 $_SESSION['name'] = $data->name;
                 $_SESSION['nickname'] = $data->nickname;
                 $_SESSION['gender'] = $data->gender;
-                return [true];
+                return [true, "userId" => $_SESSION['id']];
             } else {
                 return [false];
             }
@@ -145,7 +143,7 @@ class UserModel extends DbConection
         try {
             $query->execute();
             $data = $query->fetch(PDO::FETCH_OBJ);
-            
+
             if ($data === false) {
                 session_destroy();
                 header('Location: ');

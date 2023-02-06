@@ -61,10 +61,10 @@ VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'Male', 'assets/i
        ('Wilson Mandela', 'DaniWils', 'wilson@robocop.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', '2020-12-31', '2020-12-31');
 
 INSERT INTO post(user_id, content, image, created_at, updated_at)
-VALUES (1, 'Post lorem ipsum content 1', 'image.jpg', '2017-12-31', '2019-12-31'),
-       (2, 'Post lorem ipsum content 2', 'image.jpg', '2018-12-31', '2019-12-31'),
-       (3, 'Post lorem ipsum content 3', 'image.jpg', '2019-12-31', '2019-12-31'),
-       (4, 'Post lorem ipsum content 4', 'image.jpg', '2020-12-31', '2019-12-31');
+VALUES (1, 'Post lorem ipsum content 1', 'https://images.unsplash.com/photo-1671725779253-0a5a067cfac4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '2017-12-31', '2019-12-31'),
+       (2, 'Post lorem ipsum content 2', 'https://images.unsplash.com/photo-1674230257775-f9c2297e7bf7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '2018-12-31', '2019-12-31'),
+       (3, 'Post lorem ipsum content 3', 'https://images.unsplash.com/photo-1601148524545-7909080c2edd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '2019-12-31', '2019-12-31'),
+       (4, 'Post lorem ipsum content 4', 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80', '2020-12-31', '2019-12-31');
 
 INSERT INTO comment(user_id, post_id, content, created_at)
 VALUES (4, 1, 'Comment DaniWilsMachine', '2019-08-05'),

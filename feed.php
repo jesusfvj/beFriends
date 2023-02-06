@@ -52,11 +52,11 @@ if (!isset($_SESSION['id'])) {
 
     <div class="modal hidden" id="feedCreatePostModal">
         <form class="feed__create-post-form" id="createPostForm">
+            <p class="modal-close-btn" id="createPostModalCloseBtn">x</p>
             <label for="postImageUpload" class="feed__post-image-label">Add image</label>
             <input id="postImageUpload" class="hidden" type="file" />
             <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6" placeholder="What are your thoughts?"></textarea>
             <input type="submit" value="Post!" class="feed__create-post-form-button" />
-            <p class="modal-close-btn" id="createPostModalCloseBtn">x</p>
         </form>
     </div>
 
@@ -64,15 +64,14 @@ if (!isset($_SESSION['id'])) {
 
     <div class="modal hidden" id="feedFriendsListModal">
         <div class=" feed__friends-list">
-            <h2>Friends</h2>
             <p class="modal-close-btn" id="feedFriendsModalCloseBtn">x</p>
+            <h2>Friends</h2>
         </div>
     </div>
 
     <!-- edit profile -->
     <div class="modal hidden" id="editProfileModal">
         <div class="feed__edit-profile">
-            <p class="modal-close-btn" id="editModalCloseBtn">x</p>
             <form class="edit-form__container" id="editProfileForm" userId=<?php echo $_SESSION['id'] ?>>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Name</p>
@@ -92,10 +91,12 @@ if (!isset($_SESSION['id'])) {
                     </select>
                 </div>
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
+                <div class="feed__edit-thumbnail-container" id="editThumbnailContainer"></div>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">
                 <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
             </form>
+            <p class="modal-close-btn" id="editModalCloseBtn">x</p>
         </div>
     </div>
     <!-- delete confirmation modal -->

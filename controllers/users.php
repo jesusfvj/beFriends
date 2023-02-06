@@ -49,7 +49,7 @@ function get()
 
 function getById()
 {
-    $id = $_GET['user_id'];
+    $id = $_GET['userid'];
 
     $getUserById = new UserModel();
     echo json_encode($getUserById->getById($id));

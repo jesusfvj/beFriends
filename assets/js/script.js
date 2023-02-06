@@ -1,13 +1,13 @@
 //================ Fetching new methods =================//
 
-function getPostById(id) {
-  fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-    });
-}
-getPostById(2);
+// function getPostById(id) {
+//   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       // console.log(data);
+//     });
+// }
+// getPostById(2);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());
@@ -108,12 +108,16 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      data.forEach((post) => {
+      const posts = data[0];
+      const userId = data[1];
+
+      posts.forEach((post) => {
         const {
           avatar,
           nickname,
           created_at,
           image,
+          postOwner,
           postContent,
           likes,
           comments,
@@ -127,6 +131,7 @@ function getPosts() {
                         <p class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
+                  ${userId===postOwner?`<button class="feed__post-delete-button" postId=${postOwner}>Delete</button>`:""}
                 </div>
                 <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">

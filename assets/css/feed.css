@@ -347,7 +347,7 @@
   scrollbar-width: none;
 }
 
-.feed__friend-delete{
+.feed__friend-delete {
   margin-right: 1rem;
   background-color: rgb(255, 91, 91);
   line-height: 1rem;
@@ -361,7 +361,7 @@
 .feed__friends-list {
   -ms-overflow-style: none;
   scrollbar-width: none;
-} */
+}
 
 /* edit profile */
 
@@ -376,7 +376,7 @@
   width: 30%;
   padding: 5rem;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 0.3rem;
 }
 
 .edit-form__container {

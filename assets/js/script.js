@@ -47,6 +47,11 @@ const createPostModalCloseBtn = document.getElementById(
 );
 createPostForm.addEventListener("submit", createPost);
 postImageUpload.addEventListener("change", getFiles);
+
+// Create comment
+
+let commentPostId;
+
 // create post form
 
 // edit profile form
@@ -81,6 +86,7 @@ deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
 //
 
 // toggle modals controllers
+const createComment = document.getElementById("createComment");
 const feedOpenFriendsModalBtn = document.getElementById(
   "feedOpenFriendsModalBtn"
 );
@@ -92,6 +98,10 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
+const insertCommentModalCloseBtn = document.getElementById("insertCommentModalCloseBtn");
+
+const insertCommentForm = document.getElementById("insertCommentForm");
+
 feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
 
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
@@ -101,6 +111,9 @@ feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
 feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
 editModalCloseBtn.addEventListener("click", toggleEditModal);
+
+insertCommentModalCloseBtn.addEventListener("click", toggleCreateComment);
+insertCommentForm.addEventListener("submit", insertComment);
 // toggle modals controllers
 feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
@@ -149,7 +162,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-
+      feedPostsContainer.innerHTML = "";
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -189,9 +202,9 @@ function getPosts() {
           isPostLiked
             ? "./assets/images/likeGiven.png"
             : "./assets/images/giveLike.png"
-        } alt="" />
+        } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
-                        <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
+                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
                     <div class="feed__post-comments-container">
                     ${comments.map((comment) => {
@@ -371,6 +384,11 @@ function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
 }
 
+function toggleCreateComment(event){
+  createComment.classList.toggle("hidden");
+  commentPostId = event.target.getAttribute("postid");
+}
+
 function logout() {
   fetch("./controllers/users.php?controller=logout").then(
     () => (window.location.href = "index.php")
@@ -414,5 +432,21 @@ function showFriendList() {
 
         friendListContainer.appendChild(newFriend);
       });
+    });
+}
+
+function insertComment(event){
+  event.preventDefault();
+  commentPostId
+  const inputComment = inputCommentInsert.value;
+
+  fetch(`./controllers/comments.php?controller=addComment&inputComment=${inputComment}&commentPostId=${commentPostId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if(data[0]===true){
+        console.log(data[0])
+        getPosts();
+        toggleCreateComment();
+      }
     });
 }

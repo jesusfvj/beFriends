@@ -30,7 +30,12 @@ class LikesModel extends DbConection
         try {
             $query->execute();
             $likes = $query->fetchAll();
-            return $likes;
+
+            if (count($likes)) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             return [];
         }

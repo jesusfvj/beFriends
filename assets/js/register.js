@@ -57,7 +57,6 @@ function modalVerifications(data){
   }
 }
 
-
 function showPasswordVerification() {
   passwordAlert.style.display = "block";
   window.addEventListener("click", () => {

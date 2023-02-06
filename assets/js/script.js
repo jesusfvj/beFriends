@@ -22,6 +22,13 @@ function getLikesByPost(postId) {
     .then((data) => {});
 }
 getLikesByPost(1);
+
+// function getUserById(id) {
+//   fetch(`./controllers/users.php?user_id=${id}&controller=getbyid`)
+//     .then((res) => res.json())
+//     .then((data) => {});
+// }
+// getUserById(7);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());

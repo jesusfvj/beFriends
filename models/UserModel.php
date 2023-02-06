@@ -18,6 +18,21 @@ class UserModel extends DbConection
         }
     }
 
+    function getById($id)
+    {
+        // session_start();
+        // $likeUserId = $_SESSION['id'];
+        $query = $this->db->connect()->prepare("SELECT id FROM user WHERE id = $id");
+
+        try {
+            $query->execute();
+            $user = $query->fetchAll();
+            return $user;
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
+
     function register($fullname, $username, $email, $password, $gender)
     {
         $avatar = 'assets/images/defaultProfileImg.png';
@@ -110,6 +125,29 @@ class UserModel extends DbConection
             return [true];
         } catch (PDOException $e) {
             return [false, $e];
+        }
+    }
+
+    function logoutInvalidUser()
+    {
+        session_start();
+        $id = $_SESSION["id"];
+
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE id = ?");
+        $query->bindParam(1, $id);
+
+        try {
+            $query->execute();
+            $data = $query->fetch(PDO::FETCH_OBJ);
+            
+            if ($data === false) {
+                session_destroy();
+                header('Location: ');
+                return false;
+            }
+            return true;
+        } catch (PDOException $e) {
+            return [false];
         }
     }
 }

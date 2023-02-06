@@ -15,6 +15,7 @@ if (!isset($_SESSION['id'])) {
     <title>beFriends - feed</title>
     <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
     <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/api/user.js?=<?php echo time(); ?>" defer></script>
 </head>
 
 <body class="feed__body">

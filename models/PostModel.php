@@ -1,30 +1,25 @@
 <?php
-require_once("../core/classes/DbConection.php");
-require_once("../core/classes/Database.php");
-require_once("../config/db.php");
+require_once("../models/index.php");
 
 class PostModel extends DbConection
 {
     function get()
     {
-        $queryPost = $this->db->connect()->prepare("SELECT P.content as postContent, P.image, P.created_at, P.likes, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
+        $queryPost = $this->db->connect()->prepare("SELECT P.content as postContent, P.image, P.created_at, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
                                                 FROM post P JOIN user U ON U.id = P.user_id
                                                 ORDER BY P.created_at DESC");
 
-        $queryComments = $this->db->connect()->prepare("
-                    SELECT T.*, user.nickname FROM
-                    (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
-                        INNER JOIN comment ON post.id = comment.post_id) AS T
-                            INNER JOIN user ON T.commentOwnerId = user.id
-        ");
+        $queryComments = $this->db->connect()->prepare(
+            "SELECT T.*, user.nickname FROM
+                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
+                    INNER JOIN comment ON post.id = comment.post_id) AS T
+                        INNER JOIN user ON T.commentOwnerId = user.id");
 
         try {
             $queryPost->execute();
             $posts = $queryPost->fetchAll();
             $queryComments->execute();
             $comments = $queryComments->fetchAll();
-
-
 
             foreach ($posts as &$post) {
                 $post["comments"] = [];
@@ -59,17 +54,16 @@ class PostModel extends DbConection
 
     function create($user_id, $content, $image)
     {
-        $likes = 0;
         $creationDate = date("Y-m-d H:i:s");
         $updatedDate = date("Y-m-d H:i:s");
 
-        $query = $this->db->connect()->prepare("INSERT INTO post(user_id, content, image, likes, created_at, updated_at) 
-                                               VALUES (?, ?, ?, ?, ?, ?)");
+        $query = $this->db->connect()->prepare(
+            "INSERT INTO post(user_id, content, image, created_at, updated_at) 
+                VALUES (?, ?, ?, ?, ?, ?)");
 
         $query->bindParam(1, $user_id);
         $query->bindParam(2, $content);
         $query->bindParam(3, $image);
-        $query->bindParam(4, $likes);
         $query->bindParam(5, $creationDate);
         $query->bindParam(6, $updatedDate);
 

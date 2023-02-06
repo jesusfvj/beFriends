@@ -7,7 +7,6 @@ function getPostById(id) {
       // console.log(data);
     });
 }
-// getPostById(2);
 
 function checkUncheckLike(postId) {
   fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
@@ -17,19 +16,15 @@ function checkUncheckLike(postId) {
 checkUncheckLike(4);
 
 function getLikesByPost(postId) {
-  fetch(`./controllers/likes.php?id=${postId}&controller=getlikesbypost`)
+  const likes = fetch(
+    `./controllers/likes.php?id=${postId}&controller=getlikesbypost`
+  )
     .then((res) => res.json())
-    .then((data) => {});
+    .then((data) => {
+      return data;
+    });
+  return likes;
 }
-getLikesByPost(1);
-
-// function getUserById(id) {
-//   fetch(`./controllers/users.php?user_id=${id}&controller=getbyid`)
-//     .then((res) => res.json())
-//     .then((data) => {});
-// }
-// getUserById(7);
-//=======================================================//
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
@@ -145,8 +140,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-
-      posts.forEach((post) => {
+      posts.forEach(async (post) => {
         const {
           avatar,
           nickname,
@@ -155,9 +149,10 @@ function getPosts() {
           postId,
           postOwner,
           postContent,
-          likes,
           comments,
         } = post;
+
+        const likes = await getLikesByPost(postId);
 
         feedPostsContainer.innerHTML += ` 
             <article class="feed__post">

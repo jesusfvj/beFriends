@@ -1,6 +1,6 @@
 <?php
 require_once("../models/index.php");
-
+session_start();
 class PostModel extends DbConection
 {
     function get()
@@ -33,7 +33,7 @@ class PostModel extends DbConection
                 }
             }
 
-            return $posts;
+            return [$posts, $_SESSION["id"]];
         } catch (PDOException $e) {
             return [];
         }

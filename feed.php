@@ -38,9 +38,9 @@ if (!isset($_SESSION['id'])) {
         </div>
     </aside>
     <main class="feed__main" id="feedPostsContainer">
-        <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
 
     </main>
+    <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__friends-suggestions">
         <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
             <p>Suggested friends for you</p>

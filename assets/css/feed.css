@@ -357,6 +357,11 @@
   color: white;
 }
 
+.feed__friends-list {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
 /* edit profile */
 
 .feed__edit-profile {

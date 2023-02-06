@@ -245,15 +245,13 @@ async function createPost(e) {
 
 function deletePost(event) {
   const postId = event.target.getAttribute("postId");
-  function deletePost(event) {
-    const postId = event.target.getAttribute("postId");
-    fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        deletePostElement(event);
-      });
-  }
+  fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      deletePostElement(event);
+    });
 }
+
 function deletePostElement(event) {
   const elementDelete = event.target.parentNode.parentNode;
 

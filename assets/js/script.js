@@ -224,9 +224,6 @@ async function createPost(e) {
       method: "POST",
       body: imgFormData,
     })
-      method: "POST",
-      body: imgFormData,
-    })
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
@@ -234,9 +231,6 @@ async function createPost(e) {
 
   if (text.length) {
     await fetch("./controllers/posts.php?controller=createpost", {
-        method: "POST",
-        body: formData,
-      })
         method: "POST",
         body: formData,
       })
@@ -252,8 +246,6 @@ async function createPost(e) {
 
 //delete post functions
 
-function deletePost(event) {
-  const postId = event.target.getAttribute("postId");
 function deletePost(event) {
   const postId = event.target.getAttribute("postId");
   fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
@@ -310,9 +302,6 @@ async function submitEditForm(e) {
         method: "POST",
         body: imgFormData,
       })
-        method: "POST",
-        body: imgFormData,
-      })
       .then((res) => res.json())
       .then((data) => {
         formData.append("avatar", data.secure_url);
@@ -323,9 +312,6 @@ async function submitEditForm(e) {
   }
 
   await fetch("./controllers/users.php?controller=update", {
-      method: "POST",
-      body: formData,
-    })
       method: "POST",
       body: formData,
     })
@@ -382,7 +368,6 @@ addFriendsButton.forEach((element) => {
 });
 
 function addFriend(event) {
-function addFriend(event) {
   const friendId = event.target.getAttribute("userid");
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
     .then((res) => res.json())
@@ -409,3 +394,4 @@ function showFriendList() {
       });
     });
 }
+

@@ -127,7 +127,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-
+      feedPostsContainer.innerHTML = "";
       posts.forEach((post) => {
         const {
           avatar,
@@ -140,7 +140,7 @@ function getPosts() {
           likes,
           comments,
         } = post;
-
+        
         feedPostsContainer.innerHTML += ` 
             <article class="feed__post">
                 <div class="feed__article-header">
@@ -215,7 +215,11 @@ async function createPost(e) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if(data[0]===true){
+          getPosts();
+          toggleCreatePostModal();
+        } 
+        
       });
   }
 }
@@ -227,8 +231,14 @@ function deletePost(event){
   fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      deletePostElement(event)
     });
+}
+
+function deletePostElement(event){
+  const elementDelete = event.target.parentNode.parentNode;
+  
+  feedPostsContainer.removeChild(elementDelete);
 }
 
 // edit profile functions

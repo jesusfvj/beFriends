@@ -5,7 +5,9 @@ class UserModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM user");
+        session_start();
+        $userId = $_SESSION['id'];
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE user.id <> $userId");
 
         try {
             $query->execute();
@@ -75,6 +77,7 @@ class UserModel extends DbConection
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);
+        
         try {
             $query->execute();
             $user = $query->rowCount();

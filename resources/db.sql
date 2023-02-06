@@ -48,6 +48,12 @@ CREATE TABLE likes(
     FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
 
+CREATE TABLE friends(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    friend_id INT NOT NULL
+);
+
 INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at)
 VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2017-12-31', '2017-12-31'),
        ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2018-12-31', '2018-12-31'),
@@ -75,3 +81,11 @@ VALUES (1, 4),
        (3, 1),
        (2, 1),
        (1, 1);
+
+INSERT INTO friends(user_id, friend_id)
+VALUES (1, 2),
+       (1, 3),
+       (1, 4),
+       (2, 1),
+       (2, 3),
+       (3, 4);

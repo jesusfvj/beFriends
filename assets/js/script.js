@@ -70,12 +70,8 @@ deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
 //
 
 // toggle modals controllers
-const feedOpenFriendsModalBtn = document.getElementById(
-  "feedOpenFriendsModalBtn"
-);
-const feedFriendsModalCloseBtn = document.getElementById(
-  "feedFriendsModalCloseBtn"
-);
+const feedOpenFriendsModalBtn = document.getElementById("feedOpenFriendsModalBtn");
+const feedFriendsModalCloseBtn = document.getElementById("feedFriendsModalCloseBtn");
 const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
@@ -125,7 +121,7 @@ function getPosts() {
     .then((data) => {
       console.log(data);
       data.forEach((post) => {
-        feedPostsContainer.innerHTML += ` 
+        feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img" src=${
@@ -273,6 +269,7 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
+  console.log("hola");
   feedFriendsListModal.classList.toggle("hidden");
 }
 
@@ -285,3 +282,54 @@ function logout() {
     () => (window.location.href = "index.php")
   );
 }
+
+const addFriendsButton = document.querySelectorAll(".feed__friends-suggestions-add-btn");
+const navImage = document.querySelector(".nav__image");
+const friendListContainer = document.querySelector(".feed__friends-list");
+
+navImage.addEventListener("click", showFriendList);
+
+addFriendsButton.forEach((element) => {
+  element.addEventListener("click", addFriend);
+});
+
+function addFriend(event){
+  const friendId = event.target.getAttribute('userid')
+  fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+  }
+  );
+}
+
+function showFriendList(){
+  fetch(`./controllers/friends.php?controller=getfriends`)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data)
+    data.forEach((friend) => {
+      friendListContainer.innerHTML += `<div class="feed__friend-container">
+                                            <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
+                                            <p class="feed__friend-nickname">${friend.nickname}</p>
+                                          </div>`;
+    })
+  }
+  );
+  /* feedFriendsModalCloseBtn.addEventListener("click", closeFriendList);
+  window.addEventListener('click', clickOutside); */
+}
+
+/* function clickOutside(e) {
+if (!document.friendListContainer.contains(e.target)) {
+    closeFriendList();
+}
+}
+
+function closeFriendList() {
+  friendListContainer.style.display = "none";
+  friendListContainer.innerHTML = "";
+  feedFriendsModalCloseBtn.removeEventListener("click", closeFriendList);
+  window.removeEventListener("click", clickOutside);
+}
+ */

@@ -443,6 +443,25 @@
   color: white;
 }
 
+/* .feed__friends-list{
+  display: flex;
+  justify-content: start;
+  text-align: left;
+} */
+
+.feed__friend-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 10rem;
+}
+
+.feed__friend-img{
+  width: 2rem;
+  margin-right: 1rem;
+}
+
 /* // hidden */
 
 .hidden {

@@ -36,4 +36,17 @@ class FriendsModel extends DbConection
             return [false, $e];
         }
     }
+
+    function deleteFriendUser($friendsId)
+    {
+
+        $query = $this->db->connect()->prepare("DELETE FROM friends WHERE $friendsId = friend_id");
+
+        try {
+            $query->execute();
+            return [true];
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
 }

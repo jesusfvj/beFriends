@@ -11,6 +11,10 @@ switch ($controller) {
     case 'getfriends':
         getFriends();
         break;
+
+    case 'deletefriend':
+        deleteFriends();
+        break;
         
         default:
         echo 'Invalid controller';
@@ -25,7 +29,14 @@ function addFriend(){
 }
 
 function getFriends(){
-
+    
     $getFriendsList = new FriendsModel();
     echo json_encode($getFriendsList->getFriendsList());
+}
+
+function deleteFriends(){
+    $friendsId = $_GET['friendid'];
+
+    $deleteFriendUser = new FriendsModel();
+    echo json_encode($deleteFriendUser->deleteFriendUser($friendsId));
 }

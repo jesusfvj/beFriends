@@ -376,22 +376,38 @@ function addFriend(event) {
     });
 }
 
-function showFriendList() {
+async function showFriendList() {
   friendListContainer.innerHTML = `<h2>Friends</h2>
                                    <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>
                                     `;
 
-  fetch(`./controllers/friends.php?controller=getfriends`)
+  await fetch(`./controllers/friends.php?controller=getfriends`)
     .then((res) => res.json())
     .then((data) => {
       data.forEach((friend) => {
         let newFriend = document.createElement("div");
         newFriend.classList.add("feed__friend-container");
-        newFriend.innerHTML = ` <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
+        newFriend.innerHTML = ` <button class="feed__friend-delete" userid="${friend.friendId}">x</button>
+                                <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
                                 <p class="feed__friend-nickname">${friend.nickname}</p>`;
 
         friendListContainer.appendChild(newFriend);
       });
     });
+
+    const deleteButton = document.querySelectorAll(".feed__friend-delete");
+    deleteButton.forEach(deleteBtn => {
+      deleteBtn.addEventListener("click", deleteFriend);
+    });
 }
 
+function deleteFriend(event){
+  console.log("hola")
+  const friendId = event.target.getAttribute("userid");
+  fetch(`./controllers/friends.php?controller=deletefriend&friendid=${friendId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      showFriendList();
+      getUsers();
+    });
+}

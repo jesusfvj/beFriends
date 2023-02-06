@@ -358,6 +358,11 @@
   color: white;
 }
 
+.feed__friend-delete:hover{
+  background-color: rgb(122, 32, 32);
+  transition: 400ms;
+}
+
 .feed__friends-list {
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -12,6 +12,10 @@ switch ($controller) {
         checkUncheckLike();
         break;
 
+    case 'checkhaslike':
+        checkHasLike();
+        break;
+
     default:
         echo 'Invalid controller';
         break;
@@ -31,4 +35,12 @@ function checkUncheckLike()
 
     $checkUncheckLike = new LikesModel();
     echo json_encode($checkUncheckLike->checkUncheckLike($id));
+}
+
+function checkHasLike()
+{
+    $postId = $_GET['post_id'];
+
+    $checkHasLike = new LikesModel();
+    echo json_encode($checkHasLike->checkHasLike($postId));
 }

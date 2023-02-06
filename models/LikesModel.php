@@ -72,7 +72,6 @@ class LikesModel extends DbConection
                     try {
                         $queryInsLike->execute();
                         return true;
-
                     } catch (PDOException $e) {
                         return [];
                     }

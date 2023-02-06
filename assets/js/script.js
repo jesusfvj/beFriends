@@ -154,7 +154,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-      console.log(data);
+
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -189,7 +189,7 @@ function getPosts() {
                 </div>
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
-                        <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
+                        <img class="feed__post-icon" src="./assets/images/giveLike.png" alt="" />
                         <p>${likes} likes</p>
                         <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
                     </div>

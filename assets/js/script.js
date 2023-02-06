@@ -98,14 +98,14 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 function getUsers() {
-  let suggestedFriendsCounter = 0;
+  /* let suggestedFriendsCounter = 0; */
   friendsSuggestionsContainer.innerHTML = "";
   fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
       if (data.length) {
-        data.forEach((user) => {
-          if (suggestedFriendsCounter < 5) {
+        data.forEach((user, index) => {
+          if (index < 5) {
             friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
@@ -113,7 +113,7 @@ function getUsers() {
                 <p>${user.nickname}</p>
             </div>
     `;
-    suggestedFriendsCounter++;
+    /* suggestedFriendsCounter++; */
           }
         });
       } else {
@@ -297,10 +297,6 @@ function deleteUser() {
     });
 }
 
-function addFriend(event) {
-  console.log("Adding " + event.target.getAttribute("userId"));
-}
-
 function toggleDeleteConfirmationModal(e) {
   e.preventDefault();
   deleteConfirmationModal.classList.toggle("hidden");
@@ -340,7 +336,6 @@ function addFriend(event) {
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
       getUsers();
     });
 }
@@ -352,25 +347,10 @@ function showFriendList() {
       console.log(data)
       data.forEach((friend) => {
         friendListContainer.innerHTML += `<div class="feed__friend-container">
+                                            <button class="feed__friend-delete">x</button>
                                             <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
                                             <p class="feed__friend-nickname">${friend.nickname}</p>
                                           </div>`;
       })
     });
-  /* feedFriendsModalCloseBtn.addEventListener("click", closeFriendList);
-  window.addEventListener('click', clickOutside); */
 }
-
-/* function clickOutside(e) {
-if (!document.friendListContainer.contains(e.target)) {
-    closeFriendList();
-}
-}
-
-function closeFriendList() {
-  friendListContainer.style.display = "none";
-  friendListContainer.innerHTML = "";
-  feedFriendsModalCloseBtn.removeEventListener("click", closeFriendList);
-  window.removeEventListener("click", clickOutside);
-}
- */

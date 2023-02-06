@@ -145,6 +145,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
+      console.log(data);
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -168,7 +169,7 @@ function getPosts() {
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
                   ${
-                    userId === postOwner
+                    userId == postOwner
                       ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
                       : ""
                   }

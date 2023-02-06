@@ -52,7 +52,7 @@ function createPost()
 
 function deletePost()
 {
-    $id = $_GET["id"];
+    $id = $_GET["postid"];
 
     $deletePost = new PostModel();
     echo json_encode($deletePost->delete($id));

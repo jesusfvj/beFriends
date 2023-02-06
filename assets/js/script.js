@@ -15,6 +15,15 @@ function checkUncheckLike(postId) {
 }
 checkUncheckLike(4);
 
+function checkHasLike(postId) {
+  fetch(`./controllers/likes.php?post_id=${postId}&controller=checkhaslike`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+checkHasLike(1);
+
 function getLikesByPost(postId) {
   const likes = fetch(
     `./controllers/likes.php?id=${postId}&controller=getlikesbypost`

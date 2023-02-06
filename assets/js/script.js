@@ -51,6 +51,7 @@ postImageUpload.addEventListener("change", getFiles);
 // create post form
 
 // edit profile form
+let editProfileImageToUpload;
 const editProfileModal = document.getElementById("editProfileModal");
 const editProfileForm = document.getElementById("editProfileForm");
 const inputUserEditProfile = document.getElementById("inputUserEditProfile");
@@ -253,7 +254,6 @@ function deletePost(event) {
 }
 
 // edit profile functions
-let editProfileImageToUpload;
 let hasImageChanged = false;
 
 function uploadEditProfileImg(e) {
@@ -278,7 +278,6 @@ async function submitEditForm(e) {
   e.preventDefault();
   const userId = e.target.getAttribute("userId");
   let image = editProfileImageToUpload;
-
   const formData = new FormData();
   formData.append("fullname", inputUserEditProfile.value);
   formData.append("username", inputNameEditProfile.value);
@@ -310,7 +309,7 @@ async function submitEditForm(e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      editProfileModal.classList.add("hidden");
       hasImageChanged = false;
     });
 }
@@ -339,7 +338,6 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
-  console.log("hola");
   feedFriendsListModal.classList.toggle("hidden");
 }
 
@@ -375,15 +373,20 @@ function addFriend(event) {
 }
 
 function showFriendList() {
+  friendListContainer.innerHTML = `<h2>Friends</h2>
+                                   <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>
+                                    `;
+
   fetch(`./controllers/friends.php?controller=getfriends`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       data.forEach((friend) => {
-        friendListContainer.innerHTML += `<div class="feed__friend-container">
-                                            <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
-                                            <p class="feed__friend-nickname">${friend.nickname}</p>
-                                          </div>`;
+        let newFriend = document.createElement("div");
+        newFriend.classList.add("feed__friend-container");
+        newFriend.innerHTML = ` <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
+                                <p class="feed__friend-nickname">${friend.nickname}</p>`;
+
+        friendListContainer.appendChild(newFriend);
       });
     });
   /* feedFriendsModalCloseBtn.addEventListener("click", closeFriendList);

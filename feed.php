@@ -52,11 +52,11 @@ if (!isset($_SESSION['id'])) {
 
     <div class="modal hidden" id="feedCreatePostModal">
         <form class="feed__create-post-form" id="createPostForm">
+            <p class="modal-close-btn" id="createPostModalCloseBtn">x</p>
             <label for="postImageUpload" class="feed__post-image-label">Add image</label>
             <input id="postImageUpload" class="hidden" type="file" />
             <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6" placeholder="What are your thoughts?"></textarea>
             <input type="submit" value="Post!" class="feed__create-post-form-button" />
-            <p class="modal-close-btn" id="createPostModalCloseBtn">x</p>
         </form>
     </div>
 
@@ -64,8 +64,8 @@ if (!isset($_SESSION['id'])) {
 
     <div class="modal hidden" id="feedFriendsListModal">
         <div class=" feed__friends-list">
-            <h2>Friends</h2>
             <p class="modal-close-btn" id="feedFriendsModalCloseBtn">x</p>
+            <h2>Friends</h2>
         </div>
     </div>
 

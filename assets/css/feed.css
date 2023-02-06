@@ -260,6 +260,7 @@
 }
 
 .modal-close-btn {
+  z-index: 9999999999;
   position: absolute;
   right: -1rem;
   top: -1rem;
@@ -464,7 +465,7 @@
   text-align: left;
 } */
 
-.feed__friend-container{
+.feed__friend-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -472,7 +473,7 @@
   width: 10rem;
 }
 
-.feed__friend-img{
+.feed__friend-img {
   width: 2rem;
   margin-right: 1rem;
 }

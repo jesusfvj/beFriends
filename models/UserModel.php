@@ -20,7 +20,7 @@ class UserModel extends DbConection
 
     function getById($id)
     {
-        $query = $this->db->connect()->prepare("SELECT id FROM user WHERE id = $id");
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE id = $id");
 
         try {
             $query->execute();

@@ -28,7 +28,6 @@ class FriendsModel extends DbConection
         (SELECT friend_id as friendId FROM friends
             WHERE friends.user_id = $userId) AS T
                 INNER JOIN user ON T.friendId = user.id");
-
         try {
             $query->execute();
             $friends = $query->fetchAll();

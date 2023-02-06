@@ -98,18 +98,23 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 function getUsers() {
+  let suggestedFriendsCounter = 0;
+  friendsSuggestionsContainer.innerHTML = "";
   fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
       if (data.length) {
         data.forEach((user) => {
-          friendsSuggestionsContainer.innerHTML += `
+          if (suggestedFriendsCounter < 5) {
+            friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
     `;
+    suggestedFriendsCounter++;
+          }
         });
       } else {
         friendsSuggestionsContainer.innerHTML += `
@@ -140,8 +145,8 @@ function getPosts() {
           likes,
           comments,
         } = post;
-        
-        feedPostsContainer.innerHTML += ` 
+
+        feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img" src=${avatar} alt="" />
@@ -164,12 +169,8 @@ function getPosts() {
                     <div class="feed__post-comments-container">
                     ${comments.map((comment) => {
                       const { nickname, postContent } = comment;
-                      return `
-                            <div class="feed__post-comment">
-                                <p class="feed__post-comment-author">${nickname}</p>
-                                <p class="feed__post-comment-message">${postContent}</p>
-                            </div>
-                            `;
+                      return `<div class = "feed__post-comment">
+                      <p class = "feed__post-comment-author">${nickname} </p><p class = "feed__post-comment-message"> ${postContent} </p> </div>`;
                     })}
                     </div>
                 </div>
@@ -200,9 +201,9 @@ async function createPost(e) {
   formData.append("content", text);
 
   await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
-    method: "POST",
-    body: imgFormData,
-  })
+      method: "POST",
+      body: imgFormData,
+    })
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
@@ -210,9 +211,9 @@ async function createPost(e) {
 
   if (text.length) {
     await fetch("./controllers/posts.php?controller=createpost", {
-      method: "POST",
-      body: formData,
-    })
+        method: "POST",
+        body: formData,
+      })
       .then((res) => res.json())
       .then((data) => {
         if(data[0]===true){
@@ -226,8 +227,8 @@ async function createPost(e) {
 
 //delete post functions
 
-function deletePost(event){
-  const postId= event.target.getAttribute("postId");
+function deletePost(event) {
+  const postId = event.target.getAttribute("postId");
   fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
     .then((res) => res.json())
     .then((data) => {
@@ -267,9 +268,9 @@ async function submitEditForm(e) {
     imgFormData.append("upload_preset", "j24srhjm");
 
     await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
-      method: "POST",
-      body: imgFormData,
-    })
+        method: "POST",
+        body: imgFormData,
+      })
       .then((res) => res.json())
       .then((data) => {
         formData.append("avatar", data.secure_url);
@@ -277,9 +278,9 @@ async function submitEditForm(e) {
   }
 
   await fetch("./controllers/users.php?controller=update", {
-    method: "POST",
-    body: formData,
-  })
+      method: "POST",
+      body: formData,
+    })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -334,29 +335,28 @@ addFriendsButton.forEach((element) => {
   element.addEventListener("click", addFriend);
 });
 
-function addFriend(event){
+function addFriend(event) {
   const friendId = event.target.getAttribute('userid')
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data)
-  }
-  );
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      getUsers();
+    });
 }
 
-function showFriendList(){
+function showFriendList() {
   fetch(`./controllers/friends.php?controller=getfriends`)
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data)
-    data.forEach((friend) => {
-      friendListContainer.innerHTML += `<div class="feed__friend-container">
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      data.forEach((friend) => {
+        friendListContainer.innerHTML += `<div class="feed__friend-container">
                                             <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
                                             <p class="feed__friend-nickname">${friend.nickname}</p>
                                           </div>`;
-    })
-  }
-  );
+      })
+    });
   /* feedFriendsModalCloseBtn.addEventListener("click", closeFriendList);
   window.addEventListener('click', clickOutside); */
 }

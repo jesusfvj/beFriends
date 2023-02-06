@@ -7,7 +7,13 @@ class UserModel extends DbConection
     {
         session_start();
         $userId = $_SESSION['id'];
-        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE user.id <> $userId");
+        $query = $this->db->connect()->prepare(
+            "SELECT * FROM user WHERE user.id
+            NOT IN (SELECT friend_id as friendId FROM friends
+            WHERE friends.user_id = $userId)
+            AND user.id <> $userId;");
+
+        /* SELECT * FROM user WHERE user.id <> $userId */
 
         try {
             $query->execute();

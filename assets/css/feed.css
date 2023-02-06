@@ -333,7 +333,17 @@
   padding: 5rem;
   background-color: white;
   border-radius: 15px;
+  /* overflow-y: auto; */
 }
+
+/* .feed__friends-list::-webkit-scrollbar {
+  display: none;
+}
+
+.feed__friends-list {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
 
 /* edit profile */
 

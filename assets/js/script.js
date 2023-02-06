@@ -122,13 +122,17 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      data.forEach((post) => {
+      const posts = data[0];
+      const userId = data[1];
+
+      posts.forEach((post) => {
         const {
           avatar,
           nickname,
           created_at,
           image,
+          postId,
+          postOwner,
           postContent,
           likes,
           comments,
@@ -142,6 +146,11 @@ function getPosts() {
                         <p class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
+                  ${
+                    userId === postOwner
+                      ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
+                      : ""
+                  }
                 </div>
                 <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">
@@ -210,6 +219,17 @@ async function createPost(e) {
         console.log(data);
       });
   }
+}
+
+//delete post functions
+
+function deletePost(event) {
+  const postId = event.target.getAttribute("postId");
+  fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
 // edit profile functions

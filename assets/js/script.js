@@ -212,7 +212,11 @@ async function createPost(e) {
     })
       .then((res) => res.json())
       .then((data) => {
-        getPosts();
+        if(data[0]===true){
+          getPosts();
+          toggleCreatePostModal();
+        } 
+        
       });
   }
 }
@@ -230,6 +234,7 @@ function deletePost(event){
 
 function deletePostElement(event){
   const elementDelete = event.target.parentNode.parentNode;
+  
   feedPostsContainer.removeChild(elementDelete);
 }
 

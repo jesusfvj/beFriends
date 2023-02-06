@@ -13,7 +13,8 @@ class PostModel extends DbConection
             "SELECT T.*, user.nickname FROM
                 (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
                     INNER JOIN comment ON post.id = comment.post_id) AS T
-                        INNER JOIN user ON T.commentOwnerId = user.id");
+                        INNER JOIN user ON T.commentOwnerId = user.id"
+        );
 
         try {
             $queryPost->execute();
@@ -59,7 +60,8 @@ class PostModel extends DbConection
 
         $query = $this->db->connect()->prepare(
             "INSERT INTO post(user_id, content, image, created_at, updated_at) 
-                VALUES (?, ?, ?, ?, ?, ?)");
+                VALUES (?, ?, ?, ?, ?, ?)"
+        );
 
         $query->bindParam(1, $user_id);
         $query->bindParam(2, $content);

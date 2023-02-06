@@ -122,6 +122,7 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       data.forEach((post) => {
         const {
           avatar,

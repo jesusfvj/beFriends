@@ -90,7 +90,7 @@
   font-family: var(--font);
   background-color: var(--btn-primary);
   color: white;
-  width: 50%;
+  width: 20%;
   position: absolute;
   cursor: pointer;
 }
@@ -513,7 +513,7 @@
 
   .feed__create-post-button {
     border-radius: 0.3rem;
-    bottom: 0.5rem;
+    bottom: 2rem;
     left: 0;
     right: 0;
     top: auto;
@@ -523,9 +523,8 @@
     font-family: var(--font);
     background-color: var(--btn-primary);
     color: white;
-    width: 80%;
+    width: 100%;
     position: fixed;
-    left: 1rem;
     cursor: pointer;
   }
 
@@ -538,9 +537,17 @@
   }
 
   .feed__friends-list,
-  .feed__edit-profile {
+  .feed__edit-profile,
+  .feed__create-post-form {
     width: 70%;
     padding: 1rem;
+  }
+
+  .feed__create-post-form-textarea,
+  .feed__create-post-form-button,
+  .feed__post-image-label {
+    font-size: 0.75rem;
+    padding: 1em;
   }
 
   .paragraph-placeholder__text {

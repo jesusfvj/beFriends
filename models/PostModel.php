@@ -1,7 +1,6 @@
 <?php
 require_once("../models/index.php");
 session_start();
-
 class PostModel extends DbConection
 {
     function get()
@@ -61,14 +60,14 @@ class PostModel extends DbConection
 
         $query = $this->db->connect()->prepare(
             "INSERT INTO post(user_id, content, image, created_at, updated_at) 
-                VALUES (?, ?, ?, ?, ?, ?)"
+                VALUES (?, ?, ?, ?, ?)"
         );
 
         $query->bindParam(1, $user_id);
         $query->bindParam(2, $content);
         $query->bindParam(3, $image);
-        $query->bindParam(5, $creationDate);
-        $query->bindParam(6, $updatedDate);
+        $query->bindParam(4, $creationDate);
+        $query->bindParam(5, $updatedDate);
 
         try {
             $query->execute();

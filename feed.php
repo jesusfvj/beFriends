@@ -15,6 +15,7 @@ if (!isset($_SESSION['id'])) {
     <title>beFriends - feed</title>
     <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
     <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/api/user.js?=<?php echo time(); ?>" defer></script>
 </head>
 
 <body class="feed__body">
@@ -71,7 +72,6 @@ if (!isset($_SESSION['id'])) {
     <!-- edit profile -->
     <div class="modal hidden" id="editProfileModal">
         <div class="feed__edit-profile">
-            <p class="modal-close-btn" id="editModalCloseBtn">x</p>
             <form class="edit-form__container" id="editProfileForm" userId=<?php echo $_SESSION['id'] ?>>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Name</p>
@@ -91,10 +91,12 @@ if (!isset($_SESSION['id'])) {
                     </select>
                 </div>
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
+                <div class="feed__edit-thumbnail-container" id="editThumbnailContainer"></div>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">
                 <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
             </form>
+            <p class="modal-close-btn" id="editModalCloseBtn">x</p>
         </div>
     </div>
     <!-- delete confirmation modal -->

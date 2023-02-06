@@ -5,7 +5,9 @@ class UserModel extends DbConection
 {
     function get()
     {
-        $query = $this->db->connect()->prepare("SELECT * FROM user");
+        session_start();
+        $userId = $_SESSION['id'];
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE user.id <> $userId");
 
         try {
             $query->execute();
@@ -13,6 +15,19 @@ class UserModel extends DbConection
             return $users;
         } catch (PDOException $e) {
             return [];
+        }
+    }
+
+    function getById($id)
+    {
+        $query = $this->db->connect()->prepare("SELECT id FROM user WHERE id = $id");
+
+        try {
+            $query->execute();
+            $user = $query->fetchAll();
+            return $user;
+        } catch (PDOException $e) {
+            return [false, $e];
         }
     }
 
@@ -75,6 +90,7 @@ class UserModel extends DbConection
 
         $query->bindParam(1, $username);
         $query->bindParam(2, $email);
+
         try {
             $query->execute();
             $user = $query->rowCount();
@@ -87,7 +103,7 @@ class UserModel extends DbConection
                 $_SESSION['name'] = $data->name;
                 $_SESSION['nickname'] = $data->nickname;
                 $_SESSION['gender'] = $data->gender;
-                return [true];
+                return [true, "userId" => $_SESSION['id']];
             } else {
                 return [false];
             }
@@ -107,6 +123,29 @@ class UserModel extends DbConection
             return [true];
         } catch (PDOException $e) {
             return [false, $e];
+        }
+    }
+
+    function logoutInvalidUser()
+    {
+        session_start();
+        $id = $_SESSION["id"];
+
+        $query = $this->db->connect()->prepare("SELECT * FROM user WHERE id = ?");
+        $query->bindParam(1, $id);
+
+        try {
+            $query->execute();
+            $data = $query->fetch(PDO::FETCH_OBJ);
+
+            if ($data === false) {
+                session_destroy();
+                header('Location: ');
+                return false;
+            }
+            return true;
+        } catch (PDOException $e) {
+            return [false];
         }
     }
 }

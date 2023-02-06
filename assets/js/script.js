@@ -22,10 +22,18 @@ function getLikesByPost(postId) {
     .then((data) => {});
 }
 getLikesByPost(1);
+
+// function getUserById(id) {
+//   fetch(`./controllers/users.php?user_id=${id}&controller=getbyid`)
+//     .then((res) => res.json())
+//     .then((data) => {});
+// }
+// getUserById(7);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
+document.body.addEventListener("load", getLogedUser());
 
 const feedPostsContainer = document.getElementById("feedPostsContainer");
 
@@ -52,6 +60,9 @@ const inputGenderEditProfile = document.getElementById(
 );
 const deleteAccountBtn = document.getElementById("deleteAccountBtn");
 const updateProfileImgInput = document.getElementById("updateProfileImgInput");
+const editThumbnailContainer = document.getElementById(
+  "editThumbnailContainer"
+);
 
 editProfileForm.addEventListener("submit", submitEditForm);
 updateProfileImgInput.addEventListener("change", uploadEditProfileImg);
@@ -94,12 +105,21 @@ editModalCloseBtn.addEventListener("click", toggleEditModal);
 feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
+function getLogedUser() {
+  const loggedUserId = JSON.parse(localStorage.getItem("userId"));
+  fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      editProfileImageToUpload = data[0].avatar;
+    });
+}
+
 function getUsers() {
   fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
       if (data.length) {
-        data.forEach((user) => {
+        data.forEach((user, i) => {
           friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
@@ -233,11 +253,25 @@ function deletePost(event) {
 }
 
 // edit profile functions
-
 let editProfileImageToUpload;
+let hasImageChanged = false;
 
 function uploadEditProfileImg(e) {
   editProfileImageToUpload = e.target.files[0];
+  const img = document.createElement("img");
+
+  img.classList.add("feed__edit-profile-thumbnail");
+  img.editProfileImageToUpload = editProfileImageToUpload;
+
+  editThumbnailContainer.innerHTML = "";
+  editThumbnailContainer.appendChild(img);
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(editProfileImageToUpload);
+  hasImageChanged = true;
 }
 
 async function submitEditForm(e) {
@@ -251,7 +285,7 @@ async function submitEditForm(e) {
   formData.append("gender", inputGenderEditProfile.value);
   formData.append("id", userId);
 
-  if (image) {
+  if (hasImageChanged) {
     const imgFormData = new FormData();
     imgFormData.append("file", image);
     imgFormData.append("api_key", "461164283284341");
@@ -264,7 +298,10 @@ async function submitEditForm(e) {
       .then((res) => res.json())
       .then((data) => {
         formData.append("avatar", data.secure_url);
+        editProfileImageToUpload = data.secure_url;
       });
+  } else {
+    formData.append("avatar", editProfileImageToUpload);
   }
 
   await fetch("./controllers/users.php?controller=update", {
@@ -274,6 +311,7 @@ async function submitEditForm(e) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      hasImageChanged = false;
     });
 }
 
@@ -301,6 +339,7 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
+  console.log("hola");
   feedFriendsListModal.classList.toggle("hidden");
 }
 
@@ -313,3 +352,54 @@ function logout() {
     () => (window.location.href = "index.php")
   );
 }
+
+const addFriendsButton = document.querySelectorAll(
+  ".feed__friends-suggestions-add-btn"
+);
+const navImage = document.querySelector(".nav__image");
+const friendListContainer = document.querySelector(".feed__friends-list");
+
+navImage.addEventListener("click", showFriendList);
+
+addFriendsButton.forEach((element) => {
+  element.addEventListener("click", addFriend);
+});
+
+function addFriend(event) {
+  const friendId = event.target.getAttribute("userid");
+  fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+
+function showFriendList() {
+  fetch(`./controllers/friends.php?controller=getfriends`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((friend) => {
+        friendListContainer.innerHTML += `<div class="feed__friend-container">
+                                            <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
+                                            <p class="feed__friend-nickname">${friend.nickname}</p>
+                                          </div>`;
+      });
+    });
+  /* feedFriendsModalCloseBtn.addEventListener("click", closeFriendList);
+  window.addEventListener('click', clickOutside); */
+}
+
+/* function clickOutside(e) {
+if (!document.friendListContainer.contains(e.target)) {
+    closeFriendList();
+}
+}
+
+function closeFriendList() {
+  friendListContainer.style.display = "none";
+  friendListContainer.innerHTML = "";
+  feedFriendsModalCloseBtn.removeEventListener("click", closeFriendList);
+  window.removeEventListener("click", clickOutside);
+}
+ */

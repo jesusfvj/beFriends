@@ -8,6 +8,10 @@ switch ($controller) {
         get();
         break;
 
+    case 'getbyid':
+        getById();
+        break;
+
     case 'register':
         register();
         break;
@@ -28,6 +32,10 @@ switch ($controller) {
         logOut();
         break;
 
+    case 'logoutinvaliduser':
+        logoutInvalidUser();
+        break;
+
     default:
         echo 'Invalid controller';
         break;
@@ -37,6 +45,14 @@ function get()
 {
     $users = new UserModel();
     echo json_encode($users->get());
+}
+
+function getById()
+{
+    $id = $_GET['userid'];
+
+    $getUserById = new UserModel();
+    echo json_encode($getUserById->getById($id));
 }
 
 function register()
@@ -87,4 +103,10 @@ function logOut()
 {
     session_start();
     session_destroy();
+}
+
+function logoutInvalidUser()
+{
+    $logoutInvalidUser = new UserModel();
+    echo json_encode($logoutInvalidUser->logoutInvalidUser());
 }

@@ -49,7 +49,7 @@ if (isset($_SESSION['id'])) {
                 <p class="paragraph-forgot__text">You forgot your password?</p>
             </section>
             <section class="section-second-body__container">
-                <p>You don't have an account</p>
+                <p>You don't have an account?</p>
                 <p class="paragraph-register__text">Register</p>
             </section>
             <section class="section-third-body__container">

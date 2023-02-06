@@ -386,6 +386,17 @@
   align-self: center;
 }
 
+.feed__edit-thumbnail-container {
+  align-self: center;
+  width: 50%;
+}
+
+.feed__edit-profile-thumbnail {
+  align-self: center;
+  border-radius: 0.3rem;
+  width: 100%;
+}
+
 .edit-form__button {
   height: 3rem;
   margin-top: 0.75rem;
@@ -445,6 +456,25 @@
 .feed__delete-confirmation-modal-btn-decline {
   background-color: var(--btn-danger);
   color: white;
+}
+
+/* .feed__friends-list{
+  display: flex;
+  justify-content: start;
+  text-align: left;
+} */
+
+.feed__friend-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 10rem;
+}
+
+.feed__friend-img{
+  width: 2rem;
+  margin-right: 1rem;
 }
 
 /* // hidden */

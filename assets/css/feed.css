@@ -79,14 +79,18 @@
 
 .feed__create-post-button {
   padding: 0.5rem;
-  margin-top: 5vh;
   border-radius: 0.3rem;
+  top: 4vh;
+  left: 0;
+  right: 0;
+  height: fit-content;
+  margin: auto;
   border: none;
   outline: none;
   font-family: var(--font);
   background-color: var(--btn-primary);
   color: white;
-  width: 50%;
+  width: 20%;
   position: absolute;
   cursor: pointer;
 }
@@ -528,23 +532,56 @@
 
   .feed__create-post-button {
     border-radius: 0.3rem;
-    bottom: 0.5rem;
+    bottom: 2rem;
     left: 0;
     right: 0;
+    top: auto;
     margin: auto;
     border: none;
     outline: none;
     font-family: var(--font);
     background-color: var(--btn-primary);
     color: white;
-    width: 80%;
+    width: 100%;
     position: fixed;
-    left: 1rem;
     cursor: pointer;
   }
 
   .feed__post:nth-of-type(1) {
     margin-top: 15vh;
+  }
+
+  .feed_post {
+    width: 80%;
+  }
+
+  .feed__friends-list,
+  .feed__edit-profile,
+  .feed__create-post-form {
+    width: 70%;
+    padding: 1rem;
+  }
+
+  .feed__create-post-form-textarea,
+  .feed__create-post-form-button,
+  .feed__post-image-label {
+    font-size: 0.75rem;
+    padding: 1em;
+  }
+
+  .paragraph-placeholder__text {
+    display: none;
+  }
+
+  .edit-form__input {
     width: 90%;
+  }
+
+  .edit-profile-image-label {
+    font-size: 0.75rem;
+  }
+
+  .feed__friends-suggestions {
+    display: none;
   }
 }

@@ -77,9 +77,8 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
-//////////////////////////////////////////////////
-feedPostsContainer.addEventListener("click", toggleCreatePostModal);
-//////////////////////////////////////////////////
+feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
 feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);
@@ -119,35 +118,49 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      data.forEach((post) => {
-        feedPostsContainer.innerHTML += `
+      const posts = data[0];
+      const userId = data[1];
+
+      posts.forEach((post) => {
+        const {
+          avatar,
+          nickname,
+          created_at,
+          image,
+          postId,
+          postOwner,
+          postContent,
+          likes,
+          comments,
+        } = post;
+
+        feedPostsContainer.innerHTML += ` 
             <article class="feed__post">
                 <div class="feed__article-header">
-                    <img class="feed__post-profile-img" src=${
-                      post.avatar
-                    } alt="" />
+                    <img class="feed__post-profile-img" src=${avatar} alt="" />
                     <div>
-                        <p class="feed__post-profile-name">${post.nickname}</p>
-                        <p class="feed__post-timestamp">${post.created_at}</p>
+                        <p class="feed__post-profile-name">${nickname}</p>
+                        <p class="feed__post-timestamp">${created_at}</p>
                     </div>
+                  ${userId===postOwner?`<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`:""}
                 </div>
-                <img class="feed__post-img" src=${post.image} alt="" />
+                <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">
-                    <p class="feed__post-message">${post.postContent}</p>
+                    <p class="feed__post-message">${postContent}</p>
                 </div>
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
                         <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
-                        <p>${post.likes} likes</p>
+                        <p>${likes} likes</p>
                         <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
                     </div>
                     <div class="feed__post-comments-container">
-                    ${post.comments.map((comment) => {
+                    ${comments.map((comment) => {
+                      const { nickname, postContent } = comment;
                       return `
                             <div class="feed__post-comment">
-                                <p class="feed__post-comment-author">${comment.nickname}</p>
-                                <p class="feed__post-comment-message">${comment.postContent}</p>
+                                <p class="feed__post-comment-author">${nickname}</p>
+                                <p class="feed__post-comment-message">${postContent}</p>
                             </div>
                             `;
                     })}
@@ -198,6 +211,17 @@ async function createPost(e) {
         console.log(data);
       });
   }
+}
+
+//delete post functions
+
+function deletePost(event){
+  const postId= event.target.getAttribute("postId");
+  fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
 // edit profile functions

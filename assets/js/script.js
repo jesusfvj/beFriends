@@ -7,7 +7,21 @@ function getPostById(id) {
       // console.log(data);
     });
 }
-getPostById(2);
+// getPostById(2);
+
+function checkUncheckLike(postId) {
+  fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
+    .then((res) => res.json())
+    .then((data) => {});
+}
+checkUncheckLike(4);
+
+function getLikesByPost(postId) {
+  fetch(`./controllers/likes.php?id=${postId}&controller=getlikesbypost`)
+    .then((res) => res.json())
+    .then((data) => {});
+}
+getLikesByPost(1);
 //=======================================================//
 
 document.body.addEventListener("load", getUsers());

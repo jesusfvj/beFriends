@@ -5,7 +5,7 @@ if (isset($_SESSION['id'])) {
 ?>
 
 <!DOCTYPE html>
-<html class="html__container--background-image" lang="en">
+<html class="html__container--background-image html__container" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,6 @@ if (isset($_SESSION['id'])) {
 </head>
 
 <body>
-    <header></header>
     <main class="main__container">
         <section class="section__container">
             <section class="section-first-body__container">
@@ -84,10 +83,12 @@ if (isset($_SESSION['id'])) {
     <section class="modal-success-register__section">
         <div class="modal-success-register__div">
             <div class="modal-success-register__header">
-                <p class="modal-success-register__title">Sucess registration</p>
+                <p class="modal-success-register__title">Sucessful registration</p>
             </div>
             <div class="modal-success-register__content">
-                <img src="./assets/images/okIcon.png">
+                <div class="modal-success-register__img-container">
+                    <img class="modal-success-register__img" src="./assets/images/okIcon.png">
+                </div>
                 <p class="modal-success-register__paragraph">The registration has been a success.</p>
             </div>
         </div>
@@ -98,7 +99,9 @@ if (isset($_SESSION['id'])) {
                 <p class="modal-error-register__title">Error in registration</p>
             </div>
             <div class="modal-error-register__content">
-                <img src="./assets/images/notOkIcon.png">
+                <div class="modal-error-register__img-container">
+                    <img class="modal-error-register__img" src="./assets/images/notOkIcon.png">
+                </div>
                 <p class="modal-error-register__paragraph">Sorry, the email or nickname already exists, please enter a new one.</p>
             </div>
         </div>

@@ -3,6 +3,7 @@ const inputPasswordLogIn = document.querySelector("#inputPasswordLogIn");
 const logInForm = document.querySelector("#formContainerLogIn");
 const registerText = document.querySelector(".paragraph-register__text");
 const showParagraph = document.querySelectorAll(".paragraph-show__text");
+const errorLoginAlert = document.querySelector(".modal-error-login__div");
 
 registerText.addEventListener("click", sendToRegister);
 
@@ -36,9 +37,16 @@ function sendLogInData(event) {
         localStorage.setItem("userId", JSON.stringify(data.userId));
         window.location = "./feed.php";
       } else {
-        console.log("bad");
+        modalVerificationsLogin();
       }
     });
+}
+
+function modalVerificationsLogin(){
+  errorLoginAlert.style.display = "block";
+    setTimeout(() => {
+      errorLoginAlert.style.display = "none";
+    }, 3000);
 }
 
 function togglePassword(event) {

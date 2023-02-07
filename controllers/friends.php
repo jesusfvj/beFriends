@@ -23,38 +23,43 @@ switch ($controller) {
     case 'denyfriendrequest':
         denyFriendRequest();
         break;
-        
-        default:
+
+    default:
         echo 'Invalid controller';
         break;
-    }
-    
-function addFriend(){
+}
+
+function addFriend()
+{
     $friendsId = $_GET['friendid'];
 
     $addFriendUser = new FriendsModel();
     echo json_encode($addFriendUser->addFriendUser($friendsId));
 }
 
-function getFriends(){
-    
+function getFriends()
+{
+
     $getFriendsList = new FriendsModel();
     echo json_encode($getFriendsList->getFriendsList());
 }
 
-function deleteFriends(){
+function deleteFriends()
+{
     $friendsId = $_GET['friendid'];
 
     $deleteFriendUser = new FriendsModel();
     echo json_encode($deleteFriendUser->deleteFriendUser($friendsId));
 }
 
-function getNotifications(){
+function getNotifications()
+{
     $getNotificationList = new FriendsModel();
     echo json_encode($getNotificationList->getNotificationList());
 }
 
-function denyFriendRequest(){
+function denyFriendRequest()
+{
     $friendsId = $_GET['friendid'];
     $denyFriendRequestUser = new FriendsModel();
     echo json_encode($denyFriendRequestUser->denyFriendRequestUser($friendsId));

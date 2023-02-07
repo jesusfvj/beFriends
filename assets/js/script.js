@@ -35,6 +35,7 @@ const createPostModalCloseBtn = document.getElementById(
 const createPostThumbnailContainer = document.getElementById(
   "createPostThumbnailContainer"
 );
+
 createPostForm.addEventListener("submit", createPost);
 postImageUpload.addEventListener("change", getFiles);
 
@@ -488,7 +489,6 @@ async function showFriendList() {
         friendListContainer.appendChild(newFriend);
       });
     });
-
   const deleteButton = document.querySelectorAll(".feed__friend-delete");
   const bellIcon = document.querySelector(".friends-list__img-icon");
   deleteButton.forEach((deleteBtn) => {
@@ -578,7 +578,6 @@ async function searchUsers(e) {
     `;
   });
 }
-
 function insertComment(event) {
   event.preventDefault();
   commentPostId;

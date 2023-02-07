@@ -11,9 +11,7 @@ class UserModel extends DbConection
             "SELECT * FROM user WHERE user.id
             NOT IN (SELECT friend_id as friendId FROM friends
             WHERE friends.user_id = $userId)
-            AND user.id <> $userId;");
-
-        /* SELECT * FROM user WHERE user.id <> $userId */
+            AND user.id <> $userId AND user.denied = 'false';");
 
         try {
             $query->execute();
@@ -43,11 +41,12 @@ class UserModel extends DbConection
         $role = "user";
         $creationDate = date("Y-m-d H:i:s");
         $updatedDate = date("Y-m-d H:i:s");
+        $denied = "false";
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = $this->db->connect()->prepare("INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at) 
-                                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $query = $this->db->connect()->prepare("INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at, denied) 
+                                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         $query->bindParam(1, $fullname);
         $query->bindParam(2, $username);
@@ -58,6 +57,7 @@ class UserModel extends DbConection
         $query->bindParam(7, $role);
         $query->bindParam(8, $creationDate);
         $query->bindParam(9, $updatedDate);
+        $query->bindParam(10, $denied);
 
         try {
             $query->execute();

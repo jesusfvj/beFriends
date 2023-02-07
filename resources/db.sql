@@ -15,6 +15,7 @@ CREATE TABLE user(
     gender VARCHAR(10) NOT NULL,
     avatar VARCHAR(200),
     role VARCHAR(25) NOT NULL,
+    denied VARCHAR(5) NOT NULL,
     created_at DATE,
     updated_at DATE
 );
@@ -51,14 +52,16 @@ CREATE TABLE likes(
 CREATE TABLE friends(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    friend_id INT NOT NULL
+    friend_id INT NOT NULL,
+    follow_back VARCHAR(11) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
-INSERT INTO user(name, nickname, email, password, gender, avatar, role, created_at, updated_at)
-VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2017-12-31', '2017-12-31'),
-       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', '2018-12-31', '2018-12-31'),
-       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', '2019-12-31', '2019-12-31'),
-       ('Wilson Mandela', 'DaniWils', 'wilson@robocop.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', '2020-12-31', '2020-12-31');
+INSERT INTO user(name, nickname, email, password, gender, avatar, role, denied, created_at, updated_at)
+VALUES ('David Pizarro', 'Dave', 'david@davo.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', "false", '2017-12-31', '2017-12-31'),
+       ('Jesusin of terror', 'Jesusito', 'jes@us.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'admin', "false", '2018-12-31', '2018-12-31'),
+       ('Miqui Bee', 'Miquibeequi', 'miquibiki@mike.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', "false", '2019-12-31', '2019-12-31'),
+       ('Wilson Mandela', 'DaniWils', 'wilson@robocop.com', 'password', 'Male', 'assets/images/defaultProfileImg.png', 'user', "false", '2020-12-31', '2020-12-31');
 
 INSERT INTO post(user_id, content, image, created_at, updated_at)
 VALUES (1, 'Post lorem ipsum content 1', 'https://images.unsplash.com/photo-1671725779253-0a5a067cfac4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80', '2017-12-31', '2019-12-31'),
@@ -82,10 +85,10 @@ VALUES (1, 4),
        (2, 1),
        (1, 1);
 
-INSERT INTO friends(user_id, friend_id)
-VALUES (1, 2),
-       (1, 3),
-       (1, 4),
-       (2, 1),
-       (2, 3),
-       (3, 4);
+INSERT INTO friends(user_id, friend_id, follow_back)
+VALUES (1, 2, "pending"),
+       (1, 3, "pending"),
+       (1, 4, "pending"),
+       (2, 1, "pending"),
+       (2, 3, "pending"),
+       (3, 4, "pending");

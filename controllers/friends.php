@@ -15,6 +15,14 @@ switch ($controller) {
     case 'deletefriend':
         deleteFriends();
         break;
+
+    case 'getnotifications':
+        getNotifications();
+        break;
+
+    case 'denyfriendrequest':
+        denyFriendRequest();
+        break;
         
         default:
         echo 'Invalid controller';
@@ -39,4 +47,15 @@ function deleteFriends(){
 
     $deleteFriendUser = new FriendsModel();
     echo json_encode($deleteFriendUser->deleteFriendUser($friendsId));
+}
+
+function getNotifications(){
+    $getNotificationList = new FriendsModel();
+    echo json_encode($getNotificationList->getNotificationList());
+}
+
+function denyFriendRequest(){
+    $friendsId = $_GET['friendid'];
+    $denyFriendRequestUser = new FriendsModel();
+    echo json_encode($denyFriendRequestUser->denyFriendRequestUser($friendsId));
 }

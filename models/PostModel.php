@@ -61,9 +61,26 @@ class PostModel extends DbConection
         }
     }
 
-    function getById($id)
+    function getPostById($id)
     {
         $query = $this->db->connect()->prepare("SELECT * FROM post WHERE id = $id;");
+
+        try {
+            $query->execute();
+            $post = $query->fetchAll();
+            return [$post];
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    function getPostsByUserId($userId)
+    {
+        $query = $this->db->connect()->prepare(
+            "SELECT * FROM post P
+                WHERE P.user_id = $userId
+                ORDER BY P.created_at DESC
+            ;");
 
         try {
             $query->execute();

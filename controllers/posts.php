@@ -12,6 +12,10 @@ switch ($controller) {
         getPostById();
         break;
 
+    case 'getpostsbyuserid':
+        getPostsByUserId();
+        break;
+
     case 'createpost':
         createPost();
         break;
@@ -36,7 +40,15 @@ function getPostById()
     $id = $_GET['id'];
 
     $getPostById = new PostModel();
-    echo json_encode($getPostById->getById($id));
+    echo json_encode($getPostById->getPostById($id));
+}
+
+function getPostsByUserId()
+{
+    $userId = $_GET['userId'];
+
+    $getPostsByUserId = new PostModel();
+    echo json_encode($getPostsByUserId->getPostsByUserId($userId));
 }
 
 function createPost()

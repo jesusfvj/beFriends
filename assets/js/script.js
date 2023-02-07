@@ -8,6 +8,15 @@ function getPostById(id) {
     });
 }
 
+function getPostsByUserId(id) {
+  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+getPostsByUserId(2);
+
 function checkHasLike(postId) {
   const hasLikes = fetch(
     `./controllers/likes.php?post_id=${postId}&controller=checkhaslike`

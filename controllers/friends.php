@@ -11,21 +11,22 @@ switch ($controller) {
     case 'getfriends':
         getFriends();
         break;
-        
-        default:
+
+    default:
         echo 'Invalid controller';
         break;
-    }
-    
-function addFriend(){
+}
+
+function addFriend()
+{
     $friendsId = $_GET['friendid'];
 
     $addFriendUser = new FriendsModel();
     echo json_encode($addFriendUser->addFriendUser($friendsId));
 }
 
-function getFriends(){
-
+function getFriends()
+{
     $getFriendsList = new FriendsModel();
     echo json_encode($getFriendsList->getFriendsList());
 }

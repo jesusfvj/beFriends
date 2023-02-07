@@ -320,6 +320,12 @@
   cursor: pointer;
 }
 
+.create-post-thumbnail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* friends list */
 
 .feed__friends-list {
@@ -486,23 +492,82 @@
   color: white;
 }
 
-/* .feed__friends-list{
-  display: flex;
-  justify-content: start;
-  text-align: left;
-} */
-
-.feed__friend-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  width: 15em;
+.feed__search-input {
+  width: 100%;
+  height: 2.5rem;
+  border: 0.1rem solid rgb(161, 161, 161);
+  background-color: #fafafa;
+  padding: 0 0.5rem;
 }
 
-.feed__friend-img {
+.feed__search-result-container {
+  width: 90%;
+  height: 80%;
+  overflow-y: auto;
+}
+
+.feed__found-user-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  max-width: 80%;
+  margin-top: 1.5rem;
+}
+
+.feed__found-user-profile-img {
   width: 2rem;
   margin-right: 1rem;
+}
+
+.feed__found-user-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+.feed__found-user-info-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.feed__found-user-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(150, 150, 255);
+  height: 2rem;
+  width: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__found-user-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(255, 91, 91);
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__found-user-delete-btn:hover {
+  background-color: rgb(122, 32, 32);
+  transition: 400ms;
+}
+
+.feed__found-user-add-btn:hover {
+  transition-duration: 0.3s;
+  background-color: rgb(113, 113, 251);
 }
 
 /* // hidden */

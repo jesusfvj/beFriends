@@ -9,6 +9,7 @@ class PostModel extends DbConection
                                                 FROM post P JOIN user U ON U.id = P.user_id
                                                 ORDER BY P.created_at DESC");
 
+
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM
                 (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
@@ -21,6 +22,26 @@ class PostModel extends DbConection
             $posts = $queryPost->fetchAll();
             $queryComments->execute();
             $comments = $queryComments->fetchAll();
+
+            for ($i = 0; $i < count($posts); $i++) {
+                $postId = intval($posts[$i]['postId']);
+                $likesQuery = $this->db->connect()->prepare("SELECT COUNT(id) FROM likes WHERE post_id = $postId");
+                $likesQuery->execute();
+                $likesCount = $likesQuery->fetchAll();
+
+                $sessionUserId = $_SESSION['id'];
+
+                $isLikedQuery = $this->db->connect()->prepare(
+                    "SELECT * FROM likes 
+                    WHERE post_id = $postId 
+                        AND user_id = $sessionUserId;"
+                );
+                $isLikedQuery->execute();
+                $isLiked = $isLikedQuery->fetchAll();
+
+                $posts[$i]['isLiked'] = count($isLiked) ? true : false;
+                $posts[$i]['likesCount'] = $likesCount[0][0];
+            }
 
             foreach ($posts as &$post) {
                 $post["comments"] = [];

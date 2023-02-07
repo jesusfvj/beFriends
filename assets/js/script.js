@@ -45,6 +45,9 @@ const feedCreatePostModal = document.getElementById("feedCreatePostModal");
 const createPostModalCloseBtn = document.getElementById(
   "createPostModalCloseBtn"
 );
+const createPostThumbnailContainer = document.getElementById(
+  "createPostThumbnailContainer"
+);
 createPostForm.addEventListener("submit", createPost);
 postImageUpload.addEventListener("change", getFiles);
 
@@ -85,6 +88,18 @@ deleteUserConfirm.addEventListener("click", deleteUser);
 deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
 //
 
+//search modal
+const feedOpenSearchModalBtn = document.getElementById(
+  "feedOpenSearchModalBtn"
+);
+const feedSearchUsersModal = document.getElementById("feedSearchUsersModal");
+const feedSearchModalCloseBtn = document.getElementById(
+  "feedSearchModalCloseBtn"
+);
+const feedSearchInput = document.getElementById("feedSearchInput");
+const feedSearchResult = document.getElementById("feedSearchResult");
+//
+
 // toggle modals controllers
 const createComment = document.getElementById("createComment");
 const feedOpenFriendsModalBtn = document.getElementById(
@@ -98,7 +113,9 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
-const insertCommentModalCloseBtn = document.getElementById("insertCommentModalCloseBtn");
+const insertCommentModalCloseBtn = document.getElementById(
+  "insertCommentModalCloseBtn"
+);
 
 const insertCommentForm = document.getElementById("insertCommentForm");
 
@@ -111,6 +128,10 @@ feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
 feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
 editModalCloseBtn.addEventListener("click", toggleEditModal);
+
+feedOpenSearchModalBtn.addEventListener("click", toggleSearchModal);
+feedSearchModalCloseBtn.addEventListener("click", toggleSearchModal);
+feedSearchInput.addEventListener("keyup", searchUsers);
 
 insertCommentModalCloseBtn.addEventListener("click", toggleCreateComment);
 insertCommentForm.addEventListener("submit", insertComment);
@@ -160,9 +181,10 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       const posts = data[0];
       const userId = data[1];
-      feedPostsContainer.innerHTML = "";
+
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -173,10 +195,10 @@ function getPosts() {
           postOwner,
           postContent,
           comments,
+          likesCount,
+          isLiked,
         } = post;
-
-        const likesCount = await getLikesByPost(postId);
-        const isPostLiked = await checkHasLike(postId);
+        console.log(created_at);
 
         feedPostsContainer.innerHTML += `
             <article class="feed__post">
@@ -199,7 +221,7 @@ function getPosts() {
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
                         <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
-          isPostLiked
+          isLiked
             ? "./assets/images/likeGiven.png"
             : "./assets/images/giveLike.png"
         } alt=""  />
@@ -210,7 +232,8 @@ function getPosts() {
                     ${comments.map((comment) => {
                       const { nickname, postContent } = comment;
                       return `<div class = "feed__post-comment">
-                      <p class = "feed__post-comment-author">${nickname} </p><p class = "feed__post-comment-message"> ${postContent} </p> </div>`;
+                      <p class="feed__post-comment-author">${nickname}</p>
+                      <p class="feed__post-comment-message">${postContent}</p></div>`;
                     })}
                     </div>
                 </div>
@@ -223,6 +246,7 @@ function getPosts() {
 function checkUncheckLike(event) {
   const postId = event.target.getAttribute("postId");
   const likesCountDisplay = document.getElementById(`likes_${postId}`);
+
   fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
     .then((res) => res.json())
     .then(async (data) => {
@@ -240,6 +264,19 @@ let imageToUpload;
 
 function getFiles(e) {
   imageToUpload = e.target.files[0];
+  const img = document.createElement("img");
+
+  img.classList.add("feed__edit-profile-thumbnail");
+  img.imageToUpload = imageToUpload;
+  img.style.width = "50%";
+  createPostThumbnailContainer.innerHTML = "";
+  createPostThumbnailContainer.appendChild(img);
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(imageToUpload);
 }
 
 async function createPost(e) {
@@ -384,7 +421,11 @@ function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
 }
 
-function toggleCreateComment(event){
+function toggleSearchModal() {
+  feedSearchUsersModal.classList.toggle("hidden");
+}
+
+function toggleCreateComment(event) {
   createComment.classList.toggle("hidden");
   commentPostId = event.target.getAttribute("postid");
 }
@@ -435,16 +476,87 @@ function showFriendList() {
     });
 }
 
-function insertComment(event){
-  event.preventDefault();
-  commentPostId
-  const inputComment = inputCommentInsert.value;
-
-  fetch(`./controllers/comments.php?controller=addComment&inputComment=${inputComment}&commentPostId=${commentPostId}`)
+let nonFriends;
+async function getNoFriends() {
+  await fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
-      if(data[0]===true){
-        console.log(data[0])
+      nonFriends = data;
+    });
+  return nonFriends;
+}
+getNoFriends();
+
+let friends;
+async function getFriends() {
+  await fetch("./controllers/friends.php?controller=getfriends")
+    .then((res) => res.json())
+    .then((data) => {
+      friends = data;
+    });
+  return friends;
+}
+getFriends();
+
+async function searchUsers(e) {
+  feedSearchResult.innerHTML = "";
+  const searchText = e.target.value;
+
+  let foundFriends = friends.filter((friend) => {
+    if (friend.nickname.toLowerCase().includes(searchText.toLowerCase())) {
+      return friend.nickname;
+    }
+  });
+
+  let foundNonFriends = nonFriends.filter((nonFriend) => {
+    if (nonFriend.nickname.toLowerCase().includes(searchText.toLowerCase())) {
+      return nonFriend.nickname;
+    }
+  });
+
+  foundFriends.map((foundFriend) => {
+    const { id, nickname, avatar } = foundFriend;
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+           <div class="feed__found-user-btn-group">
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
+  foundNonFriends.map((foundNonFriend) => {
+    const { id, nickname, avatar } = foundNonFriend;
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+            <div class="feed__found-user-btn-group">
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userId=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
+}
+
+function insertComment(event) {
+  event.preventDefault();
+  commentPostId;
+  const inputComment = inputCommentInsert.value;
+
+  fetch(
+    `./controllers/comments.php?controller=addComment&inputComment=${inputComment}&commentPostId=${commentPostId}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      if (data[0] === true) {
+        console.log(data[0]);
         getPosts();
         toggleCreateComment();
       }

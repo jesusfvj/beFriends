@@ -3,6 +3,25 @@ require_once("../models/index.php");
 
 class UserModel extends DbConection
 {
+
+    function getAll()
+    {
+        session_start();
+        $userId = $_SESSION['id'];
+        $query = $this->db->connect()->prepare(
+            "SELECT * FROM user WHERE user.id != $userId
+            ;"
+        );
+
+        try {
+            $query->execute();
+            $users = $query->fetchAll();
+            return $users;
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
     function get()
     {
         session_start();

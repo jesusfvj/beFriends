@@ -8,8 +8,8 @@ switch ($controller) {
         get();
         break;
 
-    case 'getbyid':
-        getById();
+    case 'getall':
+        getAll();
         break;
 
     case 'getbyid':
@@ -43,6 +43,12 @@ switch ($controller) {
     default:
         echo 'Invalid controller';
         break;
+}
+
+function getAll()
+{
+    $users = new UserModel();
+    echo json_encode($users->getAll());
 }
 
 function get()

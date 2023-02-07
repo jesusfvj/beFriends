@@ -8,6 +8,15 @@ function getPostById(id) {
     });
 }
 
+function getPostsByUserId(id) {
+  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+getPostsByUserId(2);
+
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());

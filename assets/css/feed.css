@@ -188,9 +188,9 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-top: 4rem;
+  padding-top: 2rem;
   padding-right: 4rem;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .feed__friends-suggestions-profile {
@@ -201,8 +201,6 @@
 }
 
 .feed__friends-suggestions-friends {
-  position: fixed;
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -402,6 +400,7 @@
 .feed__friends-list {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
 }
 
 /* edit profile */
@@ -624,6 +623,18 @@
 .feed__found-user-add-btn:hover {
   transition-duration: 0.3s;
   background-color: rgb(113, 113, 251);
+}
+
+.feed__user-login{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.feed__user-avatar{
+  width: 2rem;
+  margin-right: 1rem;
 }
 
 /* // hidden */

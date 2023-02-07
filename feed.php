@@ -41,6 +41,10 @@ if (!isset($_SESSION['id'])) {
     <main class="feed__main" id="feedPostsContainer"></main>
     <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__friends-suggestions">
+        <div class="feed__user-login">
+            <img class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
+            <p><?php echo $_SESSION['nickname'] ?></p>
+        </div>
         <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
             <p>Suggested friends for you</p>
         </div>

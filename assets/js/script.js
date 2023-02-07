@@ -8,12 +8,16 @@ function getPostById(id) {
     });
 }
 
-function checkUncheckLike(postId) {
-  fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
+function checkHasLike(postId) {
+  const hasLikes = fetch(
+    `./controllers/likes.php?post_id=${postId}&controller=checkhaslike`
+  )
     .then((res) => res.json())
-    .then((data) => {});
+    .then((data) => {
+      return data;
+    });
+  return hasLikes;
 }
-checkUncheckLike(4);
 
 function getLikesByPost(postId) {
   const likes = fetch(
@@ -43,6 +47,11 @@ const createPostModalCloseBtn = document.getElementById(
 );
 createPostForm.addEventListener("submit", createPost);
 postImageUpload.addEventListener("change", getFiles);
+
+// Create comment
+
+let commentPostId;
+
 // create post form
 
 // edit profile form
@@ -77,6 +86,7 @@ deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
 //
 
 // toggle modals controllers
+const createComment = document.getElementById("createComment");
 const feedOpenFriendsModalBtn = document.getElementById(
   "feedOpenFriendsModalBtn"
 );
@@ -88,6 +98,10 @@ const feedFriendsListModal = document.getElementById("feedFriendsListModal");
 const feedEditOpenModalBtn = document.getElementById("feedEditOpenModalBtn");
 const editModalCloseBtn = document.getElementById("editModalCloseBtn");
 
+const insertCommentModalCloseBtn = document.getElementById("insertCommentModalCloseBtn");
+
+const insertCommentForm = document.getElementById("insertCommentForm");
+
 feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
 
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
@@ -97,6 +111,9 @@ feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
 feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
 editModalCloseBtn.addEventListener("click", toggleEditModal);
+
+insertCommentModalCloseBtn.addEventListener("click", toggleCreateComment);
+insertCommentForm.addEventListener("submit", insertComment);
 // toggle modals controllers
 feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
@@ -146,7 +163,7 @@ function getPosts() {
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-      console.log(data);
+      feedPostsContainer.innerHTML = "";
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -159,7 +176,8 @@ function getPosts() {
           comments,
         } = post;
 
-        const likes = await getLikesByPost(postId);
+        const likesCount = await getLikesByPost(postId);
+        const isPostLiked = await checkHasLike(postId);
 
         feedPostsContainer.innerHTML += `
             <article class="feed__post">
@@ -181,15 +199,17 @@ function getPosts() {
                 </div>
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
-                        <img class="feed__post-icon" src="./assets/images/heart.png" alt="" />
-                        <p>${likes} likes</p>
-                        <img class="feed__post-icon" src="./assets/images/message.png" alt="" />
+                        <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
+          isPostLiked
+            ? "./assets/images/likeGiven.png"
+            : "./assets/images/giveLike.png"
+        } alt=""  />
+                        <p id="likes_${postId}">${likesCount} likes</p>
+                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
                     <div class="feed__post-comments-container">
                     ${comments.map((comment) => {
                       const { nickname, postContent } = comment;
-                      return `<div class = "feed__post-comment">
-                      <p class = "feed__post-comment-author">${nickname} </p><p class = "feed__post-comment-message"> ${postContent} </p> </div>`;
                       return `<div class = "feed__post-comment">
                       <p class = "feed__post-comment-author">${nickname} </p><p class = "feed__post-comment-message"> ${postContent} </p> </div>`;
                     })}
@@ -198,6 +218,21 @@ function getPosts() {
             </article>
             `;
       });
+    });
+}
+
+function checkUncheckLike(event) {
+  const postId = event.target.getAttribute("postId");
+  const likesCountDisplay = document.getElementById(`likes_${postId}`);
+  fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      data
+        ? (event.target.src = "./assets/images/likeGiven.png")
+        : (event.target.src = "./assets/images/giveLike.png");
+
+      const likesCount = await getLikesByPost(postId);
+      likesCountDisplay.textContent = `${likesCount} likes`;
     });
 }
 
@@ -222,9 +257,9 @@ async function createPost(e) {
   formData.append("content", text);
 
   await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
-      method: "POST",
-      body: imgFormData,
-    })
+    method: "POST",
+    body: imgFormData,
+  })
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
@@ -232,9 +267,9 @@ async function createPost(e) {
 
   if (text.length) {
     await fetch("./controllers/posts.php?controller=createpost", {
-        method: "POST",
-        body: formData,
-      })
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data[0] === true) {
@@ -300,9 +335,9 @@ async function submitEditForm(e) {
     imgFormData.append("upload_preset", "j24srhjm");
 
     await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
-        method: "POST",
-        body: imgFormData,
-      })
+      method: "POST",
+      body: imgFormData,
+    })
       .then((res) => res.json())
       .then((data) => {
         formData.append("avatar", data.secure_url);
@@ -313,9 +348,9 @@ async function submitEditForm(e) {
   }
 
   await fetch("./controllers/users.php?controller=update", {
-      method: "POST",
-      body: formData,
-    })
+    method: "POST",
+    body: formData,
+  })
     .then((res) => res.json())
     .then((data) => {
       editProfileModal.classList.add("hidden");
@@ -348,6 +383,11 @@ function toggleFriendsModal() {
 
 function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
+}
+
+function toggleCreateComment(event){
+  createComment.classList.toggle("hidden");
+  commentPostId = event.target.getAttribute("postid");
 }
 
 function logout() {
@@ -418,6 +458,21 @@ function deleteFriend(event){
     });
 }
 
+function insertComment(event){
+  event.preventDefault();
+  commentPostId
+  const inputComment = inputCommentInsert.value;
+
+  fetch(`./controllers/comments.php?controller=addComment&inputComment=${inputComment}&commentPostId=${commentPostId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if(data[0]===true){
+        console.log(data[0])
+        getPosts();
+        toggleCreateComment();
+      }
+    });
+}
 async function showNotifications(){
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = `<img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">

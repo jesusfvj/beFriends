@@ -16,6 +16,31 @@ class LikesModel extends DbConection
         }
     }
 
+    function checkHasLike($postId)
+    {
+        session_start();
+        $sessionUserId = $_SESSION['id'];
+
+        $query = $this->db->connect()->prepare(
+            "SELECT * FROM likes 
+                WHERE post_id = $postId 
+                    AND user_id = $sessionUserId;"
+        );
+
+        try {
+            $query->execute();
+            $likes = $query->fetchAll();
+
+            if (count($likes)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
     function checkUncheckLike($id)
     {
         $queryPosts = $this->db->connect()->prepare("SELECT user_id as userId FROM post WHERE user_id = $id;");
@@ -47,7 +72,6 @@ class LikesModel extends DbConection
                     try {
                         $queryInsLike->execute();
                         return true;
-
                     } catch (PDOException $e) {
                         return [];
                     }

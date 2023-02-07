@@ -108,6 +108,20 @@ if (!isset($_SESSION['id'])) {
             </div>
         </div>
     </div>
+
+    <!-- add comments modal -->
+    <div class="modal hidden" id="createComment">
+    <div class="feed__edit-profile">
+            <form class="edit-form__container" id="insertCommentForm" userId=<?php echo $_SESSION['id'] ?>>
+                <div class="edit-form-div__input">
+                    <p class="paragraph-placeholder__text">Comment</p>
+                    <input class="edit-form__input" id="inputCommentInsert" type="text" name="inputCommentInsert" required>
+                </div>
+
+                <input type="submit" class="edit-form__button" value="Insert Comment">
+            </form>
+            <p class="modal-close-btn" id="insertCommentModalCloseBtn">x</p>
+    </div>
 </body>
 
 </html>

@@ -33,8 +33,9 @@ if (!isset($_SESSION['id'])) {
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
-                <div class="feed__nav-item" id="feedOpenFriendsModalBtn">
+                <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
                     <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />
+                    <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                 </div>
                 <div class="feed__nav-item" id="feedEditOpenModalBtn">
                     <img src="./assets/images/editProfile.png" alt="nav-icon" class="nav__image" />

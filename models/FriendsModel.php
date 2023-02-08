@@ -79,8 +79,7 @@ class FriendsModel extends DbConection
         $exists = $condition->rowCount();
         if ($exists){
             $follow = 'cancel';
-            $queryUpdate = $this->db->connect()->prepare("UPDATE friends SET follow = (?) WHERE $userId = user_id AND $friendsId = friend_id");
-            $queryUpdate->bindParam(1, $follow);
+            $queryUpdate = $this->db->connect()->prepare("UPDATE friends SET follow_back = '', follow = '$follow' WHERE $userId = user_id AND $friendsId = friend_id");
             try {
                 $queryUpdate->execute();
                 return [true];
@@ -136,4 +135,18 @@ class FriendsModel extends DbConection
             return [false, $e];
         }
     }
+
+    function getNotificationsAlertCount(){
+        session_start();
+        $userId = $_SESSION['id'];
+        $query = $this->db->connect()->prepare("SELECT count(friend_id) FROM friends WHERE $userId = friend_id AND follow_back = 'pending'");
+        try {
+            $query->execute();
+            $result = $query->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            return [false, $e];
+        }
+    }
 }
+

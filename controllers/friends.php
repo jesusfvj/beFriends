@@ -24,6 +24,10 @@ switch ($controller) {
         denyFriendRequest();
         break;
 
+    case 'getnotificationsalertcount':
+        getNotificationsAlertCount();
+        break;
+
     default:
         echo 'Invalid controller';
         break;
@@ -63,4 +67,9 @@ function denyFriendRequest()
     $friendsId = $_GET['friendid'];
     $denyFriendRequestUser = new FriendsModel();
     echo json_encode($denyFriendRequestUser->denyFriendRequestUser($friendsId));
+}
+
+function getNotificationsAlertCount(){
+    $getNotificationsAlertCount = new FriendsModel();
+    echo json_encode($getNotificationsAlertCount->getNotificationsAlertCount());
 }

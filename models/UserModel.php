@@ -64,16 +64,15 @@ class UserModel extends DbConection
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
         
-        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
-            $msg = $message->throwErrorMessage('password-strength');
-            return ['password-strength', $msg];
-        }
+        // if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        //     $msg = $message->throwErrorMessage('password-strength');
+        //     return ['password-strength', $msg];
+        // }
 
         $avatar = 'assets/images/defaultProfileImg.png';
         $role = "user";
         $creationDate = date("Y-m-d H:i:s");
         $updatedDate = date("Y-m-d H:i:s");
-        $denied = "false";
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 

@@ -6,7 +6,14 @@ function getPostById(id) {
     .then((data) => {});
 }
 
-// getPostsByUserId(2);
+function getPostsByUserId(userId) {
+  fetch(`./controllers/posts.php?userId=${userId}&controller=getpostsbyuserid`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
+getPostsByUserId(1);
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());

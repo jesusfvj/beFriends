@@ -51,7 +51,7 @@ if (!isset($_SESSION['id'])) {
     </aside>
     <main class="feed__main" id="feedPostsContainer"></main>
     <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
-    
+
 
     <!-- create post modal -->
 

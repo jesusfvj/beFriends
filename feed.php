@@ -19,6 +19,13 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <body class="feed__body">
+    <aside class="feed__friends-suggestions">
+        <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
+            <p>Suggested friends for you</p>
+        </div>
+    </aside>
+    <main class="feed__main" id="feedPostsContainer"></main>
+    <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
@@ -36,13 +43,6 @@ if (!isset($_SESSION['id'])) {
                     <img src="./assets/images/logout.png" alt="nav-icon" class="nav__image" />
                 </div>
             </nav>
-        </div>
-    </aside>
-    <main class="feed__main" id="feedPostsContainer"></main>
-    <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
-    <aside class="feed__friends-suggestions">
-        <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
-            <p>Suggested friends for you</p>
         </div>
     </aside>
 

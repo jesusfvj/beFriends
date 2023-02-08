@@ -6,14 +6,14 @@ function getPostById(id) {
     .then((data) => {});
 }
 
-function getPostsByUserId(userId) {
-  fetch(`./controllers/posts.php?userId=${userId}&controller=getpostsbyuserid`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
-}
-getPostsByUserId(1);
+// function getPostsByUserId(userId) {
+//   fetch(`./controllers/posts.php?userId=${userId}&controller=getpostsbyuserid`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// }
+// getPostsByUserId(1);
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
@@ -146,8 +146,10 @@ function getUsers() {
           if (index < 5) {
             friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
+            <div class="feed__friends-suggestions-btn-group">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <button onclick="deleteFriend(event)" class="feed__friends-suggestions-deny-btn" userId=${user.id}>x</button>
+            </div>
                 <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
@@ -226,6 +228,15 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
+      if (!isAllPostsPageActive) {
+        feedPostsContainer.innerHTML = "";
+        isAllPostsPageActive = true;
+        feedCreatePostButton.textContent = "Create post";
+        feedCreatePostButton.removeEventListener("click", getPosts);
+        feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+        feedCreatePostButton.classList.toggle("feed__create-post-button");
+        feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+      }
       const posts = data[0];
       const userId = data[1];
 
@@ -233,10 +244,21 @@ function getPosts() {
     });
 }
 
+let isAllPostsPageActive = true;
+
 function getPostsByUserId(id) {
+  isAllPostsPageActive = false;
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
-    .then((data) => {});
+    .then((data) => {
+      feedPostsContainer.innerHTML = "";
+      feedCreatePostButton.textContent = "Back to all posts";
+      feedCreatePostButton.removeEventListener("click", toggleCreatePostModal);
+      feedCreatePostButton.addEventListener("click", getPosts);
+      feedCreatePostButton.classList.toggle("feed__create-post-button");
+      feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+      printPosts(data[0], data[1]);
+    });
 }
 
 function checkHasLike(postId) {

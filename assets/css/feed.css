@@ -771,6 +771,24 @@
   margin-right: 1rem;
 }
 
+.friends-list__alert-counter-parent{
+  position: relative;
+}
+
+.friends-list__alert-counter{
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  background-color: red;
+  color: white;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
+  border-radius: 50%;
+}
+
 /* // hidden */
 
 .hidden {

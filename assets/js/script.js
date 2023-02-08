@@ -519,6 +519,7 @@ const navImage = document.querySelector(".nav__image");
 const friendListContainer = document.querySelector(".feed__friends-list");
 
 navImage.addEventListener("click", showFriendList);
+navImage.addEventListener("click", getNotificationsCounter);
 
 addFriendsButton.forEach((element) => {
   element.addEventListener("click", addFriend);
@@ -539,7 +540,10 @@ function addFriend(event) {
 }
 
 async function showFriendList() {
-  friendListContainer.innerHTML = ` <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
+  friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
+                                      <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
+                                      <div id="counterAlertNot" class="friends-list__alert-counter"></div>
+                                    </div>
                                     <h2>Friends</h2>
                                     <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>
                                     `;
@@ -563,6 +567,7 @@ async function showFriendList() {
     deleteBtn.addEventListener("click", deleteFriend);
   });
   bellIcon.addEventListener("click", showNotifications);
+  bellIcon.addEventListener("click", getNotificationsCounter);
 }
 
 function deleteFriend(event){
@@ -668,7 +673,10 @@ function insertComment(event) {
 }
 async function showNotifications() {
   friendListContainer.innerHTML = "";
-  friendListContainer.innerHTML = `<img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
+  friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
+                                      <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
+                                      <div id="counterAlertNot" class="friends-list__alert-counter"></div>
+                                    </div>
                                     <h2>Notifications</h2>
                                     <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>`;
 
@@ -703,6 +711,7 @@ async function showNotifications() {
 
   const bellIcon = document.querySelector(".friends-list__img-icon");
   bellIcon.addEventListener("click", showFriendList);
+  bellIcon.addEventListener("click", getNotificationsCounter);
 }
 
 function denyFollow(event) {
@@ -720,4 +729,35 @@ function denyFollow(event) {
 function naviagateToWall(event) {
   const userId = event.target.getAttribute("userId");
   window.location.href = `./wall.php?userId=${userId}`;
+}
+
+setInterval(() => {
+  fetch(
+    `./controllers/friends.php?controller=getnotificationsalertcount`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data[0][0])
+      printNotificationsAlert(data[0][0]);
+    });
+}, 1000);
+
+function printNotificationsAlert(data){
+  const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
+  if(alertCounterNot){
+    alertCounterNot.forEach(element => {
+      element.textContent = data;
+    });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", getNotificationsCounter)
+
+function getNotificationsCounter(){
+  fetch(
+    `./controllers/friends.php?controller=getnotificationsalertcount`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data[0][0])
+      printNotificationsAlert(data[0][0]);
+    });
 }

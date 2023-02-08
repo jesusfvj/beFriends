@@ -492,7 +492,6 @@ async function showFriendList() {
 }
 
 function deleteFriend(event){
-  console.log("hola")
   const friendId = event.target.getAttribute("userid");
   fetch(`./controllers/friends.php?controller=deletefriend&friendid=${friendId}`)
     .then((res) => res.json())

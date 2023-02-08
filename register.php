@@ -102,7 +102,9 @@ if (isset($_SESSION['id'])) {
                 <div class="modal-error-register__img-container">
                     <img class="modal-error-register__img" src="./assets/images/notOkIcon.png">
                 </div>
-                <p class="modal-error-register__paragraph">Sorry, the email or nickname already exists, please enter a new one.</p>
+                <p class="modal-error-register__paragraph" id="registerError">
+                    Sorry, the email or nickname already exists, please enter a new one.
+                </p>
             </div>
         </div>
     </section>

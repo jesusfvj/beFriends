@@ -1,5 +1,6 @@
 <?php
 require_once("../models/index.php");
+require_once('../Message.php');
 
 class UserModel extends DbConection
 {
@@ -56,6 +57,18 @@ class UserModel extends DbConection
 
     function register($fullname, $username, $email, $password, $gender)
     {
+        $message = new Message();
+
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+        
+        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            $msg = $message->throwErrorMessage('password-strength');
+            return ['password-strength', $msg];
+        }
+
         $avatar = 'assets/images/defaultProfileImg.png';
         $role = "user";
         $creationDate = date("Y-m-d H:i:s");
@@ -81,8 +94,9 @@ class UserModel extends DbConection
             $query->execute();
             return [true];
         } catch (PDOException $e) {
-            return [false, $e];
-        }
+            $msg = $message->throwErrorMessage('user-or-email-not-valid');
+            return ['user-or-email-not-valid', $msg, $e];
+        } 
     }
 
     function update($id, $fullname, $username, $gender, $avatar)

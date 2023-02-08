@@ -4,6 +4,7 @@ const sucessAlert = document.querySelector(".modal-success-register__div");
 const errorAlert = document.querySelector(".modal-error-register__div");
 const logInText = document.querySelector(".paragraph-log-in__text");
 const registerForm = document.querySelector("#formContainerRegister");
+const registerErrorMessage = document.getElementById('registerError');
 
 
 const iconsImg = document.querySelectorAll(".icons__img");
@@ -48,6 +49,11 @@ function sendRegisterData(event) {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data[0] && data[0] == 'password-strength') {
+          registerErrorMessage.textContent = data[1];
+        } else if (data[0] && data[0] == 'user-or-email-not-valid') {
+          registerErrorMessage.textContent = data[1];
+        }
         modalVerifications(data);
       });
   } else {

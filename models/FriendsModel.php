@@ -11,17 +11,19 @@ class FriendsModel extends DbConection
         $condition->execute();
         $exists = $condition->rowCount();
         if ($exists){
-            $followBack = 'accepted';
+            $followBackAccepted = 'accepted';
             $queryUpdate = $this->db->connect()->prepare("UPDATE friends SET follow_back = (?) WHERE $friendsId = user_id AND $userId = friend_id");
-            $queryUpdate->bindParam(1, $followBack);
+            $queryUpdate->bindParam(1, $followBackAccepted);
 
             $followBack = 'follow back';
-            $query = $this->db->connect()->prepare("INSERT INTO friends(user_id, friend_id, follow_back)
-            VALUES (?, ?, ?)");
+            $follow = 'true';
+            $query = $this->db->connect()->prepare("INSERT INTO friends(user_id, friend_id, follow_back, follow)
+            VALUES (?, ?, ?, ?)");
     
             $query->bindParam(1, $_SESSION['id']);
             $query->bindParam(2, $friendsId);
             $query->bindParam(3, $followBack);
+            $query->bindParam(4, $follow);
             try {
                 $query->execute();
                 $queryUpdate->execute();
@@ -32,12 +34,14 @@ class FriendsModel extends DbConection
         }
         else {
             $followBack = 'pending';
-            $query = $this->db->connect()->prepare("INSERT INTO friends(user_id, friend_id, follow_back)
-            VALUES (?, ?, ?)");
+            $follow = 'true';
+            $query = $this->db->connect()->prepare("INSERT INTO friends(user_id, friend_id, follow_back, follow)
+            VALUES (?, ?, ?, ?)");
     
             $query->bindParam(1, $_SESSION['id']);
             $query->bindParam(2, $friendsId);
             $query->bindParam(3, $followBack);
+            $query->bindParam(4, $follow);
             try {
                 $query->execute();
                 return [true];
@@ -54,7 +58,7 @@ class FriendsModel extends DbConection
         $query = $this->db->connect()->prepare(
             "SELECT T.friendId, user.name, user.nickname, user.avatar FROM
                 (SELECT friend_id as friendId FROM friends
-                    WHERE friends.user_id = $userId) AS T
+                    WHERE friends.user_id = $userId  AND follow <> 'cancel') AS T
                         INNER JOIN user ON T.friendId = user.id");
         try {
             $query->execute();
@@ -67,15 +71,38 @@ class FriendsModel extends DbConection
 
     function deleteFriendUser($friendsId)
     {
-        $queryUpdate = $this->db->connect()->prepare("UPDATE user SET denied = 'true' WHERE $friendsId = user.id");
-        $queryDelete = $this->db->connect()->prepare("DELETE FROM friends WHERE $friendsId = friend_id");
 
-        try {
-            $queryDelete->execute();
-            $queryUpdate->execute();
-            return [true];
-        } catch (PDOException $e) {
-            return [false, $e];
+        session_start();
+        $userId = $_SESSION['id'];
+        $condition = $this->db->connect()->prepare("SELECT * FROM friends WHERE $userId = user_id AND $friendsId = friend_id");
+        $condition->execute();
+        $exists = $condition->rowCount();
+        if ($exists){
+            $follow = 'cancel';
+            $queryUpdate = $this->db->connect()->prepare("UPDATE friends SET follow = (?) WHERE $userId = user_id AND $friendsId = friend_id");
+            $queryUpdate->bindParam(1, $follow);
+            try {
+                $queryUpdate->execute();
+                return [true];
+            } catch (PDOException $e) {
+                return [false, $e];
+            }
+        }
+        else {
+            $followBack = '';
+            $follow = 'cancel';
+            $queryInsert = $this->db->connect()->prepare("INSERT INTO friends(user_id, friend_id, follow_back, follow)
+                VALUES (?, ?, ?, ?)");
+            $queryInsert->bindParam(1, $userId);
+            $queryInsert->bindParam(2, $friendsId);
+            $queryInsert->bindParam(3, $followBack);
+            $queryInsert->bindParam(4, $follow);
+            try {
+                $queryInsert->execute();
+                return [true];
+            } catch (PDOException $e) {
+                return [false, $e];
+            }
         }
     }
 

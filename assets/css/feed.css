@@ -742,6 +742,9 @@
 }
 
 .feed__user-login{
+  position: fixed;
+  top: 1.5rem;
+  left: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -892,5 +895,9 @@
 
   .feed__post-comments-container {
     padding-left: 0rem;
+  }
+
+  .feed__user-login{
+    display: none;
   }
 }

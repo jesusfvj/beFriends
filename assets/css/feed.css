@@ -322,7 +322,6 @@
 }
 
 .modal-close-btn {
-  z-index: 9999999999;
   position: absolute;
   right: 1rem;
   top: 1rem;
@@ -335,6 +334,14 @@
   height: 2rem;
   width: 2rem;
   cursor: pointer;
+}
+
+.feed__friend-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 11rem;
 }
 
 .feed__post-image-label,
@@ -395,7 +402,6 @@
 }
 
 /* friends list */
-
 .feed__friends-list {
   position: relative;
   display: flex;
@@ -404,7 +410,7 @@
   justify-content: flex-start;
   gap: 2rem;
   height: 50%;
-  width: 40%;
+  min-width: 20%;
   padding: 3rem;
   background-color: white;
   border-radius: 15px;
@@ -444,6 +450,12 @@
   scrollbar-width: none;
 }
 
+.feed__notification-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 /* edit profile */
 
 .feed__edit-profile {
@@ -476,6 +488,7 @@
 }
 
 .edit-form__input {
+  box-sizing: border-box;
   width: 80%;
   height: 2.5rem;
   border: 0.1rem solid rgb(161, 161, 161);
@@ -668,8 +681,7 @@
   cursor: pointer;
 }
 
-.feed__found-user-add-btn,
-.feed__notification-container {
+.feed__found-user-add-btn{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -686,6 +698,8 @@
 .feed__friend-img,
 .feed__notification-img {
   width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
   margin-right: 1rem;
 }
 
@@ -859,7 +873,10 @@
     width: 80%;
   }
 
-  .feed__friends-list,
+  .feed__friends-list{
+    min-width: 20%;
+  }
+
   .feed__edit-profile,
   .feed__create-post-form {
     width: 70%;
@@ -878,7 +895,7 @@
   }
 
   .edit-form__input {
-    width: 90%;
+    width: 70%;
   }
 
   .edit-profile-image-label {
@@ -900,5 +917,19 @@
 
   .feed__user-login{
     display: none;
+  }
+
+  .feed__notification-follow-back-btn{
+    font-size: 0.6rem;
+    padding: 0 0.5rem;
+    width: fit-content;
+  }
+
+  .feed__notification-nickname{
+    font-size: 0.8rem;
+  }
+
+  .edit-form-div__input {
+    justify-content: center;
   }
 }

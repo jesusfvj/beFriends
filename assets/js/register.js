@@ -74,7 +74,7 @@ function modalVerifications(data){
     errorAlert.style.display = "block";
     setTimeout(() => {
       errorAlert.style.display = "none";
-    }, 3000);
+    }, 4000);
   }
 }
 

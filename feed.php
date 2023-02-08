@@ -38,8 +38,11 @@ if (!isset($_SESSION['id'])) {
             </nav>
         </div>
     </aside>
-    <main class="feed__main" id="feedPostsContainer">
-
+    <main class="feed__container">
+    <div class="feed__main" id="feedPostsContainer">
+    
+    </div>
+    <div class="spinner" id="spinnerLoaded"></div>
     </main>
     <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__friends-suggestions">

@@ -494,6 +494,27 @@
   display: none;
 }
 
+.spinner{
+  border:20px solid #f2f2f2;
+  border-bottom: 20px solid #33dba9;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: loader 2s linear infinite;
+}
+
+@keyframes loader{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+
+.feed__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
   .feed__body {
     display: flex;

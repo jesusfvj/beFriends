@@ -11,7 +11,7 @@ function getPostById(id) {
 function checkUncheckLike(postId) {
   fetch(`./controllers/likes.php?id=${postId}&controller=checkunchecklike`)
     .then((res) => res.json())
-    .then((data) => {});
+    .then((data) => { });
 }
 checkUncheckLike(4);
 
@@ -27,7 +27,7 @@ function getLikesByPost(postId) {
 }
 
 document.body.addEventListener("load", getUsers());
-document.body.addEventListener("load", getPosts());
+// document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());
 
 const feedPostsContainer = document.getElementById("feedPostsContainer");
@@ -79,7 +79,13 @@ const deleteUserConfirm = document.getElementById("deleteUserConfirm");
 const deleteUserDecline = document.getElementById("deleteUserDecline");
 deleteUserConfirm.addEventListener("click", deleteUser);
 deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
-//
+
+//infinity scroll
+const spinner = document.getElementById("spinnerLoaded");
+let page = 1;
+let deletePostContainer = false;
+document.addEventListener("DOMContentLoaded", infinityScroll);
+
 
 // toggle modals controllers
 const createComment = document.getElementById("createComment");
@@ -114,11 +120,14 @@ insertCommentForm.addEventListener("submit", insertComment);
 feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
+let nickname = '';
+
 function getLogedUser() {
   const loggedUserId = JSON.parse(localStorage.getItem("userId"));
   fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
     .then((res) => res.json())
     .then((data) => {
+      nickname = data[0].nickname;
       editProfileImageToUpload = data[0].avatar;
     });
 }
@@ -152,13 +161,18 @@ function getUsers() {
     });
 }
 
-function getPosts() {
-  fetch("./controllers/posts.php?controller=getposts")
+function getPosts(page) {
+  fetch(`./controllers/posts.php?controller=getposts&page=${page}`)
     .then((res) => res.json())
     .then((data) => {
       const posts = data[0];
       const userId = data[1];
-      feedPostsContainer.innerHTML = "";
+      
+      if (posts.length < 5) {
+        spinner.classList.toggle("hidden");
+      }
+      
+      // feedPostsContainer.innerHTML = "";
       posts.forEach(async (post) => {
         const {
           avatar,
@@ -181,11 +195,10 @@ function getPosts() {
                         <p class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
-                  ${
-                    userId == postOwner
-                      ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
-                      : ""
-                  }
+                  ${userId == postOwner
+            ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
+            : ""
+          }
                 </div>
                 <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">
@@ -197,12 +210,14 @@ function getPosts() {
                         <p>${likes} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
-                    <div class="feed__post-comments-container">
+                    <div class="feed__post-comments-container" id="commentsContainer${postId}">
                     ${comments.map((comment) => {
-                      const { nickname, postContent } = comment;
-                      return `<div class = "feed__post-comment">
-                      <p class = "feed__post-comment-author">${nickname} </p><p class = "feed__post-comment-message"> ${postContent} </p> </div>`;
-                    })}
+            const { nickname, postContent } = comment;
+            return `<div class = "feed__post-comment">
+                      <p class = "feed__post-comment-author">${nickname} </p>
+                      <p class = "feed__post-comment-message"> ${postContent} </p> 
+                    </div>`;
+          })}
                     </div>
                 </div>
             </article>
@@ -248,7 +263,13 @@ async function createPost(e) {
       .then((res) => res.json())
       .then((data) => {
         if (data[0] === true) {
-          getPosts();
+          feedPostsContainer.innerHTML = "";
+          if(spinner.classList.contains("hidden")){
+            spinner.classList.toggle("hidden");
+          };
+          
+          page = 1;
+          // getPosts(page);
           toggleCreatePostModal();
         }
       });
@@ -364,9 +385,14 @@ function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
 }
 
-function toggleCreateComment(event){
+function toggleCreateComment(event) {
+  if(event){
+    const postId = event.target.getAttribute('postId')
+    insertCommentForm.setAttribute('postId', postId)
+    commentPostId = event.target.getAttribute("postid");
+  }
+  
   createComment.classList.toggle("hidden");
-  commentPostId = event.target.getAttribute("postid");
 }
 
 function logout() {
@@ -416,18 +442,43 @@ function showFriendList() {
     });
 }
 
-function insertComment(event){
+function insertComment(event) {
   event.preventDefault();
-  commentPostId
+  const postId = event.target.getAttribute('postId')
+  const commentsContainer = document.getElementById(`commentsContainer${postId}`)
+
   const inputComment = inputCommentInsert.value;
 
   fetch(`./controllers/comments.php?controller=addComment&inputComment=${inputComment}&commentPostId=${commentPostId}`)
     .then((res) => res.json())
     .then((data) => {
-      if(data[0]===true){
-        console.log(data[0])
-        getPosts();
+      if (data[0] === true) {
+        commentsContainer.insertAdjacentHTML("beforeend", `
+                    <div class = "feed__post-comment">
+                      <p class = "feed__post-comment-author">${nickname}</p>
+                      <p class = "feed__post-comment-message"> ${inputComment} </p> 
+                    </div>
+        
+        `)
+        // getPosts(page);
         toggleCreateComment();
       }
     });
+}
+
+
+function infinityScroll() {
+
+  const observeSpinner = async listPost => {
+    if (listPost[0].isIntersecting) {
+      await getPosts(page);
+      page++
+    }
+  }
+  const options = {
+    threshold: 0.9
+  }
+  let observer = new IntersectionObserver(observeSpinner, options);
+
+  observer.observe(spinner)
 }

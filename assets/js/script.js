@@ -736,7 +736,6 @@ setInterval(() => {
     `./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data[0][0])
       printNotificationsAlert(data[0][0]);
     });
 }, 1000);

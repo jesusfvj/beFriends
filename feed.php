@@ -29,7 +29,6 @@ if (!isset($_SESSION['id'])) {
         </div>
     </aside>
     <main class="feed__main" id="feedPostsContainer"></main>
-    <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />

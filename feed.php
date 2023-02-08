@@ -19,6 +19,13 @@ if (!isset($_SESSION['id'])) {
 </head>
 
 <body class="feed__body">
+    <aside class="feed__friends-suggestions">
+        <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
+            <p>Suggested friends for you</p>
+        </div>
+    </aside>
+    <main class="feed__main" id="feedPostsContainer"></main>
+    <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
@@ -70,6 +77,15 @@ if (!isset($_SESSION['id'])) {
         <div class=" feed__friends-list">
             <h2>Friends</h2>
             <p class="modal-close-btn" id="feedFriendsModalCloseBtn">x</p>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="feedSearchUsersModal">
+        <div class="feed__friends-list">
+            <p class="modal-close-btn" id="feedSearchModalCloseBtn">x</p>
+            <input type="text" id="feedSearchInput" class="feed__search-input">
+            <div id="feedSearchResult" class="feed__search-result-container">
+            </div>
         </div>
     </div>
 

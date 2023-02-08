@@ -5,17 +5,18 @@ class PostModel extends DbConection
 {
     function get()
     {
-        $queryPost = $this->db->connect()->prepare("SELECT P.content as postContent, P.image, P.created_at, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
-                                                FROM post P JOIN user U ON U.id = P.user_id
-                                                ORDER BY P.created_at DESC");
-
+        $queryPost = $this->db->connect()->prepare(
+            "SELECT P.content as postContent, P.image, P.created_at, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
+                FROM post P JOIN user U ON U.id = P.user_id
+                    ORDER BY P.created_at DESC");
 
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM
-                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
+                (SELECT post.id as postId, comment.content as postContent, comment.created_At as date_created, comment.user_id as commentOwnerId 
+                    FROM post 
                     INNER JOIN comment ON post.id = comment.post_id) AS T
-                        INNER JOIN user ON T.commentOwnerId = user.id"
-        );
+                    INNER JOIN user ON T.commentOwnerId = user.id
+                        ORDER BY T.date_created DESC");
 
         try {
             $queryPost->execute();
@@ -61,7 +62,65 @@ class PostModel extends DbConection
         }
     }
 
-    function getById($id)
+    function getPostsByUserId($userId)
+    {
+        $queryPost = $this->db->connect()->prepare(
+            " SELECT T.*, U.nickname, U.avatar, U.id FROM
+                (SELECT P.user_id as postOwner, P.content as postContent, P.image, P.created_at, P.id as postId 
+                    FROM post P WHERE P.user_id = $userId) as T
+                        INNER JOIN user U ON U.id = T.postOwner");
+
+        $queryComments = $this->db->connect()->prepare(
+            "SELECT T.*, user.nickname FROM
+                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
+                    INNER JOIN comment ON post.id = comment.post_id) AS T
+                        INNER JOIN user ON $userId = user.id");
+
+        try {
+            $queryPost->execute();
+            $posts = $queryPost->fetchAll();
+            $queryComments->execute();
+            $comments = $queryComments->fetchAll();
+
+            for ($i = 0; $i < count($posts); $i++) {
+                $postId = intval($posts[$i]['postId']);
+                $likesQuery = $this->db->connect()->prepare("SELECT COUNT(id) FROM likes WHERE post_id = $postId");
+                $likesQuery->execute();
+                $likesCount = $likesQuery->fetchAll();
+
+                $sessionUserId = $_SESSION['id'];
+
+                $isLikedQuery = $this->db->connect()->prepare(
+                    "SELECT * FROM likes 
+                    WHERE post_id = $postId 
+                        AND user_id = $sessionUserId;"
+                );
+                $isLikedQuery->execute();
+                $isLiked = $isLikedQuery->fetchAll();
+
+                $posts[$i]['isLiked'] = count($isLiked) ? true : false;
+                $posts[$i]['likesCount'] = $likesCount[0][0];
+            }
+
+            foreach ($posts as &$post) {
+                $post["comments"] = [];
+            }
+
+            for ($i = 0; $i < count($posts); $i++) {
+                for ($j = 0; $j < count($comments); $j++) {
+                    if ($posts[$i]["postId"] == $comments[$j]["postId"]) {
+                        array_push($posts[$i]["comments"], $comments[$j]);
+                    }
+                }
+            }
+
+            return [$posts, $_SESSION["id"]];
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+
+    function getPostById($id)
     {
         $query = $this->db->connect()->prepare("SELECT * FROM post WHERE id = $id;");
 
@@ -73,6 +132,7 @@ class PostModel extends DbConection
             return [];
         }
     }
+
 
     function create($user_id, $content, $image)
     {

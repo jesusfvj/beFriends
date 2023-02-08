@@ -3,32 +3,17 @@
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-    });
+    .then((data) => {});
 }
 
-function checkHasLike(postId) {
-  const hasLikes = fetch(
-    `./controllers/likes.php?post_id=${postId}&controller=checkhaslike`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
-    });
-  return hasLikes;
-}
-
-function getLikesByPost(postId) {
-  const likes = fetch(
-    `./controllers/likes.php?id=${postId}&controller=getlikesbypost`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
-    });
-  return likes;
-}
+// function getPostsByUserId(userId) {
+//   fetch(`./controllers/posts.php?userId=${userId}&controller=getpostsbyuserid`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// }
+// getPostsByUserId(1);
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
@@ -48,6 +33,7 @@ const createPostModalCloseBtn = document.getElementById(
 const createPostThumbnailContainer = document.getElementById(
   "createPostThumbnailContainer"
 );
+
 createPostForm.addEventListener("submit", createPost);
 postImageUpload.addEventListener("change", getFiles);
 
@@ -163,8 +149,10 @@ function getUsers() {
           if (index < 5) {
             friendsSuggestionsContainer.innerHTML += `
             <div class="feed__friends-suggestions-profile">
+            <div class="feed__friends-suggestions-btn-group">
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <button onclick="deleteFriend(event)" class="feed__friends-suggestions-deny-btn" userId=${user.id}>x</button>
+            </div>
                 <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
@@ -181,35 +169,27 @@ function getUsers() {
     });
 }
 
-function getPosts() {
-  fetch("./controllers/posts.php?controller=getposts")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      const posts = data[0];
-      const userId = data[1];
+function printPosts(posts, userId) {
+  posts.forEach(async (post) => {
+    const {
+      avatar,
+      nickname,
+      created_at,
+      image,
+      postId,
+      postOwner,
+      postContent,
+      comments,
+      likesCount,
+      isLiked,
+    } = post;
 
-      posts.forEach(async (post) => {
-        const {
-          avatar,
-          nickname,
-          created_at,
-          image,
-          postId,
-          postOwner,
-          postContent,
-          comments,
-          likesCount,
-          isLiked,
-        } = post;
-        console.log(created_at);
-
-        feedPostsContainer.innerHTML += `
+    feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img" src=${avatar} alt="" />
-                    <div>
-                        <p class="feed__post-profile-name">${nickname}</p>
+                    <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
+                        <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
                   ${
@@ -225,26 +205,85 @@ function getPosts() {
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
                         <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
-          isLiked
-            ? "./assets/images/likeGiven.png"
-            : "./assets/images/giveLike.png"
-        } alt=""  />
+      isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
+    } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
                     <div class="feed__post-comments-container">
-                    ${comments.map((comment) => {
-                      const { nickname, postContent } = comment;
-                      return `<div class = "feed__post-comment">
-                      <p class="feed__post-comment-author">${nickname}</p>
-                      <p class="feed__post-comment-message">${postContent}</p></div>`;
-                    })}
+                    ${comments
+                      .map((comment) => {
+                        const { nickname, postContent } = comment;
+                        return `<div class = "feed__post-comment">
+                                <p class="feed__post-comment-author">${nickname}</p>
+                                <p class="feed__post-comment-message">${postContent}</p>
+                              </div>`;
+                      })
+                      .join("")}
                     </div>
                 </div>
             </article>
             `;
-      });
+  });
+}
+
+function getPosts() {
+  fetch("./controllers/posts.php?controller=getposts")
+    .then((res) => res.json())
+    .then((data) => {
+      if (!isAllPostsPageActive) {
+        feedPostsContainer.innerHTML = "";
+        isAllPostsPageActive = true;
+        feedCreatePostButton.textContent = "Create post";
+        feedCreatePostButton.removeEventListener("click", getPosts);
+        feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+        feedCreatePostButton.classList.toggle("feed__create-post-button");
+        feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+      }
+      const posts = data[0];
+      const userId = data[1];
+
+      printPosts(posts, userId);
     });
+}
+
+let isAllPostsPageActive = true;
+
+function getPostsByUserId(id) {
+  isAllPostsPageActive = false;
+  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
+    .then((res) => res.json())
+    .then((data) => {
+      feedPostsContainer.innerHTML = "";
+      feedCreatePostButton.textContent = "Back to all posts";
+      feedCreatePostButton.removeEventListener("click", toggleCreatePostModal);
+      feedCreatePostButton.addEventListener("click", getPosts);
+      feedCreatePostButton.classList.toggle("feed__create-post-button");
+      feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+      printPosts(data[0], data[1]);
+    });
+}
+
+function checkHasLike(postId) {
+  const hasLikes = fetch(
+    `./controllers/likes.php?post_id=${postId}&controller=checkhaslike`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+  return hasLikes;
+}
+
+function getLikesByPost(postId) {
+  const likes = fetch(
+    `./controllers/likes.php?id=${postId}&controller=getlikesbypost`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+  return likes;
 }
 
 function checkUncheckLike(event) {
@@ -427,6 +466,39 @@ function toggleEditModal() {
 
 function toggleSearchModal() {
   feedSearchUsersModal.classList.toggle("hidden");
+  feedSearchResult.innerHTML = "";
+  feedSearchInput.value = "";
+
+  friends.map((friend) => {
+    const { friendId, nickname, avatar } = friend;
+
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+           <div class="feed__found-user-btn-group">
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${friendId}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${friendId}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
+  nonFriends.map((nonFriend) => {
+    const { id, nickname, avatar } = nonFriend;
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+            <div class="feed__found-user-btn-group">
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userid=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${id}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
 }
 
 function toggleCreateComment(event) {
@@ -454,12 +526,15 @@ addFriendsButton.forEach((element) => {
 
 function addFriend(event) {
   const friendId = event.target.getAttribute("userid");
+
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
+    .then(async (data) => {
       getUsers();
       showNotifications();
+      await getNoFriends();
+      await getFriends();
+      searchUsers();
     });
 }
 
@@ -482,22 +557,26 @@ async function showFriendList() {
         friendListContainer.appendChild(newFriend);
       });
     });
-
-    const deleteButton = document.querySelectorAll(".feed__friend-delete");
-    const bellIcon = document.querySelector(".friends-list__img-icon");
-    deleteButton.forEach(deleteBtn => {
-      deleteBtn.addEventListener("click", deleteFriend);
-    });
-    bellIcon.addEventListener("click", showNotifications);
+  const deleteButton = document.querySelectorAll(".feed__friend-delete");
+  const bellIcon = document.querySelector(".friends-list__img-icon");
+  deleteButton.forEach((deleteBtn) => {
+    deleteBtn.addEventListener("click", deleteFriend);
+  });
+  bellIcon.addEventListener("click", showNotifications);
 }
 
 function deleteFriend(event){
   const friendId = event.target.getAttribute("userid");
-  fetch(`./controllers/friends.php?controller=deletefriend&friendid=${friendId}`)
+  fetch(
+    `./controllers/friends.php?controller=deletefriend&friendid=${friendId}`
+  )
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       showFriendList();
       getUsers();
+      await getNoFriends();
+      await getFriends();
+      searchUsers();
     });
 }
 
@@ -523,9 +602,10 @@ async function getFriends() {
 }
 getFriends();
 
-async function searchUsers(e) {
+async function searchUsers() {
+  const feedSearchInput = document.getElementById("feedSearchInput");
   feedSearchResult.innerHTML = "";
-  const searchText = e.target.value;
+  const searchText = feedSearchInput.value;
 
   let foundFriends = friends.filter((friend) => {
     if (friend.nickname.toLowerCase().includes(searchText.toLowerCase())) {
@@ -540,14 +620,14 @@ async function searchUsers(e) {
   });
 
   foundFriends.map((foundFriend) => {
-    const { id, nickname, avatar } = foundFriend;
+    const { friendId, nickname, avatar } = foundFriend;
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
            <div class="feed__found-user-btn-group">
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${friendId}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
-                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${friendId}/>
                 <p>${nickname}</p>
             </div>   
         </div>
@@ -558,8 +638,8 @@ async function searchUsers(e) {
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
             <div class="feed__found-user-btn-group">
-                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userId=${id}>+</button>
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userid=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${id}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
                 <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
@@ -581,43 +661,45 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        console.log(data[0]);
         getPosts();
         toggleCreateComment();
       }
     });
 }
-async function showNotifications(){
+async function showNotifications() {
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = `<img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
                                     <h2>Notifications</h2>
                                     <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>`;
 
   await fetch(`./controllers/friends.php?controller=getnotifications`)
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data);
-    data.forEach((notification) => {
-      let newNotification = document.createElement("div");
-      newNotification.classList.add("feed__notification-container");
-      newNotification.innerHTML = ` <button class="feed__notification-delete" userid="${notification.user_id}">x</button>
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((notification) => {
+        let newNotification = document.createElement("div");
+        newNotification.classList.add("feed__notification-container");
+        newNotification.innerHTML = ` <button class="feed__notification-delete" userid="${notification.user_id}">x</button>
                               <img class="feed__notification-img" src="${notification.avatar}" alt="user avatar">
                               <p class="feed__notification-nickname">${notification.nickname}</p>
                               <button class="feed__notification-follow-back-btn" userid="${notification.user_id}">Follow back</button>`;
 
-      friendListContainer.appendChild(newNotification);
+        friendListContainer.appendChild(newNotification);
+      });
     });
+
+  const followBackBtn = document.querySelectorAll(
+    ".feed__notification-follow-back-btn"
+  );
+  followBackBtn.forEach((followBack) => {
+    followBack.addEventListener("click", addFriend);
   });
 
-  const followBackBtn = document.querySelectorAll(".feed__notification-follow-back-btn");
-  followBackBtn.forEach(followBack => {
-    followBack.addEventListener("click", addFriend);
-    });
-
-  const denyFollowBack = document.querySelectorAll(".feed__notification-delete");
-  denyFollowBack.forEach(denyFollowBtn => {
+  const denyFollowBack = document.querySelectorAll(
+    ".feed__notification-delete"
+  );
+  denyFollowBack.forEach((denyFollowBtn) => {
     denyFollowBtn.addEventListener("click", denyFollow);
-    });
+  });
 
   const bellIcon = document.querySelector(".friends-list__img-icon");
   bellIcon.addEventListener("click", showFriendList);
@@ -625,11 +707,17 @@ async function showNotifications(){
 
 function denyFollow(event) {
   const friendId = event.target.getAttribute("userid");
-  fetch(`./controllers/friends.php?controller=denyfriendrequest&friendid=${friendId}`)
+  fetch(
+    `./controllers/friends.php?controller=denyfriendrequest&friendid=${friendId}`
+  )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
       getUsers();
       showNotifications();
     });
+}
+
+function naviagateToWall(event) {
+  const userId = event.target.getAttribute("userId");
+  window.location.href = `./wall.php?userId=${userId}`;
 }

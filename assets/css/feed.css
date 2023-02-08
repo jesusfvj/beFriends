@@ -18,6 +18,7 @@
   margin: 0;
   padding: 0;
   font-family: var(--font);
+	user-select: none;
 }
 
 .feed__body {

@@ -8,14 +8,7 @@ function getPostById(id) {
     });
 }
 
-function getPostsByUserId(id) {
-  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
-}
-getPostsByUserId(2);
+// getPostsByUserId(2);
 
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
@@ -166,35 +159,27 @@ function getUsers() {
     });
 }
 
-function getPosts() {
-  fetch("./controllers/posts.php?controller=getposts")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      const posts = data[0];
-      const userId = data[1];
+function printPosts(posts, userId) {
+  posts.forEach(async (post) => {
+    const {
+      avatar,
+      nickname,
+      created_at,
+      image,
+      postId,
+      postOwner,
+      postContent,
+      comments,
+      likesCount,
+      isLiked,
+    } = post;
 
-      posts.forEach(async (post) => {
-        const {
-          avatar,
-          nickname,
-          created_at,
-          image,
-          postId,
-          postOwner,
-          postContent,
-          comments,
-          likesCount,
-          isLiked,
-        } = post;
-        console.log(created_at);
-
-        feedPostsContainer.innerHTML += `
+    feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img" src=${avatar} alt="" />
-                    <div>
-                        <p class="feed__post-profile-name">${nickname}</p>
+                    <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
+                        <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
                   ${
@@ -210,25 +195,44 @@ function getPosts() {
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
                         <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
-          isLiked
-            ? "./assets/images/likeGiven.png"
-            : "./assets/images/giveLike.png"
-        } alt=""  />
+      isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
+    } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
                     <div class="feed__post-comments-container">
-                    ${comments.map((comment) => {
-                      const { nickname, postContent } = comment;
-                      return `<div class = "feed__post-comment">
-                      <p class="feed__post-comment-author">${nickname}</p>
-                      <p class="feed__post-comment-message">${postContent}</p></div>`;
-                    })}
+                    ${comments
+                      .map((comment) => {
+                        const { nickname, postContent } = comment;
+                        return `<div class = "feed__post-comment">
+                                <p class="feed__post-comment-author">${nickname}</p>
+                                <p class="feed__post-comment-message">${postContent}</p>
+                              </div>`;
+                      })
+                      .join("")}
                     </div>
                 </div>
             </article>
             `;
-      });
+  });
+}
+
+function getPosts() {
+  fetch("./controllers/posts.php?controller=getposts")
+    .then((res) => res.json())
+    .then((data) => {
+      const posts = data[0];
+      const userId = data[1];
+
+      printPosts(posts, userId);
+    });
+}
+
+function getPostsByUserId(id) {
+  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
     });
 }
 
@@ -434,6 +438,38 @@ function toggleEditModal() {
 
 function toggleSearchModal() {
   feedSearchUsersModal.classList.toggle("hidden");
+  feedSearchResult.innerHTML = "";
+  feedSearchInput.value = "";
+
+  friends.map((friend) => {
+    const { id, nickname, avatar } = friend;
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+           <div class="feed__found-user-btn-group">
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
+  nonFriends.map((nonFriend) => {
+    const { id, nickname, avatar } = nonFriend;
+    feedSearchResult.innerHTML += `
+        <div class="feed__found-user-container">
+            <div class="feed__found-user-btn-group">
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userId=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+            </div>   
+            <div class="feed__found-user-info-group">
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <p>${nickname}</p>
+            </div>   
+        </div>
+    `;
+  });
 }
 
 function toggleCreateComment(event) {
@@ -578,6 +614,7 @@ async function searchUsers(e) {
     `;
   });
 }
+
 function insertComment(event) {
   event.preventDefault();
   commentPostId;
@@ -646,4 +683,9 @@ function denyFollow(event) {
       getUsers();
       showNotifications();
     });
+}
+
+function naviagateToWall(event) {
+  const userId = event.target.getAttribute("userId");
+  window.location.href = `./wall.php?userId=${userId}`;
 }

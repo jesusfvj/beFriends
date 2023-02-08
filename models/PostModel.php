@@ -80,7 +80,8 @@ class PostModel extends DbConection
             "SELECT * FROM post P
                 WHERE P.user_id = $userId
                 ORDER BY P.created_at DESC
-            ;");
+            ;"
+        );
 
         try {
             $query->execute();

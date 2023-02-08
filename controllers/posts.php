@@ -45,7 +45,7 @@ function getPostById()
 
 function getPostsByUserId()
 {
-    $userId = $_GET['userId'];
+    $userId = intval($_GET['userId']);
 
     $getPostsByUserId = new PostModel();
     echo json_encode($getPostsByUserId->getPostsByUserId($userId));

@@ -129,7 +129,9 @@
   height: 3rem;
   object-fit: cover;
 }
-
+.user-info-container {
+  cursor: pointer;
+}
 .feed__post-profile-name {
   font-weight: var(--font-semibold);
 }

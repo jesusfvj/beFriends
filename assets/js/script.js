@@ -3,9 +3,7 @@
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-    });
+    .then((data) => {});
 }
 
 // getPostsByUserId(2);
@@ -231,9 +229,7 @@ function getPosts() {
 function getPostsByUserId(id) {
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+    .then((data) => {});
 }
 
 function checkHasLike(postId) {
@@ -442,14 +438,15 @@ function toggleSearchModal() {
   feedSearchInput.value = "";
 
   friends.map((friend) => {
-    const { id, nickname, avatar } = friend;
+    const { friendId, nickname, avatar } = friend;
+
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
            <div class="feed__found-user-btn-group">
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${friendId}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
-                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${friendId}/>
                 <p>${nickname}</p>
             </div>   
         </div>
@@ -460,8 +457,8 @@ function toggleSearchModal() {
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
             <div class="feed__found-user-btn-group">
-                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userId=${id}>+</button>
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userid=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${id}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
                 <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
@@ -497,12 +494,15 @@ addFriendsButton.forEach((element) => {
 
 function addFriend(event) {
   const friendId = event.target.getAttribute("userid");
+
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
+    .then(async (data) => {
       getUsers();
       showNotifications();
+      await getNoFriends();
+      await getFriends();
+      searchUsers();
     });
 }
 
@@ -534,15 +534,17 @@ async function showFriendList() {
 }
 
 function deleteFriend(event) {
-  console.log("hola");
   const friendId = event.target.getAttribute("userid");
   fetch(
     `./controllers/friends.php?controller=deletefriend&friendid=${friendId}`
   )
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       showFriendList();
       getUsers();
+      await getNoFriends();
+      await getFriends();
+      searchUsers();
     });
 }
 
@@ -568,9 +570,10 @@ async function getFriends() {
 }
 getFriends();
 
-async function searchUsers(e) {
+async function searchUsers() {
+  const feedSearchInput = document.getElementById("feedSearchInput");
   feedSearchResult.innerHTML = "";
-  const searchText = e.target.value;
+  const searchText = feedSearchInput.value;
 
   let foundFriends = friends.filter((friend) => {
     if (friend.nickname.toLowerCase().includes(searchText.toLowerCase())) {
@@ -585,14 +588,14 @@ async function searchUsers(e) {
   });
 
   foundFriends.map((foundFriend) => {
-    const { id, nickname, avatar } = foundFriend;
+    const { friendId, nickname, avatar } = foundFriend;
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
            <div class="feed__found-user-btn-group">
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${friendId}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
-                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
+                <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${friendId}/>
                 <p>${nickname}</p>
             </div>   
         </div>
@@ -603,8 +606,8 @@ async function searchUsers(e) {
     feedSearchResult.innerHTML += `
         <div class="feed__found-user-container">
             <div class="feed__found-user-btn-group">
-                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userId=${id}>+</button>
-                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userId=${id}>x</button>
+                <button onclick="addFriend(event)" class="feed__found-user-add-btn" userid=${id}>+</button>
+                <button onclick="deleteFriend(event)" class="feed__found-user-delete-btn" userid=${id}>x</button>
             </div>   
             <div class="feed__found-user-info-group">
                 <img class="feed__found-user-profile-img" src=${avatar} alt="" userId=${id}/>
@@ -626,7 +629,6 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        console.log(data[0]);
         getPosts();
         toggleCreateComment();
       }
@@ -641,7 +643,6 @@ async function showNotifications() {
   await fetch(`./controllers/friends.php?controller=getnotifications`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       data.forEach((notification) => {
         let newNotification = document.createElement("div");
         newNotification.classList.add("feed__notification-container");
@@ -679,7 +680,6 @@ function denyFollow(event) {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       getUsers();
       showNotifications();
     });

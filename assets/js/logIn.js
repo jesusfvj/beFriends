@@ -12,8 +12,8 @@ showParagraph.forEach((element) => {
   element.addEventListener("click", togglePassword);
 });
 
-function sendToRegister(){
-  window.location="./register.php";
+function sendToRegister() {
+  window.location = "./register.php";
 }
 
 function sendLogInData(event) {
@@ -31,7 +31,6 @@ function sendLogInData(event) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data[0] === true) {
         localStorage.setItem("userId", JSON.stringify(data.userId));
         window.location = "./feed.php";

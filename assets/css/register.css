@@ -1,402 +1,413 @@
 *,
 section {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .html__container--background-image {
-    background-image: url("../images/background.jpg");
-    background-position: center;
-    background-size: cover;
-    min-height: 100vh;
+  background-image: url("../images/background.jpg");
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .main__container {
-    display: flex;
+  display: flex;
 }
 
 .section__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-first-body__container,
 .section-second-body__container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5rem;
-    padding: 1rem 2.5rem;
-    width: 20rem;
-    background-color: #FFFFFF;
-    border: 0.05rem solid rgb(161, 161, 161);
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+  padding: 1rem 2.5rem;
+  width: 20rem;
+  background-color: #ffffff;
+  border: 0.05rem solid rgb(161, 161, 161);
 }
 
 .section-first-body__container {
-    margin-top: 5rem;
+  margin-top: 5rem;
 }
 
 .section-second-body__container {
-    margin-top: 2rem;
-    flex-direction: row;
-    justify-content: center;
+  margin-top: 2rem;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .section-third-body__container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 5rem;
-    margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5rem;
+  margin-top: 1.5rem;
 }
 
 .section__img--size {
-    align-self: center;
-    width: 8rem;
-    height: 8rem;
+  align-self: center;
+  width: 8rem;
+  height: 8rem;
 }
 
 .form__container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .form__button,
 .form__input {
-    border-radius: 0;
-    border: none;
+  border-radius: 0;
+  border: none;
 }
 
 .form__input {
-    width: 100%;
-    height: 2.5rem;
-    border: 0.1rem solid rgb(161, 161, 161);
-    background-color: #FAFAFA;
-    padding: 0 0.5rem;
+  width: 100%;
+  height: 2.5rem;
+  border: 0.1rem solid rgb(161, 161, 161);
+  background-color: #fafafa;
+  padding: 0 0.5rem;
 }
 
 .form-div__input {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 .paragraph-show__text {
-    position: absolute;
-    top: 0.8rem;
-    right: 1rem;
-    font-weight: 600;
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  font-weight: 600;
 }
 
 .paragraph-show__text:hover {
-    cursor: pointer;
-    color: rgb(24, 150, 245);
-    transition: 550ms;
+  cursor: pointer;
+  color: rgb(24, 150, 245);
+  transition: 550ms;
 }
 
 .paragraph-placeholder__text {
-    position: absolute;
-    top: 0.4rem;
-    left: 0.5rem;
-    font-size: 0.65rem;
-    color: #9C9C9C;
+  position: absolute;
+  top: 0.4rem;
+  left: 0.5rem;
+  font-size: 0.65rem;
+  color: #9c9c9c;
 }
 
 .form__button {
-    height: 3rem;
-    margin-top: 0.75rem;
-    margin-bottom: 1.5rem;
-    background-color: #1896F5;
-    border-radius: 0.3rem;
-    color: white;
-    font-size: 1rem;
+  height: 3rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+  background-color: #1896f5;
+  border-radius: 0.3rem;
+  color: white;
+  font-size: 1rem;
 }
 
 .section__text {
-    color: rgb(161, 161, 161);
+  color: rgb(161, 161, 161);
 }
 
 .section-div-or__container {
-    display: flex;
+  display: flex;
 }
 
 .section__text {
-    padding: 0 0.75rem;
+  padding: 0 0.75rem;
 }
 
 .hr__line {
-    width: 9rem;
-    visibility: hidden;
+  width: 9rem;
+  visibility: hidden;
 }
 
 .section-div-facebook__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 2rem;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2rem;
+  align-items: center;
 }
 
 .facebook__icon {
-    width: 1.8rem;
-    padding-bottom: 0.1rem;
-    margin: 0 0.5rem;
+  width: 1.8rem;
+  padding-bottom: 0.1rem;
+  margin: 0 0.5rem;
 }
 
 .facebook__icon--hidden {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .facebook__text {
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: #3A4C89;
-    margin: 0;
-    padding: 0;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #3a4c89;
+  margin: 0;
+  padding: 0;
 }
 
 .paragraph-forgot__text {
-    align-self: center;
-    margin: 2rem 0;
-    color: #3A4C89;
-    font-weight: 500;
-    font-size: 1.1rem;
+  align-self: center;
+  margin: 2rem 0;
+  color: #3a4c89;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
-.paragraph-register__text, .paragraph-log-in__text {
-    margin-left: 0.3rem;
-    color: #2398DA;
-    font-weight: 800;
+.paragraph-register__text,
+.paragraph-log-in__text {
+  margin-left: 0.3rem;
+  color: #2398da;
+  font-weight: 800;
 }
 
-.paragraph-register__text:hover, .paragraph-log-in__text:hover{
-    color: #114462;
-    cursor: pointer;
-    transition: 500ms;
+.paragraph-register__text:hover,
+.paragraph-log-in__text:hover {
+  color: #114462;
+  cursor: pointer;
+  transition: 500ms;
 }
 
 .paragraph-download__text {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 .icons__img {
-    height: 2rem;
-    margin-bottom: 5rem;
+  height: 2rem;
+  margin-bottom: 5rem;
 }
 
 .password-verification-content__div {
-    display: flex;
-    position: absolute;
-    top: -3.3rem;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    background-color: white;
-    border: 0.07rem solid rgb(113, 113, 113);
-    width: 16rem;
-    height: 2.5rem;
-    border-radius: 0.3rem;
-    box-shadow: 0.2rem 0.15rem 0.2rem rgba(161, 161, 161, 0.8);
+  display: flex;
+  position: absolute;
+  top: -3.3rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: white;
+  border: 0.07rem solid rgb(113, 113, 113);
+  width: 16rem;
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.2rem 0.15rem 0.2rem rgba(161, 161, 161, 0.8);
 }
 
 .password-verification-square__div {
-    position: absolute;
-    top: -1.24rem;
-    left: 2.5rem;
-    z-index: 2;
-    width: 1rem;
-    height: 1rem;
-    background-color: white;
-    border-right: 0.07rem solid rgb(113, 113, 113);
-    border-bottom: 0.07rem solid rgb(113, 113, 113);
-    transform: rotate(45deg);
+  position: absolute;
+  top: -1.24rem;
+  left: 2.5rem;
+  z-index: 2;
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  border-right: 0.07rem solid rgb(113, 113, 113);
+  border-bottom: 0.07rem solid rgb(113, 113, 113);
+  transform: rotate(45deg);
 }
 
 .password-verification__div--display {
-    position: absolute;
-    display: none;
+  position: absolute;
+  display: none;
 }
 
 .password-verification__image {
-    width: 1.8rem;
-    height: 1.7rem;
+  width: 1.8rem;
+  height: 1.7rem;
 }
 
 .password-verification__paragraph {
-    width: fit-content;
-    font-size: 0.95rem;
-    padding-left: 1rem;
+  width: fit-content;
+  font-size: 0.95rem;
+  padding-left: 1rem;
 }
 
 .modal-success-register__section,
 .modal-error-register__section,
 .modal-error-login__section,
 .modal-coming-soon__section {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .modal-success-register__div,
 .modal-error-register__div,
 .modal-error-login__div,
-.modal-coming-soon__div{
-    position: absolute;
-    top: -95vh;
-    width: 50%;
-    border: 0.05rem solid rgb(161, 161, 161);
-    display: none;
+.modal-coming-soon__div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 50%;
+  width: 50%;
+  border: 0.05rem solid rgb(161, 161, 161);
+  display: none;
 }
 
 .modal-success-register__header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1896F5;
-    height: 30%;
-    padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1896f5;
+  height: 30%;
+  padding: 2rem 0;
 }
 
 .modal-error-register__header,
-.modal-error-login__header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(255, 91, 91);
-    height: 30%;
-    padding: 2rem 0;
+.modal-error-login__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 91, 91);
+  height: 30%;
+  padding: 2rem 0;
 }
 
-.modal-coming-soon__header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(241,137,142);
-    height: 30%;
-    padding: 2rem 0;
+.modal-coming-soon__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(241, 137, 142);
+  height: 30%;
+  padding: 2rem 0;
 }
 
 .modal-success-register__title,
 .modal-error-register__title,
 .modal-error-login__title,
-.modal-coming-soon__title{
-    font-size: 2rem;
-    color: white;
+.modal-coming-soon__title {
+  font-size: 2rem;
+  color: white;
 }
 
 .modal-success-register__content,
 .modal-error-register__content,
 .modal-error-login__content,
-.modal-coming-soon__content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: white;
-    height: 70%;
-    gap: 2rem;
-    padding: 3rem 0;
+.modal-coming-soon__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  height: 70%;
+  gap: 2rem;
+  padding: 3rem 0;
 }
 
 .modal-success-register__img-container,
 .modal-error-register__img-container,
 .modal-error-login__img-container,
-.modal-coming-soon__img-container{
-    height: 4rem;
+.modal-coming-soon__img-container {
+  height: 4rem;
 }
 
 .modal-success-register__img,
 .modal-error-register__img,
 .modal-error-login__img,
-.modal-coming-soon__img{
-    animation: rotate 1s linear;
+.modal-coming-soon__img {
+  animation: rotate 1s linear;
 }
 
 @keyframes rotate {
-    0% {width: 0;}
-    70% {transform: rotate(360deg);
-        width: 2.5rem;}
-  100% {transform: rotate(1080deg);
-    width: 4rem;}
+  0% {
+    width: 0;
+  }
+  70% {
+    transform: rotate(360deg);
+    width: 2.5rem;
+  }
+  100% {
+    transform: rotate(1080deg);
+    width: 4rem;
+  }
 }
 
 .modal-success-register__paragraph,
 .modal-error-register__paragraph,
 .modal-error-login__paragraph,
-.modal-coming-soon__paragraph{
-    font-size: 1.2rem;
-    text-align: center;
-    color: black;
-    padding: 0 2rem;
+.modal-coming-soon__paragraph {
+  font-size: 1.2rem;
+  text-align: center;
+  color: black;
+  padding: 0 2rem;
 }
 
 textarea:focus,
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 .form__input::placeholder {
-    opacity: 0;
+  opacity: 0;
 }
 
-.option__select-gender--style{
-    opacity: 0;
-    color: rgb(250,250,250);
-    display: hidden;
+.option__select-gender--style {
+  opacity: 0;
+  color: rgb(250, 250, 250);
+  display: hidden;
 }
 
 .facebook__text,
 .facebook__icon,
 .paragraph-forgot__text,
-.icons__img{
-    cursor: pointer;
+.icons__img {
+  cursor: pointer;
 }
 
-@media (min-width:500px) and (max-width: 768px) {
-    .html__container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+@media (min-width: 500px) and (max-width: 768px) {
+  .html__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    .main__container {
-        display: flex;
-        justify-content: center;
-        width: 100vw;
-    }
+  .main__container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
 
-    .section__container {
-        justify-content: center;
-    }
+  .section__container {
+    justify-content: center;
+  }
 
-    .section-first-body__container,
-    .section-second-body__container,
-    .section-third-body__container{
-        margin-left: 0;
-    }
+  .section-first-body__container,
+  .section-second-body__container,
+  .section-third-body__container {
+    margin-left: 0;
+  }
 
-    .modal-success-register__title,
-    .modal-error-register__title,
-    .modal-error-login__title,
-    .modal-coming-soon__title{
-        text-align: center;
-        align-self: center;
-        padding: 0 2rem;
-    }
-    .modal-success-register__paragraph,
-    .modal-error-register__paragraph,
-    .modal-error-login__paragraph,
-    .modal-coming-soon__paragraph{
-        text-align: center;
-    }
+  .modal-success-register__title,
+  .modal-error-register__title,
+  .modal-error-login__title,
+  .modal-coming-soon__title {
+    text-align: center;
+    align-self: center;
+    padding: 0 2rem;
+  }
+  .modal-success-register__paragraph,
+  .modal-error-register__paragraph,
+  .modal-error-login__paragraph,
+  .modal-coming-soon__paragraph {
+    text-align: center;
+  }
 
-    .form__input::placeholder {
-        opacity: 1;
-        font-size: 0.9rem;
-    }
+  .form__input::placeholder {
+    opacity: 1;
+    font-size: 0.9rem;
+  }
 
-
-    /* .form__container{
+  /* .form__container{
         display: flex;
         gap: 5rem;
     }
@@ -420,72 +431,74 @@ input:focus {
 }
 
 @media (max-width: 500px) {
-    .html__container{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  .html__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    .main__container {
-        display: flex;
-        justify-content: center;
-        width: 100vw;
-    }
+  .main__container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
 
-    .section__container {
-        justify-content: center;
-    }
-    .section-first-body__container,
-    .section-second-body__container,
-    .section-third-body__container{
-        margin-left: 0;
-        width: 15rem;
-    }
+  .section__container {
+    justify-content: center;
+  }
+  .section-first-body__container,
+  .section-second-body__container,
+  .section-third-body__container {
+    margin-left: 0;
+    width: 15rem;
+  }
 
-    .facebook__text, .paragraph-account__text{
-        text-align: center;
-        font-size: 0.9rem;
-    }
+  .facebook__text,
+  .paragraph-account__text {
+    text-align: center;
+    font-size: 0.9rem;
+  }
 
-    .paragraph-forgot__text, .form__button{
-        font-size: 0.9rem;
-    }
+  .paragraph-forgot__text,
+  .form__button {
+    font-size: 0.9rem;
+  }
 
-    .paragraph-register__text{
-        align-self: center;
-        font-size: 0.9rem;
-    }
+  .paragraph-register__text {
+    align-self: center;
+    font-size: 0.9rem;
+  }
 
-    .section-third-body__container{
-        align-self: center;
-    }
+  .section-third-body__container {
+    align-self: center;
+  }
 
-    .section__img--size{
-        width: 6rem;
-        height: 6rem;
-        margin: 2rem 0;
-    }
+  .section__img--size {
+    width: 6rem;
+    height: 6rem;
+    margin: 2rem 0;
+  }
 
-    .modal-success-register__title,
-    .modal-error-register__title,
-    .modal-error-login__title,
-    .modal-coming-soon__title{
-        font-size: 1.2rem;
-        width: 8rem;
-        text-align: center;
-        align-self: center;
-    }
-    .modal-success-register__paragraph,
-    .modal-error-register__paragraph,
-    .modal-error-login__paragraph,
-    .modal-coming-soon__paragraph{
-        width: 5rem;
-        font-size: 0.9rem;
-        text-align: center;
-    }
+  .modal-success-register__title,
+  .modal-error-register__title,
+  .modal-error-login__title,
+  .modal-coming-soon__title {
+    font-size: 1.2rem;
+    width: 8rem;
+    text-align: center;
+    align-self: center;
+  }
+  .modal-success-register__paragraph,
+  .modal-error-register__paragraph,
+  .modal-error-login__paragraph,
+  .modal-coming-soon__paragraph {
+    width: 5rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
 
-    .form__input::placeholder {
-        opacity: 1;
-        font-size: 0.8rem;
-    }
+  .form__input::placeholder {
+    opacity: 1;
+    font-size: 0.8rem;
+  }
 }

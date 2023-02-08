@@ -53,6 +53,8 @@ function sendRegisterData(event) {
           registerErrorMessage.textContent = data[1];
         } else if (data[0] && data[0] == 'user-or-email-not-valid') {
           registerErrorMessage.textContent = data[1];
+        } else if (data[0] && data[0] == 'username-length') {
+          registerErrorMessage.textContent = data[1];
         }
         modalVerifications(data);
       });

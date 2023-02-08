@@ -26,11 +26,11 @@ if (isset($_SESSION['id'])) {
                 <form id="formContainerLogIn" class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User or Email</p>
-                        <input class="form__input" id="inputUserLogIn" type="text" name="inputUserLogIn" required>
+                        <input class="form__input" id="inputUserLogIn" placeholder="User or Email" type="text" name="inputUserLogIn" required>
                     </div>
                     <div class="form-div__input">
                         <p id="show1" class="paragraph-show__text">Show</p>
-                        <input class="form__input input__password" id="inputPasswordLogIn" type="password" name="inputPasswordLogIn" required>
+                        <input class="form__input input__password" id="inputPasswordLogIn" placeholder="Password" type="password" name="inputPasswordLogIn" required>
                         <p class="paragraph-placeholder__text">Password</p>
                     </div>
                     <input type="submit" class="form__button" value="Enter">
@@ -70,6 +70,19 @@ if (isset($_SESSION['id'])) {
                 <img class="modal-error-login__img" src="./assets/images/notOkIcon.png">
             </div>
             <p class="modal-error-login__paragraph">Sorry, either the user or password is not correct</p>
+        </div>
+    </div>
+    </section>
+    <section class="modal-coming-soon__section">
+    <div class="modal-coming-soon__div">
+        <div class="modal-coming-soon__header">
+            <p class="modal-coming-soon__title">Coming soon</p>
+        </div>
+        <div class="modal-coming-soon__content">
+            <div class="modal-coming-soon__img-container">
+                <img class="modal-coming-soon__img" src="./assets/images/construction.png">
+            </div>
+            <p class="modal-coming-soon__paragraph">This feature is under construction</p>
         </div>
     </div>
     </section>

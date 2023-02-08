@@ -227,14 +227,20 @@ section {
     padding-left: 1rem;
 }
 
-.modal-success-register__section, .modal-error-register__section, .modal-error-login__section {
+.modal-success-register__section,
+.modal-error-register__section,
+.modal-error-login__section,
+.modal-coming-soon__section {
     position: relative;
     display: flex;
     justify-content: center;
     align-content: center;
 }
 
-.modal-success-register__div, .modal-error-register__div, .modal-error-login__div {
+.modal-success-register__div,
+.modal-error-register__div,
+.modal-error-login__div,
+.modal-coming-soon__div{
     position: absolute;
     top: -95vh;
     width: 50%;
@@ -251,7 +257,8 @@ section {
     padding: 2rem 0;
 }
 
-.modal-error-register__header, .modal-error-login__header {
+.modal-error-register__header,
+.modal-error-login__header{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -260,12 +267,27 @@ section {
     padding: 2rem 0;
 }
 
-.modal-success-register__title, .modal-error-register__title, .modal-error-login__title{
+.modal-coming-soon__header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(241,137,142);
+    height: 30%;
+    padding: 2rem 0;
+}
+
+.modal-success-register__title,
+.modal-error-register__title,
+.modal-error-login__title,
+.modal-coming-soon__title{
     font-size: 2rem;
     color: white;
 }
 
-.modal-success-register__content, .modal-error-register__content, .modal-error-login__content {
+.modal-success-register__content,
+.modal-error-register__content,
+.modal-error-login__content,
+.modal-coming-soon__content{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -276,11 +298,17 @@ section {
     padding: 3rem 0;
 }
 
-.modal-success-register__img-container, .modal-error-register__img-container, .modal-error-login__img-container{
+.modal-success-register__img-container,
+.modal-error-register__img-container,
+.modal-error-login__img-container,
+.modal-coming-soon__img-container{
     height: 4rem;
 }
 
-.modal-success-register__img, .modal-error-register__img, .modal-error-login__img{
+.modal-success-register__img,
+.modal-error-register__img,
+.modal-error-login__img,
+.modal-coming-soon__img{
     animation: rotate 1s linear;
 }
 
@@ -292,7 +320,10 @@ section {
     width: 4rem;}
 }
 
-.modal-success-register__paragraph, .modal-error-register__paragraph, .modal-error-login__paragraph{
+.modal-success-register__paragraph,
+.modal-error-register__paragraph,
+.modal-error-login__paragraph,
+.modal-coming-soon__paragraph{
     font-size: 1.2rem;
     text-align: center;
     color: black;
@@ -302,6 +333,23 @@ section {
 textarea:focus,
 input:focus {
     outline: none;
+}
+
+.form__input::placeholder {
+    opacity: 0;
+}
+
+.option__select-gender--style{
+    opacity: 0;
+    color: rgb(250,250,250);
+    display: hidden;
+}
+
+.facebook__text,
+.facebook__icon,
+.paragraph-forgot__text,
+.icons__img{
+    cursor: pointer;
 }
 
 @media (min-width:500px) and (max-width: 768px) {
@@ -321,18 +369,32 @@ input:focus {
         justify-content: center;
     }
 
-    .section-first-body__container, .section-second-body__container, .section-third-body__container{
+    .section-first-body__container,
+    .section-second-body__container,
+    .section-third-body__container{
         margin-left: 0;
     }
 
-    .modal-success-register__title, .modal-error-register__title, .modal-error-login__title{
+    .modal-success-register__title,
+    .modal-error-register__title,
+    .modal-error-login__title,
+    .modal-coming-soon__title{
         text-align: center;
         align-self: center;
         padding: 0 2rem;
     }
-    .modal-success-register__paragraph, .modal-error-register__paragraph, .modal-error-login__paragraph{
+    .modal-success-register__paragraph,
+    .modal-error-register__paragraph,
+    .modal-error-login__paragraph,
+    .modal-coming-soon__paragraph{
         text-align: center;
     }
+
+    .form__input::placeholder {
+        opacity: 1;
+        font-size: 0.9rem;
+    }
+
 
     /* .form__container{
         display: flex;
@@ -373,7 +435,9 @@ input:focus {
     .section__container {
         justify-content: center;
     }
-    .section-first-body__container, .section-second-body__container, .section-third-body__container{
+    .section-first-body__container,
+    .section-second-body__container,
+    .section-third-body__container{
         margin-left: 0;
         width: 15rem;
     }
@@ -402,15 +466,26 @@ input:focus {
         margin: 2rem 0;
     }
 
-    .modal-success-register__title, .modal-error-register__title, .modal-error-login__title{
+    .modal-success-register__title,
+    .modal-error-register__title,
+    .modal-error-login__title,
+    .modal-coming-soon__title{
         font-size: 1.2rem;
         width: 8rem;
         text-align: center;
         align-self: center;
     }
-    .modal-success-register__paragraph, .modal-error-register__paragraph, .modal-error-login__paragraph{
+    .modal-success-register__paragraph,
+    .modal-error-register__paragraph,
+    .modal-error-login__paragraph,
+    .modal-coming-soon__paragraph{
         width: 5rem;
         font-size: 0.9rem;
         text-align: center;
+    }
+
+    .form__input::placeholder {
+        opacity: 1;
+        font-size: 0.8rem;
     }
 }

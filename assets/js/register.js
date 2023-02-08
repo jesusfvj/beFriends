@@ -5,6 +5,15 @@ const errorAlert = document.querySelector(".modal-error-register__div");
 const logInText = document.querySelector(".paragraph-log-in__text");
 const registerForm = document.querySelector("#formContainerRegister");
 
+
+const iconsImg = document.querySelectorAll(".icons__img");
+const comingSoonAlert = document.querySelector(".modal-coming-soon__div");
+
+
+iconsImg.forEach((element) => {
+  element.addEventListener("click", showUnderConstModal);
+});
+
 showParagraph.forEach((element) => {
   element.addEventListener("click", togglePassword);
 });
@@ -13,6 +22,12 @@ registerForm.addEventListener("submit", sendRegisterData);
 
 logInText.addEventListener("click", sendToLogIn);
 
+function showUnderConstModal(){
+  comingSoonAlert.style.display = "block";
+    setTimeout(() => {
+      comingSoonAlert.style.display = "none";
+    }, 2000);
+}
 
 function sendToLogIn(){
   window.location="./index.php";

@@ -13,7 +13,6 @@ if (isset($_SESSION['id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
-    <!-- <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script> -->
     <script src="./assets/js/logIn.js?v=<?php echo time(); ?>" defer></script>
     <title>beFriends - index</title>
 </head>
@@ -27,11 +26,11 @@ if (isset($_SESSION['id'])) {
                 <form id="formContainerLogIn" class="form__container">
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">User or Email</p>
-                        <input class="form__input" id="inputUserLogIn" type="text" name="inputUserLogIn">
+                        <input class="form__input" id="inputUserLogIn" placeholder="User or Email" type="text" name="inputUserLogIn" required>
                     </div>
                     <div class="form-div__input">
                         <p id="show1" class="paragraph-show__text">Show</p>
-                        <input class="form__input input__password" id="inputPasswordLogIn" type="password" name="inputPasswordLogIn">
+                        <input class="form__input input__password" id="inputPasswordLogIn" placeholder="Password" type="password" name="inputPasswordLogIn" required>
                         <p class="paragraph-placeholder__text">Password</p>
                     </div>
                     <input type="submit" class="form__button" value="Enter">
@@ -49,7 +48,7 @@ if (isset($_SESSION['id'])) {
                 <p class="paragraph-forgot__text">You forgot your password?</p>
             </section>
             <section class="section-second-body__container">
-                <p>You don't have an account?</p>
+                <p class="paragraph-account__text">You don't have an account?</p>
                 <p class="paragraph-register__text">Register</p>
             </section>
             <section class="section-third-body__container">
@@ -61,7 +60,33 @@ if (isset($_SESSION['id'])) {
             </section>
         </section>
     </main>
-    <footer></footer>
+    <section class="modal-error-login__section">
+    <div class="modal-error-login__div">
+        <div class="modal-error-login__header">
+            <p class="modal-error-login__title">Login incorrect</p>
+        </div>
+        <div class="modal-error-login__content">
+            <div class="modal-error-login__img-container">
+                <img class="modal-error-login__img" src="./assets/images/notOkIcon.png">
+            </div>
+            <p class="modal-error-login__paragraph">Sorry, either the user or password is not correct</p>
+        </div>
+    </div>
+    </section>
+    <section class="modal-coming-soon__section">
+    <div class="modal-coming-soon__div">
+        <div class="modal-coming-soon__header">
+            <p class="modal-coming-soon__title">Coming soon</p>
+        </div>
+        <div class="modal-coming-soon__content">
+            <div class="modal-coming-soon__img-container">
+                <img class="modal-coming-soon__img" src="./assets/images/construction.png">
+            </div>
+            <p class="modal-coming-soon__paragraph">This feature is under construction</p>
+        </div>
+    </div>
+    </section>
+
 </body>
 
 </html>

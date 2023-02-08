@@ -3,6 +3,21 @@ const inputPasswordLogIn = document.querySelector("#inputPasswordLogIn");
 const logInForm = document.querySelector("#formContainerLogIn");
 const registerText = document.querySelector(".paragraph-register__text");
 const showParagraph = document.querySelectorAll(".paragraph-show__text");
+const errorLoginAlert = document.querySelector(".modal-error-login__div");
+const facebookText = document.querySelector(".facebook__text");
+const facebookIcon = document.querySelector(".facebook__icon");
+const forgotText = document.querySelector(".paragraph-forgot__text");
+
+const iconsImg = document.querySelectorAll(".icons__img");
+const comingSoonAlert = document.querySelector(".modal-coming-soon__div");
+
+facebookText.addEventListener("click", showUnderConstModal);
+facebookIcon.addEventListener("click", showUnderConstModal);
+forgotText.addEventListener("click", showUnderConstModal);
+
+iconsImg.forEach((element) => {
+  element.addEventListener("click", showUnderConstModal);
+});
 
 registerText.addEventListener("click", sendToRegister);
 
@@ -35,9 +50,23 @@ function sendLogInData(event) {
         localStorage.setItem("userId", JSON.stringify(data.userId));
         window.location = "./feed.php";
       } else {
-        console.log("bad");
+        modalVerificationsLogin();
       }
     });
+}
+
+function showUnderConstModal(){
+  comingSoonAlert.style.display = "block";
+    setTimeout(() => {
+      comingSoonAlert.style.display = "none";
+    }, 2000);
+}
+
+function modalVerificationsLogin(){
+  errorLoginAlert.style.display = "block";
+    setTimeout(() => {
+      errorLoginAlert.style.display = "none";
+    }, 3000);
 }
 
 function togglePassword(event) {

@@ -72,7 +72,7 @@ const deleteUserConfirm = document.getElementById("deleteUserConfirm");
 const deleteUserDecline = document.getElementById("deleteUserDecline");
 deleteUserConfirm.addEventListener("click", deleteUser);
 deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
-//
+
 
 //search modal
 const feedOpenSearchModalBtn = document.getElementById(
@@ -125,11 +125,14 @@ insertCommentForm.addEventListener("submit", insertComment);
 feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
+const userAvatar = document.querySelector(".feed__user-avatar");
+
 function getLogedUser() {
   const loggedUserId = JSON.parse(localStorage.getItem("userId"));
   fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
     .then((res) => res.json())
     .then((data) => {
+      userAvatar.src = data[0].avatar;
       editProfileImageToUpload = data[0].avatar;
     });
 }
@@ -562,7 +565,7 @@ async function showFriendList() {
   bellIcon.addEventListener("click", showNotifications);
 }
 
-function deleteFriend(event) {
+function deleteFriend(event){
   const friendId = event.target.getAttribute("userid");
   fetch(
     `./controllers/friends.php?controller=deletefriend&friendid=${friendId}`

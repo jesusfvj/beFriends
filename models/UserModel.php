@@ -69,6 +69,11 @@ class UserModel extends DbConection
         //     return ['password-strength', $msg];
         // }
 
+        if (strlen($username) < 3 || strlen($username) > 8) {
+            $msg = $message->throwErrorMessage('username-length');
+            return ['username-length', $msg];
+        }
+
         $avatar = 'assets/images/defaultProfileImg.png';
         $role = "user";
         $creationDate = date("Y-m-d H:i:s");

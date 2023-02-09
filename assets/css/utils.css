@@ -1,0 +1,32 @@
+.spinner:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.spinner::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 20px solid #f2f2f2;
+    border-top: 20px solid #33dba9;
+    border-radius: 50%;
+    will-change: transform;
+    animation: loader 2s linear infinite;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

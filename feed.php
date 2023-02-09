@@ -13,6 +13,7 @@ if (!isset($_SESSION['id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beFriends - feed</title>
+    <link rel="icon" type="image/png" href="./assets/images/logoFavicon.png"/>
     <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./assets/css/utils.css?v=<?php echo time(); ?>">
     <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>

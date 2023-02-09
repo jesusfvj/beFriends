@@ -68,7 +68,7 @@ class PostModel extends DbConection
 
     function getPostsByUserId($userId)
     {
-        $queryPost = $this->db->connect()->prepare(            
+        $queryPost = $this->db->connect()->prepare(
             "SELECT T.*, U.nickname, U.avatar, U.id FROM
                 (SELECT P.user_id as postOwner, P.content as postContent, P.image, P.created_at, P.id as postId 
                     FROM post P WHERE P.user_id = $userId) as T
@@ -77,7 +77,7 @@ class PostModel extends DbConection
 
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM
-                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId, comment.post_id, comment.created_at FROM post 
+                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId, comment.created_at FROM post
                     INNER JOIN comment ON post.id = comment.post_id) AS T
                         INNER JOIN user ON commentOwnerId = user.id
                         ORDER BY T.created_at DESC");

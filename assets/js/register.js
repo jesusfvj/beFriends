@@ -1,3 +1,5 @@
+window.history.forward();
+
 const showParagraph = document.querySelectorAll(".paragraph-show__text");
 const passwordAlert = document.querySelector(".password-verification__div--display");
 const sucessAlert = document.querySelector(".modal-success-register__div");

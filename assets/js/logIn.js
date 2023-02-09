@@ -1,3 +1,5 @@
+window.history.forward();
+
 const inputUserLogIn = document.querySelector("#inputUserLogIn");
 const inputPasswordLogIn = document.querySelector("#inputPasswordLogIn");
 const logInForm = document.querySelector("#formContainerLogIn");

@@ -6,15 +6,6 @@ function getPostById(id) {
     .then((data) => {});
 }
 
-// function getPostsByUserId(userId) {
-//   fetch(`./controllers/posts.php?userId=${userId}&controller=getpostsbyuserid`)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//     });
-// }
-// getPostsByUserId(1);
-
 document.body.addEventListener("load", getUsers());
 // document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());
@@ -31,6 +22,8 @@ let page = 1;
 
 const beFriendsLogo = document.getElementById("beFriendsLogo");
 beFriendsLogo.addEventListener("click", getPosts);
+const profileInfoTopLeft = document.getElementById("profileInfoTopLeft");
+profileInfoTopLeft.addEventListener("click", getPostsByUserId);
 
 // create post form
 const createPostForm = document.getElementById("createPostForm");
@@ -115,17 +108,28 @@ const insertCommentModalCloseBtn = document.getElementById(
 
 const insertCommentForm = document.getElementById("insertCommentForm");
 
-feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+feedCreatePostButton.addEventListener("click", showCreatePostModal);
 
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
 feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);
 feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
-feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
+feedEditOpenModalBtn.addEventListener("click", showEditModal);
+
+/* const editModalOpenBtn = document.querySelector("#editModalOpenBtn");
+editModalOpenBtn.addEventListener("click", activateWindowAEL);
+
+let removeAEL = false;
+
+function activateWindowAEL(){
+  removeAEL = true;
+  window.addEventListener("click", clickOutsideEdit);
+} */
+
 editModalCloseBtn.addEventListener("click", toggleEditModal);
 
-feedOpenSearchModalBtn.addEventListener("click", toggleSearchModal);
+feedOpenSearchModalBtn.addEventListener("click", showSearchModal);
 feedSearchModalCloseBtn.addEventListener("click", toggleSearchModal);
 feedSearchInput.addEventListener("keyup", searchUsers);
 
@@ -136,12 +140,14 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 const userAvatar = document.querySelector(".feed__user-avatar");
+let nickname = "";
 
 function getLogedUser() {
   const loggedUserId = JSON.parse(localStorage.getItem("userId"));
   fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
     .then((res) => res.json())
     .then((data) => {
+      nickname = data[0].nickname;
       userAvatar.src = data[0].avatar;
       editProfileImageToUpload = data[0].avatar;
     });
@@ -163,7 +169,7 @@ function getUsers() {
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <button onclick="deleteFriend(event)" class="feed__friends-suggestions-deny-btn" userId=${user.id}>x</button>
             </div>
-                <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
+                <img class="feed__post-profile-img profile-img-${user.id}" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
     `;
@@ -198,7 +204,7 @@ function printPosts(posts, userId) {
     feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
-                    <img class="feed__post-profile-img" src=${avatar} alt="" />
+                    <img class="feed__post-profile-img profile-img-${postOwner}" src=${avatar} alt="" />
                     <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
                         <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
@@ -219,9 +225,9 @@ function printPosts(posts, userId) {
       isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
     } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
-                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
+                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='showCommentModal(event)'>
                     </div>
-                    <div class="feed__post-comments-container">
+                    <div class="feed__post-comments-container comments-container-${postId}">
                     ${comments
                       .map((comment) => {
                         const { nickname, postContent } = comment;
@@ -244,12 +250,11 @@ function getPosts(page) {
   fetch(`./controllers/posts.php?controller=getposts&page=${page}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
         feedCreatePostButton.removeEventListener("click", getPosts);
-        feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+        feedCreatePostButton.addEventListener("click", showCreatePostModal);
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = true;
@@ -264,6 +269,9 @@ function getPosts(page) {
 }
 
 function getPostsByUserId(id) {
+  if (id.target) {
+    id = id.target.getAttribute("userId");
+  }
   spinner.removeAttribute("hidden");
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
@@ -279,8 +287,8 @@ function getPostsByUserId(id) {
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = false;
+        printPosts(data[0], data[1]);
       }
-      printPosts(data[0], data[1]);
       spinner.setAttribute("hidden", "");
     });
 }
@@ -473,6 +481,12 @@ async function submitEditForm(e) {
       editProfileModal.classList.add("hidden");
       hasImageChanged = false;
       spinner.setAttribute("hidden", "");
+      const profileImages = document.getElementsByClassName(
+        `profile-img-${userId}`
+      );
+      for (let profileImage of profileImages) {
+        profileImage.src = editProfileImageToUpload;
+      }
     });
 }
 
@@ -488,26 +502,78 @@ function deleteUser() {
     });
 }
 
+let activateAEL = false;
+
 function toggleDeleteConfirmationModal(e) {
   e.preventDefault();
   deleteConfirmationModal.classList.toggle("hidden");
+  if (activateAEL == true) {
+    event.stopPropagation();
+    window.addEventListener("click", clickOutsideEdit);
+    activateAEL = false;
+  } else {
+    window.removeEventListener("click", clickOutsideEdit);
+    activateAEL = true;
+  }
+}
+
+function showCreatePostModal() {
+  if (isAllPostsPageActive) {
+    toggleCreatePostModal();
+    event.stopPropagation();
+    window.addEventListener("click", clickOutsideCreatePost);
+  }
+}
+
+function clickOutsideCreatePost(e) {
+  if (!document.getElementById("createPostForm").contains(e.target)) {
+    toggleCreatePostModal();
+  }
 }
 
 function toggleCreatePostModal() {
   feedCreatePostModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideCreatePost);
 }
 
 function toggleFriendsModal() {
   feedFriendsListModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideFriendList);
+}
+
+function showEditModal() {
+  toggleEditModal();
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideEdit);
 }
 
 function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideEdit);
+}
+
+function clickOutsideEdit(e) {
+  if (!document.getElementById("feedEditProfile").contains(e.target)) {
+    toggleEditModal();
+  }
+}
+
+function showSearchModal() {
+  toggleSearchModal();
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideSearch);
+}
+
+function clickOutsideSearch(e) {
+  if (!document.getElementById("feedSearchModal").contains(e.target)) {
+    toggleSearchModal();
+  }
 }
 
 function toggleSearchModal() {
   spinner.removeAttribute("hidden");
   feedSearchUsersModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideSearch);
   feedSearchResult.innerHTML = "";
   feedSearchInput.value = "";
 
@@ -546,7 +612,22 @@ function toggleSearchModal() {
 
 function toggleCreateComment(event) {
   createComment.classList.toggle("hidden");
-  commentPostId = event.target.getAttribute("postid");
+  if (event) {
+    commentPostId = event.target.getAttribute("postid");
+  }
+  window.removeEventListener("click", clickOutsideComment);
+}
+
+function showCommentModal(event) {
+  toggleCreateComment(event);
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideComment);
+}
+
+function clickOutsideComment(e) {
+  if (!document.getElementById("feedAddComments").contains(e.target)) {
+    toggleCreateComment(e);
+  }
 }
 
 function logout() {
@@ -585,6 +666,7 @@ function addFriend(event) {
 }
 
 async function showFriendList() {
+  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
@@ -615,6 +697,19 @@ async function showFriendList() {
   });
   bellIcon.addEventListener("click", showNotifications);
   bellIcon.addEventListener("click", getNotificationsCounter);
+  window.addEventListener("click", clickOutsideFriendList);
+}
+
+function clickOutsideFriendList(e) {
+  if (
+    !document
+      .getElementById("feedFriendsList")
+      .contains(
+        e.target
+      ) /* || !document.getElementsByClassName('friends-list__img-icon').contains(e.target) */
+  ) {
+    toggleFriendsModal();
+  }
 }
 
 function deleteFriend(event) {
@@ -722,7 +817,21 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        getPosts();
+        const commentsContainer = document.querySelector(
+          `.comments-container-${commentPostId}`
+        );
+        commentsContainer.insertAdjacentHTML(
+          "afterbegin",
+          `
+            <div class = "feed__post-comment">
+                <p class="feed__post-comment-author">${nickname}</p>
+                <p class="feed__post-comment-message">${inputComment}</p>
+            </div>
+        
+        `
+        );
+        // getPosts();
+
         toggleCreateComment();
         spinner.setAttribute("hidden", "");
       }
@@ -730,6 +839,7 @@ function insertComment(event) {
 }
 
 async function showNotifications() {
+  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
@@ -772,6 +882,7 @@ async function showNotifications() {
   const bellIcon = document.querySelector(".friends-list__img-icon");
   bellIcon.addEventListener("click", showFriendList);
   bellIcon.addEventListener("click", getNotificationsCounter);
+  window.addEventListener("click", clickOutsideFriendList);
 }
 
 function denyFollow(event) {

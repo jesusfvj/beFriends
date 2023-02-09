@@ -173,7 +173,7 @@
 
 .feed__post-img {
   width: 100%;
-  max-height: 50vh;
+  max-height: 60vh;
   object-fit: cover;
   margin-top: 1rem;
   border-radius: 0.3rem;
@@ -411,7 +411,7 @@
   justify-content: flex-start;
   gap: 2rem;
   height: 50%;
-  min-width: 20%;
+  min-width: 40%;
   padding: 3rem;
   background-color: white;
   border-radius: 15px;
@@ -909,8 +909,8 @@
     width: 80%;
   }
 
-  .feed__friends-list {
-    min-width: 20%;
+  .feed__friends-list{
+    min-width: 50%;
   }
 
   .feed__edit-profile,

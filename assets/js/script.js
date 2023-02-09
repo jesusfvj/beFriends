@@ -556,8 +556,8 @@ async function showFriendList() {
 
   await fetch(`./controllers/friends.php?controller=getfriends`)
     .then((res) => res.json())
-    .then((data) => {
-      data.forEach((friend) => {
+    .then(async (data) => {
+      await data.forEach((friend) => {
         let newFriend = document.createElement("div");
         newFriend.classList.add("feed__friend-container");
         newFriend.innerHTML = ` <button class="feed__friend-delete" userid="${friend.friendId}">x</button>
@@ -771,7 +771,6 @@ function getNotificationsCounter(){
     `./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data[0][0])
       printNotificationsAlert(data[0][0]);
     });
 }

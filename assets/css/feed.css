@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   font-family: var(--font);
-	user-select: none;
+  user-select: none;
 }
 
 .feed__body {
@@ -336,7 +336,7 @@
   cursor: pointer;
 }
 
-.feed__friend-container{
+.feed__friend-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -450,7 +450,7 @@
   scrollbar-width: none;
 }
 
-.feed__notification-container{
+.feed__notification-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -681,7 +681,7 @@
   cursor: pointer;
 }
 
-.feed__found-user-add-btn{
+.feed__found-user-add-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -756,7 +756,7 @@
   background-color: rgb(113, 113, 251);
 }
 
-.feed__user-login{
+.feed__user-login {
   position: fixed;
   top: 1.5rem;
   left: 3rem;
@@ -766,16 +766,16 @@
   margin-bottom: 2rem;
 }
 
-.feed__user-avatar{
+.feed__user-avatar {
   width: 2rem;
   margin-right: 1rem;
 }
 
-.friends-list__alert-counter-parent{
+.friends-list__alert-counter-parent {
   position: relative;
 }
 
-.friends-list__alert-counter{
+.friends-list__alert-counter {
   position: absolute;
   top: 0.9rem;
   left: 1rem;
@@ -866,7 +866,8 @@
     width: 2rem;
   }
 
-  .feed__create-post-button {
+  .feed__create-post-button,
+  .feed__back-to-posts-button {
     border-radius: 0.3rem;
     bottom: 1.5rem;
     left: 0;
@@ -883,6 +884,10 @@
     cursor: pointer;
   }
 
+  .feed__back-to-posts-button {
+    background-color: green;
+  }
+
   .feed__main:first-child {
     margin-top: 15vh;
   }
@@ -891,7 +896,7 @@
     width: 80%;
   }
 
-  .feed__friends-list{
+  .feed__friends-list {
     min-width: 20%;
   }
 
@@ -933,17 +938,17 @@
     padding-left: 0rem;
   }
 
-  .feed__user-login{
+  .feed__user-login {
     display: none;
   }
 
-  .feed__notification-follow-back-btn{
+  .feed__notification-follow-back-btn {
     font-size: 0.6rem;
     padding: 0 0.5rem;
     width: fit-content;
   }
 
-  .feed__notification-nickname{
+  .feed__notification-nickname {
     font-size: 0.8rem;
   }
 

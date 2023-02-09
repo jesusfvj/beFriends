@@ -413,7 +413,8 @@
   justify-content: flex-start;
   gap: 2rem;
   height: 50%;
-  max-width: 400px;
+  min-width: 360px;
+  max-width: 390px;
   padding: 3rem;
   background-color: white;
   border-radius: 0.3rem;
@@ -905,10 +906,6 @@
 
   .feed__post {
     width: 80%;
-  }
-
-  .feed__friends-list {
-    min-width: 50%;
   }
 
   .feed__edit-profile,

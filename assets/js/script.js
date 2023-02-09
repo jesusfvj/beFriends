@@ -550,15 +550,15 @@ async function showFriendList() {
 
   await fetch(`./controllers/friends.php?controller=getfriends`)
     .then((res) => res.json())
-    .then((data) => {
-      data.forEach((friend) => {
+    .then(async (data) => {
+      await data.forEach((friend) => {
         let newFriend = document.createElement("div");
         newFriend.classList.add("feed__friend-container");
         newFriend.innerHTML = ` <button class="feed__friend-delete" userid="${friend.friendId}">x</button>
                                 <img class="feed__friend-img" src="${friend.avatar}" alt="user avatar">
                                 <p class="feed__friend-nickname">${friend.nickname}</p>`;
 
-        friendListContainer.appendChild(newFriend);
+      friendListContainer.appendChild(newFriend);
       });
     });
   const deleteButton = document.querySelectorAll(".feed__friend-delete");
@@ -741,10 +741,20 @@ setInterval(() => {
 }, 1000);
 
 function printNotificationsAlert(data){
+  console.log(data)
   const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
-  if(alertCounterNot){
+  if(data != "0"){
     alertCounterNot.forEach(element => {
-      element.textContent = data;
+      element.style.display = "block";
+    });
+    if(alertCounterNot){
+      alertCounterNot.forEach(element => {
+        element.textContent = data;
+      });
+    }
+  } else {
+    alertCounterNot.forEach(element => {
+      element.style.display = "none";
     });
   }
 }

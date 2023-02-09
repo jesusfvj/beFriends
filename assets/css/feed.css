@@ -413,7 +413,8 @@
   justify-content: flex-start;
   gap: 2rem;
   height: 50%;
-  min-width: 40%;
+  min-width: 350px;
+  max-width: 450px;
   padding: 3rem;
   background-color: white;
   border-radius: 0.3rem;

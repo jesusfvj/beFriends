@@ -237,16 +237,17 @@ function printPosts(posts, userId) {
                 </div>
             </article>
             `;
-  // spinner.setAttribute('hidden', '');
+    // spinner.setAttribute('hidden', '');
   });
 }
 let isAllPostsPageActive = true;
-
 function getPosts(page) {
+  if (page.target) {
+    page = 1;
+  }
   fetch(`./controllers/posts.php?controller=getposts&page=${page}`)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
@@ -269,7 +270,6 @@ function getPostsByUserId(id) {
   if (id.target) {
     id = id.target.getAttribute("userId");
   }
-  console.log(id);
   spinner.removeAttribute("hidden");
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
@@ -373,13 +373,13 @@ async function createPost(e) {
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
-      spinner.setAttribute('hidden', '');
+      spinner.setAttribute("hidden", "");
       feedPostsContainer.innerHTML = "";
-          if(spinnerScroll.classList.contains("hidden")){
-            spinnerScroll.classList.toggle("hidden");
-          };
-          
-          page = 1;
+      if (spinnerScroll.classList.contains("hidden")) {
+        spinnerScroll.classList.toggle("hidden");
+      }
+
+      page = 1;
     });
 
   if (text.length) {
@@ -390,7 +390,7 @@ async function createPost(e) {
       .then((res) => res.json())
       .then((data) => {
         if (data[0] === true) {
-          getPosts();
+          //   getPosts(page);
           toggleCreatePostModal();
           spinner.setAttribute("hidden", "");
         }
@@ -728,7 +728,7 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        getPosts();
+        // getPosts(page);
         toggleCreateComment();
         spinner.setAttribute("hidden", "");
       }
@@ -838,17 +838,16 @@ function getNotificationsCounter() {
 }
 
 function infinityScroll() {
-
-  const observeSpinner = async listPost => {
+  const observeSpinner = async (listPost) => {
     if (listPost[0].isIntersecting) {
       await getPosts(page);
-      page++
+      page++;
     }
-  }
+  };
   const options = {
-    threshold: 0.9
-  }
+    threshold: 0.9,
+  };
   let observer = new IntersectionObserver(observeSpinner, options);
 
-  observer.observe(spinnerScroll)
+  observer.observe(spinnerScroll);
 }

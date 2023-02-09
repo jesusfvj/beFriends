@@ -122,12 +122,14 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 const userAvatar = document.querySelector(".feed__user-avatar");
+let nickname = "";
 
 function getLogedUser() {
   const loggedUserId = JSON.parse(localStorage.getItem("userId"));
   fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
     .then((res) => res.json())
     .then((data) => {
+      nickname = data[0].nickname;
       userAvatar.src = data[0].avatar;
       editProfileImageToUpload = data[0].avatar;
     });
@@ -207,7 +209,7 @@ function printPosts(posts, userId) {
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
-                    <div class="feed__post-comments-container">
+                    <div class="feed__post-comments-container comments-container-${postId}">
                     ${comments
                       .map((comment) => {
                         const { nickname, postContent } = comment;
@@ -230,7 +232,6 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
@@ -533,7 +534,9 @@ function toggleSearchModal() {
 
 function toggleCreateComment(event) {
   createComment.classList.toggle("hidden");
-  commentPostId = event.target.getAttribute("postid");
+  if (event) {
+    commentPostId = event.target.getAttribute("postid");
+  }
 }
 
 function logout() {
@@ -709,7 +712,21 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        getPosts();
+        const commentsContainer = document.querySelector(
+          `.comments-container-${commentPostId}`
+        );
+        commentsContainer.insertAdjacentHTML(
+          "afterbegin",
+          `
+            <div class = "feed__post-comment">
+                <p class="feed__post-comment-author">${nickname}</p>
+                <p class="feed__post-comment-message">${inputComment}</p>
+            </div>
+        
+        `
+        );
+        // getPosts();
+
         toggleCreateComment();
         spinner.setAttribute("hidden", "");
       }

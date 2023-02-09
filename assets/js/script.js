@@ -121,8 +121,6 @@ function activateWindowAEL(){
   window.addEventListener("click", clickOutsideEdit);
 } */
 
-
-
 editModalCloseBtn.addEventListener("click", toggleEditModal);
 
 feedOpenSearchModalBtn.addEventListener("click", showSearchModal);
@@ -136,12 +134,14 @@ feedLogoutBtn = document.getElementById("feedLogoutBtn");
 feedLogoutBtn.addEventListener("click", logout);
 
 const userAvatar = document.querySelector(".feed__user-avatar");
+let nickname = "";
 
 function getLogedUser() {
   const loggedUserId = JSON.parse(localStorage.getItem("userId"));
   fetch(`./controllers/users.php?controller=getbyid&userid=${loggedUserId}`)
     .then((res) => res.json())
     .then((data) => {
+      nickname = data[0].nickname;
       userAvatar.src = data[0].avatar;
       editProfileImageToUpload = data[0].avatar;
     });
@@ -221,7 +221,7 @@ function printPosts(posts, userId) {
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='showCommentModal(event)'>
                     </div>
-                    <div class="feed__post-comments-container">
+                    <div class="feed__post-comments-container comments-container-${postId}">
                     ${comments
                       .map((comment) => {
                         const { nickname, postContent } = comment;
@@ -244,7 +244,6 @@ function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
@@ -494,7 +493,7 @@ let activateAEL = false;
 function toggleDeleteConfirmationModal(e) {
   e.preventDefault();
   deleteConfirmationModal.classList.toggle("hidden");
-  if (activateAEL == true){
+  if (activateAEL == true) {
     event.stopPropagation();
     window.addEventListener("click", clickOutsideEdit);
     activateAEL = false;
@@ -504,14 +503,14 @@ function toggleDeleteConfirmationModal(e) {
   }
 }
 
-function showCreatePostModal(){
+function showCreatePostModal() {
   toggleCreatePostModal();
   event.stopPropagation();
   window.addEventListener("click", clickOutsideCreatePost);
 }
 
 function clickOutsideCreatePost(e) {
-  if (!document.getElementById('createPostForm').contains(e.target)) {
+  if (!document.getElementById("createPostForm").contains(e.target)) {
     toggleCreatePostModal();
   }
 }
@@ -526,7 +525,7 @@ function toggleFriendsModal() {
   window.removeEventListener("click", clickOutsideFriendList);
 }
 
-function showEditModal(){
+function showEditModal() {
   toggleEditModal();
   event.stopPropagation();
   window.addEventListener("click", clickOutsideEdit);
@@ -538,19 +537,19 @@ function toggleEditModal() {
 }
 
 function clickOutsideEdit(e) {
-  if (!document.getElementById('feedEditProfile').contains(e.target)) {
+  if (!document.getElementById("feedEditProfile").contains(e.target)) {
     toggleEditModal();
   }
 }
 
-function showSearchModal(){
+function showSearchModal() {
   toggleSearchModal();
   event.stopPropagation();
   window.addEventListener("click", clickOutsideSearch);
 }
 
 function clickOutsideSearch(e) {
-  if (!document.getElementById('feedSearchModal').contains(e.target)) {
+  if (!document.getElementById("feedSearchModal").contains(e.target)) {
     toggleSearchModal();
   }
 }
@@ -601,14 +600,14 @@ function toggleCreateComment(event) {
   window.removeEventListener("click", clickOutsideComment);
 }
 
-function showCommentModal(event){
+function showCommentModal(event) {
   toggleCreateComment(event);
   event.stopPropagation();
   window.addEventListener("click", clickOutsideComment);
 }
 
 function clickOutsideComment(e) {
-  if (!document.getElementById('feedAddComments').contains(e.target)) {
+  if (!document.getElementById("feedAddComments").contains(e.target)) {
     toggleCreateComment(e);
   }
 }
@@ -650,7 +649,7 @@ function addFriend(event) {
 
 async function showFriendList() {
   window.removeEventListener("click", clickOutsideFriendList);
-  spinner.removeAttribute('hidden');
+  spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
                                       <div id="counterAlertNot" class="friends-list__alert-counter"></div>
@@ -684,7 +683,13 @@ async function showFriendList() {
 }
 
 function clickOutsideFriendList(e) {
-  if (!document.getElementById('feedFriendsList').contains(e.target) /* || !document.getElementsByClassName('friends-list__img-icon').contains(e.target) */) {
+  if (
+    !document
+      .getElementById("feedFriendsList")
+      .contains(
+        e.target
+      ) /* || !document.getElementsByClassName('friends-list__img-icon').contains(e.target) */
+  ) {
     toggleFriendsModal();
   }
 }
@@ -794,16 +799,30 @@ function insertComment(event) {
     .then((res) => res.json())
     .then((data) => {
       if (data[0] === true) {
-        getPosts();
-        toggleCreateComment();
+        const commentsContainer = document.querySelector(
+          `.comments-container-${commentPostId}`
+        );
+        commentsContainer.insertAdjacentHTML(
+          "afterbegin",
+          `
+            <div class = "feed__post-comment">
+                <p class="feed__post-comment-author">${nickname}</p>
+                <p class="feed__post-comment-message">${inputComment}</p>
+            </div>
+        
+        `
+        );
+        // getPosts();
+
         spinner.setAttribute("hidden", "");
+        toggleCreateComment();
       }
     });
 }
 
 async function showNotifications() {
   window.removeEventListener("click", clickOutsideFriendList);
-  spinner.removeAttribute('hidden');
+  spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">

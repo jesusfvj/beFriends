@@ -173,6 +173,7 @@ function getUsers() {
 }
 
 function printPosts(posts, userId) {
+  spinner.removeAttribute("hidden");
   posts.forEach(async (post) => {
     const {
       avatar,
@@ -227,6 +228,7 @@ function printPosts(posts, userId) {
                 </div>
             </article>
             `;
+    spinner.setAttribute("hidden", "");
   });
 }
 let isAllPostsPageActive = true;
@@ -253,6 +255,8 @@ function getPosts() {
 }
 
 function getPostsByUserId(id) {
+  spinner.removeAttribute("hidden");
+  isAllPostsPageActive = false;
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
     .then((data) => {
@@ -269,15 +273,18 @@ function getPostsByUserId(id) {
         isAllPostsPageActive = false;
       }
       printPosts(data[0], data[1]);
+      spinner.setAttribute("hidden", "");
     });
 }
 
 function checkHasLike(postId) {
+  spinner.removeAttribute("hidden");
   const hasLikes = fetch(
     `./controllers/likes.php?post_id=${postId}&controller=checkhaslike`
   )
     .then((res) => res.json())
     .then((data) => {
+      spinner.setAttribute("hidden", "");
       return data;
     });
   return hasLikes;
@@ -374,6 +381,7 @@ async function createPost(e) {
 //delete post functions
 
 function deletePost(event) {
+  spinner.removeAttribute("hidden");
   const postId = event.target.getAttribute("postId");
   fetch(`./controllers/posts.php?controller=deletepost&postid=${postId}`)
     .then((res) => res.json())
@@ -393,6 +401,7 @@ function deletePostElement(event) {
 let hasImageChanged = false;
 
 function uploadEditProfileImg(e) {
+  spinner.removeAttribute("hidden");
   editProfileImageToUpload = e.target.files[0];
   const img = document.createElement("img");
 
@@ -408,10 +417,12 @@ function uploadEditProfileImg(e) {
   };
   reader.readAsDataURL(editProfileImageToUpload);
   hasImageChanged = true;
+  spinner.setAttribute("hidden", "");
 }
 
 async function submitEditForm(e) {
   e.preventDefault();
+  spinner.removeAttribute("hidden");
   const userId = e.target.getAttribute("userId");
   let image = editProfileImageToUpload;
   const formData = new FormData();
@@ -447,15 +458,18 @@ async function submitEditForm(e) {
     .then((data) => {
       editProfileModal.classList.add("hidden");
       hasImageChanged = false;
+      spinner.setAttribute("hidden", "");
     });
 }
 
 function deleteUser() {
+  spinner.removeAttribute("hidden");
   fetch(`./controllers/users.php?controller=delete`)
     .then((res) => res.json())
     .then((data) => {
       deleteConfirmationModal.classList.toggle("hidden");
       editProfileModal.classList.toggle("hidden");
+      spinner.setAttribute("hidden", "");
       window.location.href = "index.php";
     });
 }
@@ -478,6 +492,7 @@ function toggleEditModal() {
 }
 
 function toggleSearchModal() {
+  spinner.removeAttribute("hidden");
   feedSearchUsersModal.classList.toggle("hidden");
   feedSearchResult.innerHTML = "";
   feedSearchInput.value = "";
@@ -512,6 +527,7 @@ function toggleSearchModal() {
         </div>
     `;
   });
+  spinner.setAttribute("hidden", "");
 }
 
 function toggleCreateComment(event) {
@@ -539,6 +555,7 @@ addFriendsButton.forEach((element) => {
 });
 
 function addFriend(event) {
+  spinner.removeAttribute("hidden");
   const friendId = event.target.getAttribute("userid");
 
   fetch(`./controllers/friends.php?controller=addfriend&friendid=${friendId}`)
@@ -549,10 +566,12 @@ function addFriend(event) {
       await getNoFriends();
       await getFriends();
       searchUsers();
+      spinner.setAttribute("hidden", "");
     });
 }
 
 async function showFriendList() {
+  spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
                                       <div id="counterAlertNot" class="friends-list__alert-counter"></div>
@@ -563,8 +582,8 @@ async function showFriendList() {
 
   await fetch(`./controllers/friends.php?controller=getfriends`)
     .then((res) => res.json())
-    .then((data) => {
-      data.forEach((friend) => {
+    .then(async (data) => {
+      await data.forEach((friend) => {
         let newFriend = document.createElement("div");
         newFriend.classList.add("feed__friend-container");
         newFriend.innerHTML = ` <button class="feed__friend-delete" userid="${friend.friendId}">x</button>
@@ -573,6 +592,7 @@ async function showFriendList() {
 
         friendListContainer.appendChild(newFriend);
       });
+      spinner.setAttribute("hidden", "");
     });
   const deleteButton = document.querySelectorAll(".feed__friend-delete");
   const bellIcon = document.querySelector(".friends-list__img-icon");
@@ -584,6 +604,7 @@ async function showFriendList() {
 }
 
 function deleteFriend(event) {
+  spinner.removeAttribute("hidden");
   const friendId = event.target.getAttribute("userid");
   fetch(
     `./controllers/friends.php?controller=deletefriend&friendid=${friendId}`
@@ -595,15 +616,18 @@ function deleteFriend(event) {
       await getNoFriends();
       await getFriends();
       searchUsers();
+      spinner.setAttribute("hidden", "");
     });
 }
 
 let nonFriends;
 async function getNoFriends() {
+  spinner.removeAttribute("hidden");
   await fetch("./controllers/users.php?controller=get")
     .then((res) => res.json())
     .then((data) => {
       nonFriends = data;
+      spinner.setAttribute("hidden", "");
     });
   return nonFriends;
 }
@@ -611,16 +635,19 @@ getNoFriends();
 
 let friends;
 async function getFriends() {
+  spinner.removeAttribute("hidden");
   await fetch("./controllers/friends.php?controller=getfriends")
     .then((res) => res.json())
     .then((data) => {
       friends = data;
+      spinner.setAttribute("hidden", "");
     });
   return friends;
 }
 getFriends();
 
 async function searchUsers() {
+  spinner.removeAttribute("hidden");
   const feedSearchInput = document.getElementById("feedSearchInput");
   feedSearchResult.innerHTML = "";
   const searchText = feedSearchInput.value;
@@ -666,9 +693,11 @@ async function searchUsers() {
         </div>
     `;
   });
+  spinner.setAttribute("hidden", "");
 }
 
 function insertComment(event) {
+  spinner.removeAttribute("hidden");
   event.preventDefault();
   commentPostId;
   const inputComment = inputCommentInsert.value;
@@ -681,10 +710,13 @@ function insertComment(event) {
       if (data[0] === true) {
         getPosts();
         toggleCreateComment();
+        spinner.setAttribute("hidden", "");
       }
     });
 }
+
 async function showNotifications() {
+  spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
@@ -706,6 +738,7 @@ async function showNotifications() {
 
         friendListContainer.appendChild(newNotification);
       });
+      spinner.setAttribute("hidden", "");
     });
 
   const followBackBtn = document.querySelectorAll(
@@ -728,6 +761,7 @@ async function showNotifications() {
 }
 
 function denyFollow(event) {
+  spinner.removeAttribute("hidden");
   const friendId = event.target.getAttribute("userid");
   fetch(
     `./controllers/friends.php?controller=denyfriendrequest&friendid=${friendId}`
@@ -736,6 +770,7 @@ function denyFollow(event) {
     .then((data) => {
       getUsers();
       showNotifications();
+      spinner.setAttribute("hidden", "");
     });
 }
 
@@ -750,7 +785,7 @@ setInterval(() => {
     .then((data) => {
       printNotificationsAlert(data[0][0]);
     });
-}, 1000);
+}, 1500);
 
 function printNotificationsAlert(data) {
   const alertCounterNot = document.querySelectorAll(
@@ -778,7 +813,6 @@ function getNotificationsCounter() {
   fetch(`./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data[0][0])
       printNotificationsAlert(data[0][0]);
     });
 }

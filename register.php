@@ -17,6 +17,7 @@ if (isset($_SESSION['id'])) {
 </head>
 
 <body>
+    <div hidden class="spinner"></div>
     <main class="main__container">
         <section class="section__container">
             <section class="section-first-body__container">

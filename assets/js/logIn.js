@@ -8,6 +8,8 @@ const facebookText = document.querySelector(".facebook__text");
 const facebookIcon = document.querySelector(".facebook__icon");
 const forgotText = document.querySelector(".paragraph-forgot__text");
 
+const spinner = document.querySelector(".spinner");
+
 const iconsImg = document.querySelectorAll(".icons__img");
 const comingSoonAlert = document.querySelector(".modal-coming-soon__div");
 
@@ -33,6 +35,7 @@ function sendToRegister() {
 
 function sendLogInData(event) {
   event.preventDefault();
+  spinner.removeAttribute('hidden');
   const formData = new FormData();
   inputUserLogIn.value.includes("@")
     ? (formData.append("email", inputUserLogIn.value),
@@ -52,6 +55,7 @@ function sendLogInData(event) {
       } else {
         modalVerificationsLogin();
       }
+      spinner.setAttribute('hidden', '');
     });
 }
 

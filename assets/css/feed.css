@@ -510,14 +510,16 @@
 }
 
 .feed__edit-thumbnail-container {
+  display: flex;
+  justify-content: center;
   align-self: center;
-  width: 50%;
+  height: 10rem;
 }
 
 .feed__edit-profile-thumbnail {
-  align-self: center;
+  width: 30%;
+  object-fit: scale-down;
   border-radius: 0.3rem;
-  width: 100%;
 }
 
 .edit-form__button {
@@ -780,6 +782,7 @@
 }
 
 .friends-list__alert-counter {
+  display: none;
   position: absolute;
   top: 0.9rem;
   left: 1rem;
@@ -958,5 +961,10 @@
 
   .edit-form-div__input {
     justify-content: center;
+  }
+
+  .feed__edit-thumbnail-container {
+    object-fit: cover;
+    height: 6rem;
   }
 }

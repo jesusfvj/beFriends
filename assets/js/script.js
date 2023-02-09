@@ -181,6 +181,7 @@ function getUsers() {
 
 function printPosts(posts, userId) {
   spinner.removeAttribute("hidden");
+  feedPostsContainer.innerHTML = "";
   posts.forEach(async (post) => {
     const {
       avatar,
@@ -241,14 +242,16 @@ function printPosts(posts, userId) {
 let isAllPostsPageActive = true;
 
 function getPosts() {
+  console.log("here");
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
       if (!isAllPostsPageActive) {
+        console.log("here");
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
         feedCreatePostButton.removeEventListener("click", getPosts);
-        feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+        feedCreatePostButton.addEventListener("click", showCreatePostModal);
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = true;
@@ -504,9 +507,11 @@ function toggleDeleteConfirmationModal(e) {
 }
 
 function showCreatePostModal() {
-  toggleCreatePostModal();
-  event.stopPropagation();
-  window.addEventListener("click", clickOutsideCreatePost);
+  if (isAllPostsPageActive) {
+    toggleCreatePostModal();
+    event.stopPropagation();
+    window.addEventListener("click", clickOutsideCreatePost);
+  }
 }
 
 function clickOutsideCreatePost(e) {
@@ -596,7 +601,9 @@ function toggleSearchModal() {
 
 function toggleCreateComment(event) {
   createComment.classList.toggle("hidden");
-  commentPostId = event.target.getAttribute("postid");
+  if (event) {
+    commentPostId = event.target.getAttribute("postid");
+  }
   window.removeEventListener("click", clickOutsideComment);
 }
 
@@ -814,8 +821,8 @@ function insertComment(event) {
         );
         // getPosts();
 
-        spinner.setAttribute("hidden", "");
         toggleCreateComment();
+        spinner.setAttribute("hidden", "");
       }
     });
 }

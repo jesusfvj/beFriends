@@ -776,6 +776,7 @@
 }
 
 .friends-list__alert-counter{
+  display: none;
   position: absolute;
   top: 0.9rem;
   left: 1rem;

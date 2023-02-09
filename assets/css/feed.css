@@ -769,6 +769,9 @@
 
 .feed__user-avatar {
   width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
   margin-right: 1rem;
 }
 

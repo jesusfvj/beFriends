@@ -814,8 +814,8 @@ function insertComment(event) {
         );
         // getPosts();
 
-        toggleCreateComment();
         spinner.setAttribute("hidden", "");
+        toggleCreateComment();
       }
     });
 }

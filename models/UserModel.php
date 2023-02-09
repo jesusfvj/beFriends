@@ -31,7 +31,8 @@ class UserModel extends DbConection
             "SELECT * FROM user WHERE user.id
             NOT IN (SELECT friend_id as friendId FROM friends
             WHERE friends.user_id = $userId)
-            AND user.id <> $userId;");
+            AND user.id <> $userId;"
+        );
 
         try {
             $query->execute();
@@ -63,7 +64,7 @@ class UserModel extends DbConection
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
-        
+
         // if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
         //     $msg = $message->throwErrorMessage('password-strength');
         //     return ['password-strength', $msg];
@@ -100,7 +101,7 @@ class UserModel extends DbConection
         } catch (PDOException $e) {
             $msg = $message->throwErrorMessage('user-or-email-not-valid');
             return ['user-or-email-not-valid', $msg, $e];
-        } 
+        }
     }
 
     function update($id, $fullname, $username, $gender, $avatar)
@@ -120,6 +121,11 @@ class UserModel extends DbConection
 
         try {
             $query->execute();
+            session_start();
+            $_SESSION['name'] = $fullname;
+            $_SESSION['nickname'] = $username;
+            $_SESSION['gender'] = $gender;
+
             return [true];
         } catch (PDOException $e) {
             return [false, $e];
@@ -137,7 +143,7 @@ class UserModel extends DbConection
             $query->execute();
             $user = $query->rowCount();
             $data = $query->fetch(PDO::FETCH_OBJ);
-            if($data){
+            if ($data) {
                 $hashedPassword = $data->password;
             }
             $db = null;

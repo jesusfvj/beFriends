@@ -43,6 +43,7 @@
 }
 
 .feed__aside-logo {
+  cursor: pointer;
   width: 33%;
   margin-left: 33%;
   z-index: 9999999999999;
@@ -906,7 +907,7 @@
     width: 80%;
   }
 
-  .feed__friends-list{
+  .feed__friends-list {
     min-width: 50%;
   }
 

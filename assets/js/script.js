@@ -200,7 +200,7 @@ function printPosts(posts, userId) {
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img profile-img-${postOwner}" src=${avatar} alt="" />
                     <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
-                        <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
+                        <p userId=${postOwner} class="feed__post-profile-name profile-nickname-${postOwner}">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
                   ${
@@ -428,6 +428,8 @@ function uploadEditProfileImg(e) {
   spinner.setAttribute("hidden", "");
 }
 
+const userNickname = document.getElementById("userNickname");
+
 async function submitEditForm(e) {
   e.preventDefault();
   spinner.removeAttribute("hidden");
@@ -470,8 +472,18 @@ async function submitEditForm(e) {
       const profileImages = document.getElementsByClassName(
         `profile-img-${userId}`
       );
+      const profileNickname = document.getElementsByClassName(
+        `profile-nickname-${userId}`
+      );
+
+      for (let nickname of profileNickname) {
+        nickname.textContent = inputNameEditProfile.value;
+      }
       for (let profileImage of profileImages) {
         profileImage.src = editProfileImageToUpload;
+      }
+      if (data[0]) {
+        userNickname.textContent = inputNameEditProfile.value;
       }
     });
 }
@@ -523,7 +535,7 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
-  console.log("toggleFriendsModal")
+  console.log("toggleFriendsModal");
   feedFriendsListModal.classList.toggle("hidden");
   window.removeEventListener("click", clickOutsideFriendList);
 }
@@ -541,7 +553,10 @@ function toggleEditModal() {
 
 function clickOutsideEdit(e) {
   const editButton = e.target.id;
-  if (!document.getElementById("feedEditProfile").contains(e.target) && editButton != "editButton") {
+  if (
+    !document.getElementById("feedEditProfile").contains(e.target) &&
+    editButton != "editButton"
+  ) {
     toggleEditModal();
   } else if (editButton == "editButton") {
     window.removeEventListener("click", clickOutsideEdit);
@@ -557,7 +572,7 @@ function showSearchModal() {
 function clickOutsideSearch(e) {
   if (!document.getElementById("feedSearchModal").contains(e.target)) {
     toggleSearchModal();
-    console.log("clickOutsideSearch")
+    console.log("clickOutsideSearch");
   }
 }
 
@@ -697,7 +712,10 @@ function showFriendListModal() {
 
 function clickOutsideFriendList(e) {
   const bellButton = e.target.classList;
-  if (!document.getElementById("feedFriendsList").contains(e.target) && bellButton != "friends-list__img-icon") {
+  if (
+    !document.getElementById("feedFriendsList").contains(e.target) &&
+    bellButton != "friends-list__img-icon"
+  ) {
     toggleFriendsModal();
   }
 }

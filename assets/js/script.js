@@ -1,10 +1,6 @@
 //================ Fetching new methods =================//
-window.location.hash = 'no-back-button';
-window.location.hash = 'Again-No-back-button';
+window.history.forward();
 
-window.onhashchange = function() {
-  window.location.hash = 'no-back-button';
-}
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())

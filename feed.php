@@ -21,9 +21,9 @@ if (!isset($_SESSION['id'])) {
 
 <body class="feed__body">
     <div hidden class="spinner"></div>
-    <div class="feed__user-login">
-        <img class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
-        <p><?php echo $_SESSION['nickname'] ?></p>
+    <div class="feed__user-login" id="profileInfoTopLeft" userId="<?php echo $_SESSION['id']; ?>">
+        <img userId="<?php echo $_SESSION['id']; ?>" class="feed__user-avatar profile-img-<?php echo $_SESSION['id']; ?>" src="./assets/images/defaultProfileImg.png" alt="user avatar">
+        <p userId="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['nickname'] ?></p>
     </div>
     <aside class="feed__friends-suggestions">
         <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
@@ -33,7 +33,7 @@ if (!isset($_SESSION['id'])) {
     <main class="feed__main" id="feedPostsContainer"></main>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
-            <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
+            <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" id="beFriendsLogo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
                     <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />

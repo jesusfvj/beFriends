@@ -80,7 +80,7 @@ if (isset($_SESSION['id'])) {
             </section>
         </section>
     </main>
-    <footer></footer>
+
     <section class="modal-success-register__section">
         <div class="modal-success-register__div">
             <div class="modal-success-register__header">
@@ -94,6 +94,7 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </section>
+
     <section class="modal-error-register__section">
         <div class="modal-error-register__div">
             <div class="modal-error-register__header">
@@ -109,18 +110,19 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </section>
+
     <section class="modal-coming-soon__section">
-    <div class="modal-coming-soon__div">
-        <div class="modal-coming-soon__header">
-            <p class="modal-coming-soon__title">Coming soon</p>
-        </div>
-        <div class="modal-coming-soon__content">
-            <div class="modal-coming-soon__img-container">
-                <img class="modal-coming-soon__img" src="./assets/images/construction.png">
+        <div class="modal-coming-soon__div">
+            <div class="modal-coming-soon__header">
+                <p class="modal-coming-soon__title">Coming soon</p>
             </div>
-            <p class="modal-coming-soon__paragraph">This feature is under construction</p>
+            <div class="modal-coming-soon__content">
+                <div class="modal-coming-soon__img-container">
+                    <img class="modal-coming-soon__img" src="./assets/images/construction.png">
+                </div>
+                <p class="modal-coming-soon__paragraph">This feature is under construction</p>
+            </div>
         </div>
-    </div>
     </section>
 </body>
 

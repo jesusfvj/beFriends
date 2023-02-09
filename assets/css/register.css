@@ -233,6 +233,7 @@ section {
 .modal-error-register__section,
 .modal-error-login__section,
 .modal-coming-soon__section {
+  position: relative;
   display: flex;
   justify-content: center;
   align-content: center;

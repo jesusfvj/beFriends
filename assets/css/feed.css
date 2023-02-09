@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   font-family: var(--font);
-	user-select: none;
+  user-select: none;
 }
 
 .feed__body {
@@ -45,6 +45,7 @@
 .feed__aside-logo {
   width: 33%;
   margin-left: 33%;
+  z-index: 9999999999999;
 }
 
 .feed__nav {
@@ -172,7 +173,7 @@
 
 .feed__post-img {
   width: 100%;
-  max-height: 50vh;
+  max-height: 60vh;
   object-fit: cover;
   margin-top: 1rem;
   border-radius: 0.3rem;
@@ -336,7 +337,7 @@
   cursor: pointer;
 }
 
-.feed__friend-container{
+.feed__friend-container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -450,7 +451,7 @@
   scrollbar-width: none;
 }
 
-.feed__notification-container{
+.feed__notification-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -683,7 +684,7 @@
   cursor: pointer;
 }
 
-.feed__found-user-add-btn{
+.feed__found-user-add-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -758,7 +759,7 @@
   background-color: rgb(113, 113, 251);
 }
 
-.feed__user-login{
+.feed__user-login {
   position: fixed;
   top: 1.5rem;
   left: 3rem;
@@ -768,16 +769,19 @@
   margin-bottom: 2rem;
 }
 
-.feed__user-avatar{
+.feed__user-avatar {
   width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
   margin-right: 1rem;
 }
 
-.friends-list__alert-counter-parent{
+.friends-list__alert-counter-parent {
   position: relative;
 }
 
-.friends-list__alert-counter{
+.friends-list__alert-counter {
   display: none;
   position: absolute;
   top: 0.9rem;
@@ -869,7 +873,8 @@
     width: 2rem;
   }
 
-  .feed__create-post-button {
+  .feed__create-post-button,
+  .feed__back-to-posts-button {
     border-radius: 0.3rem;
     bottom: 1.5rem;
     left: 0;
@@ -884,6 +889,10 @@
     width: 50%;
     position: fixed;
     cursor: pointer;
+  }
+
+  .feed__back-to-posts-button {
+    background-color: green;
   }
 
   .feed__main:first-child {
@@ -936,17 +945,17 @@
     padding-left: 0rem;
   }
 
-  .feed__user-login{
+  .feed__user-login {
     display: none;
   }
 
-  .feed__notification-follow-back-btn{
+  .feed__notification-follow-back-btn {
     font-size: 0.6rem;
     padding: 0 0.5rem;
     width: fit-content;
   }
 
-  .feed__notification-nickname{
+  .feed__notification-nickname {
     font-size: 0.8rem;
   }
 

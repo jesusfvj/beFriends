@@ -149,7 +149,7 @@ function getUsers() {
                 <button onclick="addFriend(event)" class="feed__friends-suggestions-add-btn" userId=${user.id}>+</button>
                 <button onclick="deleteFriend(event)" class="feed__friends-suggestions-deny-btn" userId=${user.id}>x</button>
             </div>
-                <img class="feed__post-profile-img" src=${user.avatar} alt="" userId=${user.id}/>
+                <img class="feed__post-profile-img profile-img-${user.id}" src=${user.avatar} alt="" userId=${user.id}/>
                 <p>${user.nickname}</p>
             </div>
     `;
@@ -184,7 +184,7 @@ function printPosts(posts, userId) {
     feedPostsContainer.innerHTML += `
             <article class="feed__post">
                 <div class="feed__article-header">
-                    <img class="feed__post-profile-img" src=${avatar} alt="" />
+                    <img class="feed__post-profile-img profile-img-${postOwner}" src=${avatar} alt="" />
                     <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
                         <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
@@ -454,6 +454,12 @@ async function submitEditForm(e) {
       editProfileModal.classList.add("hidden");
       hasImageChanged = false;
       spinner.setAttribute("hidden", "");
+      const profileImages = document.getElementsByClassName(
+        `profile-img-${userId}`
+      );
+      for (let profileImage of profileImages) {
+        profileImage.src = editProfileImageToUpload;
+      }
     });
 }
 

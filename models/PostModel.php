@@ -3,12 +3,16 @@ require_once("../models/index.php");
 session_start();
 class PostModel extends DbConection
 {
-    function get()
+    function get($page)
     {
+        $amount = 5;
+        $start = ($page - 1) * $amount;
+
         $queryPost = $this->db->connect()->prepare(
             "SELECT P.content as postContent, P.image, P.created_at, P.id as postId, U.nickname, U.avatar, U.id as postOwner 
                 FROM post P JOIN user U ON U.id = P.user_id
-                    ORDER BY P.created_at DESC");
+                    ORDER BY P.created_at DESC
+                    LIMIT $start, $amount");
 
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM

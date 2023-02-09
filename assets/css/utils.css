@@ -22,6 +22,15 @@
     animation: loader 2s linear infinite;
 }
 
+.spinnerScroll {
+    border: 20px solid #f2f2f2;
+    border-bottom: 20px solid #33dba9;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: loader 2s linear infinite;
+}
+
 @keyframes loader {
     0% {
         transform: rotate(0deg);

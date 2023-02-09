@@ -30,7 +30,12 @@ if (!isset($_SESSION['id'])) {
             <p>Suggested friends for you</p>
         </div>
     </aside>
-    <main class="feed__main" id="feedPostsContainer"></main>
+    <main class="feed__container">
+    <div class="feed__main" id="feedPostsContainer">
+    
+    </div>
+    <div class="spinnerScroll" id="spinnerLoaded"></div>
+    </main>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" id="beFriendsLogo" />
@@ -51,7 +56,7 @@ if (!isset($_SESSION['id'])) {
             </nav>
         </div>
     </aside>
-    <main class="feed__main" id="feedPostsContainer"></main>
+
     <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
 
 

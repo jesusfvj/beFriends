@@ -31,8 +31,9 @@ switch ($controller) {
 
 function getPosts()
 {
+    $page = $_GET['page'];
     $getPosts = new PostModel();
-    echo json_encode($getPosts->get());
+    echo json_encode($getPosts->get($page));
 }
 
 function getPostById()

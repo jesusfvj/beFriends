@@ -16,12 +16,19 @@ function getPostById(id) {
 // getPostsByUserId(1);
 
 document.body.addEventListener("load", getUsers());
-document.body.addEventListener("load", getPosts());
+// document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());
 
 const spinner = document.querySelector(".spinner");
 
 const feedPostsContainer = document.getElementById("feedPostsContainer");
+
+//infinity scroll
+
+const spinnerScroll = document.getElementById("spinnerLoaded");
+document.addEventListener("DOMContentLoaded", infinityScroll);
+let page = 1;
+
 const beFriendsLogo = document.getElementById("beFriendsLogo");
 beFriendsLogo.addEventListener("click", getPosts);
 const profileInfoTopLeft = document.getElementById("profileInfoTopLeft");
@@ -175,7 +182,7 @@ function getUsers() {
 }
 
 function printPosts(posts, userId) {
-  spinner.removeAttribute("hidden");
+  // spinner.removeAttribute('hidden');
   posts.forEach(async (post) => {
     const {
       avatar,
@@ -230,13 +237,13 @@ function printPosts(posts, userId) {
                 </div>
             </article>
             `;
-    spinner.setAttribute("hidden", "");
+  // spinner.setAttribute('hidden', '');
   });
 }
 let isAllPostsPageActive = true;
 
-function getPosts() {
-  fetch("./controllers/posts.php?controller=getposts")
+function getPosts(page) {
+  fetch(`./controllers/posts.php?controller=getposts&page=${page}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -251,7 +258,9 @@ function getPosts() {
       }
       const posts = data[0];
       const userId = data[1];
-
+      if (posts.length < 5) {
+        spinnerScroll.classList.toggle("hidden");
+      }
       printPosts(posts, userId);
     });
 }
@@ -364,7 +373,13 @@ async function createPost(e) {
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
-      spinner.setAttribute("hidden", "");
+      spinner.setAttribute('hidden', '');
+      feedPostsContainer.innerHTML = "";
+          if(spinnerScroll.classList.contains("hidden")){
+            spinnerScroll.classList.toggle("hidden");
+          };
+          
+          page = 1;
     });
 
   if (text.length) {
@@ -820,4 +835,20 @@ function getNotificationsCounter() {
     .then((data) => {
       printNotificationsAlert(data[0][0]);
     });
+}
+
+function infinityScroll() {
+
+  const observeSpinner = async listPost => {
+    if (listPost[0].isIntersecting) {
+      await getPosts(page);
+      page++
+    }
+  }
+  const options = {
+    threshold: 0.9
+  }
+  let observer = new IntersectionObserver(observeSpinner, options);
+
+  observer.observe(spinnerScroll)
 }

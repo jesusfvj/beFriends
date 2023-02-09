@@ -39,7 +39,7 @@ if (isset($_SESSION['id'])) {
                     <div class="form-div__input">
                         <p class="paragraph-placeholder__text">Gender</p>
                         <select class="form__input" id="inputGenderRegister" placeholder="Gender" type="text" name="inputGenderRegister" required>
-                            <option id="optionGender" class="option__select-gender--style"></option select>
+                            <option value=""></option>
                             <option>Female</option>
                             <option>Male</option>
                             <option>Non binary</option>

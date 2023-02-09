@@ -21,9 +21,9 @@ if (!isset($_SESSION['id'])) {
 
 <body class="feed__body">
     <div hidden class="spinner"></div>
-    <div class="feed__user-login">
-        <img class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
-        <p><?php echo $_SESSION['nickname'] ?></p>
+    <div class="feed__user-login" id="profileInfoTopLeft" userId="<?php echo $_SESSION['id']; ?>">
+        <img userId="<?php echo $_SESSION['id']; ?>" class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
+        <p userId="<?php echo $_SESSION['id']; ?>"><?php echo $_SESSION['nickname'] ?></p>
     </div>
     <aside class="feed__friends-suggestions">
         <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">

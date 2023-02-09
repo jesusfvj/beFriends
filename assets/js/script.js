@@ -24,6 +24,8 @@ const spinner = document.querySelector(".spinner");
 const feedPostsContainer = document.getElementById("feedPostsContainer");
 const beFriendsLogo = document.getElementById("beFriendsLogo");
 beFriendsLogo.addEventListener("click", getPosts);
+const profileInfoTopLeft = document.getElementById("profileInfoTopLeft");
+profileInfoTopLeft.addEventListener("click", getPostsByUserId);
 
 // create post form
 const createPostForm = document.getElementById("createPostForm");
@@ -255,6 +257,10 @@ function getPosts() {
 }
 
 function getPostsByUserId(id) {
+  if (id.target) {
+    id = id.target.getAttribute("userId");
+  }
+  console.log(id);
   spinner.removeAttribute("hidden");
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
@@ -270,8 +276,8 @@ function getPostsByUserId(id) {
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = false;
+        printPosts(data[0], data[1]);
       }
-      printPosts(data[0], data[1]);
       spinner.setAttribute("hidden", "");
     });
 }

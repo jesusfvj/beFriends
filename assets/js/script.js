@@ -116,7 +116,6 @@ editModalOpenBtn.addEventListener("click", activateWindowAEL);
 let removeAEL = false;
 
 function activateWindowAEL(){
-  console.log("hola")
   removeAEL = true;
   window.addEventListener("click", clickOutsideEdit);
 } */
@@ -242,12 +241,10 @@ function printPosts(posts, userId) {
 let isAllPostsPageActive = true;
 
 function getPosts() {
-  console.log("here");
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
       if (!isAllPostsPageActive) {
-        console.log("here");
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
         feedCreatePostButton.removeEventListener("click", getPosts);

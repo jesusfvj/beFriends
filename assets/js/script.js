@@ -640,6 +640,7 @@ function addFriend(event) {
 }
 
 async function showFriendList() {
+  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute('hidden');
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
@@ -674,7 +675,7 @@ async function showFriendList() {
 }
 
 function clickOutsideFriendList(e) {
-  if (!document.getElementById('feedFriendsList').contains(e.target)) {
+  if (!document.getElementById('feedFriendsList').contains(e.target) /* || !document.getElementsByClassName('friends-list__img-icon').contains(e.target) */) {
     toggleFriendsModal();
   }
 }
@@ -792,6 +793,7 @@ function insertComment(event) {
 }
 
 async function showNotifications() {
+  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute('hidden');
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
@@ -834,6 +836,7 @@ async function showNotifications() {
   const bellIcon = document.querySelector(".friends-list__img-icon");
   bellIcon.addEventListener("click", showFriendList);
   bellIcon.addEventListener("click", getNotificationsCounter);
+  window.addEventListener("click", clickOutsideFriendList);
 }
 
 function denyFollow(event) {

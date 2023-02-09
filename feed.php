@@ -14,11 +14,13 @@ if (!isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beFriends - feed</title>
     <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./assets/css/utils.css?v=<?php echo time(); ?>">
     <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
     <script src="./assets/js/api/user.js?=<?php echo time(); ?>" defer></script>
 </head>
 
 <body class="feed__body">
+    <div hidden class="spinner"></div>
     <div class="feed__user-login">
         <img class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
         <p><?php echo $_SESSION['nickname'] ?></p>

@@ -45,6 +45,7 @@
 .feed__aside-logo {
   width: 33%;
   margin-left: 33%;
+  z-index: 9999999999999;
 }
 
 .feed__nav {

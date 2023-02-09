@@ -33,7 +33,7 @@ if (!isset($_SESSION['id'])) {
     <main class="feed__main" id="feedPostsContainer"></main>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
-            <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
+            <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" id="beFriendsLogo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
                     <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />

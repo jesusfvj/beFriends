@@ -22,6 +22,8 @@ document.body.addEventListener("load", getLogedUser());
 const spinner = document.querySelector(".spinner");
 
 const feedPostsContainer = document.getElementById("feedPostsContainer");
+const beFriendsLogo = document.getElementById("beFriendsLogo");
+beFriendsLogo.addEventListener("click", getPosts);
 
 // create post form
 const createPostForm = document.getElementById("createPostForm");
@@ -227,11 +229,13 @@ function printPosts(posts, userId) {
             `;
   });
 }
+let isAllPostsPageActive = true;
 
 function getPosts() {
   fetch("./controllers/posts.php?controller=getposts")
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
         feedCreatePostButton.textContent = "Create post";
@@ -247,8 +251,6 @@ function getPosts() {
       printPosts(posts, userId);
     });
 }
-
-let isAllPostsPageActive = true;
 
 function getPostsByUserId(id) {
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)

@@ -67,13 +67,13 @@ class PostModel extends DbConection
         $queryPost = $this->db->connect()->prepare(
             " SELECT T.*, U.nickname, U.avatar, U.id FROM
                 (SELECT P.user_id as postOwner, P.content as postContent, P.image, P.created_at, P.id as postId 
-                    FROM post P WHERE P.user_id = $userId) as T
+                    FROM post P WHERE P.user_id = $userId ORDER BY P.created_at DESC) as T
                         INNER JOIN user U ON U.id = T.postOwner");
 
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM
                 (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId FROM post 
-                    INNER JOIN comment ON post.id = comment.post_id) AS T
+                    INNER JOIN comment ON post.id = comment.post_id ORDER BY comment.created_at DESC) AS T
                         INNER JOIN user ON $userId = user.id");
 
         try {

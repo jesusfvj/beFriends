@@ -256,7 +256,6 @@ function getPosts() {
 
 function getPostsByUserId(id) {
   spinner.removeAttribute("hidden");
-  isAllPostsPageActive = false;
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
     .then((data) => {

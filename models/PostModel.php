@@ -75,7 +75,7 @@ class PostModel extends DbConection
             "SELECT T.*, user.nickname FROM
                 (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId, comment.created_at FROM post 
                     INNER JOIN comment ON post.id = comment.post_id) AS T
-                        INNER JOIN user ON $userId = user.id
+                        INNER JOIN user ON user.id = $userId
                         ORDER BY T.created_at DESC");
 
         try {

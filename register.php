@@ -14,7 +14,7 @@ if (isset($_SESSION['id'])) {
     <link rel="icon" type="image/png" href="./assets/images/logoFavicon.png"/>
     <link rel="stylesheet" href="./assets/css/styles.css?v=<?php echo time(); ?>">
     <script src="./assets/js/register.js?v=<?php echo time(); ?>" defer></script>
-    <title>beFriends - register</title>
+    <title>beFriends - Register</title>
 </head>
 
 <body>

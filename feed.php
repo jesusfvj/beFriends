@@ -29,31 +29,18 @@ if (!isset($_SESSION['id'])) {
         </div>
     </aside>
     <main class="feed__main" id="feedPostsContainer"></main>
-    <div class="feed__user-login">
-        <img class="feed__user-avatar" src="./assets/images/defaultProfileImg.png" alt="user avatar">
-        <p><?php echo $_SESSION['nickname'] ?></p>
-    </div>
-    <aside class="feed__friends-suggestions">
-        <div class="feed__friends-suggestions-friends" id="friendsSuggestionsContainer">
-            <p>Suggested friends for you</p>
-        </div>
-    </aside>
-    <main class="feed__main" id="feedPostsContainer"></main>
     <aside class="feed__aside">
         <div class="feed__aside-nav-container">
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
-                <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
                     <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />
-                    <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                     <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                 </div>
                 <div class="feed__nav-item" id="feedEditOpenModalBtn">
                     <img src="./assets/images/editProfile.png" alt="nav-icon" class="nav__image" />
                 </div>
                 <div class="feed__nav-item">
-                    <img src="./assets/images/searchFriends.png" id="feedOpenSearchModalBtn" alt="nav-icon" class="nav__image" />
                     <img src="./assets/images/searchFriends.png" id="feedOpenSearchModalBtn" alt="nav-icon" class="nav__image" />
                 </div>
                 <div class="feed__nav-item" id="feedLogoutBtn">
@@ -63,9 +50,7 @@ if (!isset($_SESSION['id'])) {
         </div>
     </aside>
     <main class="feed__main" id="feedPostsContainer"></main>
-    <main class="feed__main" id="feedPostsContainer"></main>
     <button class="feed__create-post-button" id="feedCreatePostButton">Create post</button>
-
 
 
     <!-- create post modal -->
@@ -74,8 +59,6 @@ if (!isset($_SESSION['id'])) {
         <form class="feed__create-post-form" id="createPostForm">
             <label for="postImageUpload" class="feed__post-image-label">Add image</label>
             <input id="postImageUpload" class="hidden" type="file" />
-            <div id="createPostThumbnailContainer" class="create-post-thumbnail-container">
-            </div>
             <div id="createPostThumbnailContainer" class="create-post-thumbnail-container">
             </div>
             <textarea class="feed__create-post-form-textarea" id="createPostText" rows="6" placeholder="What are your thoughts?"></textarea>
@@ -90,24 +73,6 @@ if (!isset($_SESSION['id'])) {
         <div class=" feed__friends-list">
             <h2>Friends</h2>
             <p class="modal-close-btn" id="feedFriendsModalCloseBtn">x</p>
-        </div>
-    </div>
-
-    <div class="modal hidden" id="feedSearchUsersModal">
-        <div class="feed__friends-list">
-            <p class="modal-close-btn" id="feedSearchModalCloseBtn">x</p>
-            <input type="text" id="feedSearchInput" class="feed__search-input">
-            <div id="feedSearchResult" class="feed__search-result-container">
-            </div>
-        </div>
-    </div>
-
-    <div class="modal hidden" id="feedSearchUsersModal">
-        <div class="feed__friends-list">
-            <p class="modal-close-btn" id="feedSearchModalCloseBtn">x</p>
-            <input type="text" id="feedSearchInput" class="feed__search-input">
-            <div id="feedSearchResult" class="feed__search-result-container">
-            </div>
         </div>
     </div>
 
@@ -154,8 +119,6 @@ if (!isset($_SESSION['id'])) {
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
                 <div id="editThumbnailContainer">
                 </div>
-                <div id="editThumbnailContainer">
-                </div>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">
                 <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
@@ -176,7 +139,6 @@ if (!isset($_SESSION['id'])) {
     <!-- add comments modal -->
     <div class="modal hidden" id="createComment">
         <div class="feed__edit-profile">
-        <div class="feed__edit-profile">
             <form class="edit-form__container" id="insertCommentForm" userId=<?php echo $_SESSION['id'] ?>>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Comment</p>
@@ -186,7 +148,6 @@ if (!isset($_SESSION['id'])) {
                 <input type="submit" class="edit-form__button" value="Insert Comment">
             </form>
             <p class="modal-close-btn" id="insertCommentModalCloseBtn">x</p>
-        </div>
         </div>
 </body>
 

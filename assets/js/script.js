@@ -106,17 +106,31 @@ const insertCommentModalCloseBtn = document.getElementById(
 
 const insertCommentForm = document.getElementById("insertCommentForm");
 
-feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
+feedCreatePostButton.addEventListener("click", showCreatePostModal);
 
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
 feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);
 feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
-feedEditOpenModalBtn.addEventListener("click", toggleEditModal);
+feedEditOpenModalBtn.addEventListener("click", showEditModal);
+
+/* const editModalOpenBtn = document.querySelector("#editModalOpenBtn");
+editModalOpenBtn.addEventListener("click", activateWindowAEL);
+
+let removeAEL = false;
+
+function activateWindowAEL(){
+  console.log("hola")
+  removeAEL = true;
+  window.addEventListener("click", clickOutsideEdit);
+} */
+
+
+
 editModalCloseBtn.addEventListener("click", toggleEditModal);
 
-feedOpenSearchModalBtn.addEventListener("click", toggleSearchModal);
+feedOpenSearchModalBtn.addEventListener("click", showSearchModal);
 feedSearchModalCloseBtn.addEventListener("click", toggleSearchModal);
 feedSearchInput.addEventListener("keyup", searchUsers);
 
@@ -208,7 +222,7 @@ function printPosts(posts, userId) {
                         <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
       } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
-                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
+                        <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='showCommentModal(event)'>
                     </div>
                     <div class="feed__post-comments-container">
                     ${comments
@@ -466,26 +480,76 @@ function deleteUser() {
     });
 }
 
+let activateAEL = false;
+
 function toggleDeleteConfirmationModal(e) {
   e.preventDefault();
   deleteConfirmationModal.classList.toggle("hidden");
+  if (activateAEL == true){
+    event.stopPropagation();
+    window.addEventListener("click", clickOutsideEdit);
+    activateAEL = false;
+  } else {
+    window.removeEventListener("click", clickOutsideEdit);
+    activateAEL = true;
+  }
+}
+
+function showCreatePostModal(){
+  toggleCreatePostModal();
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideCreatePost);
+}
+
+function clickOutsideCreatePost(e) {
+  if (!document.getElementById('createPostForm').contains(e.target)) {
+    toggleCreatePostModal();
+  }
 }
 
 function toggleCreatePostModal() {
   feedCreatePostModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideCreatePost);
 }
 
 function toggleFriendsModal() {
   feedFriendsListModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideFriendList);
+}
+
+function showEditModal(){
+  toggleEditModal();
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideEdit);
 }
 
 function toggleEditModal() {
   editProfileModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideEdit);
+}
+
+function clickOutsideEdit(e) {
+  if (!document.getElementById('feedEditProfile').contains(e.target)) {
+    toggleEditModal();
+  }
+}
+
+function showSearchModal(){
+  toggleSearchModal();
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideSearch);
+}
+
+function clickOutsideSearch(e) {
+  if (!document.getElementById('feedSearchModal').contains(e.target)) {
+    toggleSearchModal();
+  }
 }
 
 function toggleSearchModal() {
   spinner.removeAttribute('hidden');
   feedSearchUsersModal.classList.toggle("hidden");
+  window.removeEventListener("click", clickOutsideSearch);
   feedSearchResult.innerHTML = "";
   feedSearchInput.value = "";
 
@@ -525,6 +589,19 @@ function toggleSearchModal() {
 function toggleCreateComment(event) {
   createComment.classList.toggle("hidden");
   commentPostId = event.target.getAttribute("postid");
+  window.removeEventListener("click", clickOutsideComment);
+}
+
+function showCommentModal(event){
+  toggleCreateComment(event);
+  event.stopPropagation();
+  window.addEventListener("click", clickOutsideComment);
+}
+
+function clickOutsideComment(e) {
+  if (!document.getElementById('feedAddComments').contains(e.target)) {
+    toggleCreateComment(e);
+  }
 }
 
 function logout() {
@@ -593,6 +670,13 @@ async function showFriendList() {
   });
   bellIcon.addEventListener("click", showNotifications);
   bellIcon.addEventListener("click", getNotificationsCounter);
+  window.addEventListener("click", clickOutsideFriendList);
+}
+
+function clickOutsideFriendList(e) {
+  if (!document.getElementById('feedFriendsList').contains(e.target)) {
+    toggleFriendsModal();
+  }
 }
 
 function deleteFriend(event) {

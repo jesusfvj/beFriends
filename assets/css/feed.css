@@ -319,7 +319,7 @@
   width: 30%;
   padding: 5rem;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 0.3rem;
 }
 
 .modal-close-btn {
@@ -415,7 +415,7 @@
   min-width: 40%;
   padding: 3rem;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 0.3rem;
   overflow-y: auto;
   overflow-x: hidden;
 }

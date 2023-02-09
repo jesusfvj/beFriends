@@ -105,7 +105,7 @@ feedCreatePostButton.addEventListener("click", showCreatePostModal);
 
 createPostModalCloseBtn.addEventListener("click", toggleCreatePostModal);
 
-feedOpenFriendsModalBtn.addEventListener("click", toggleFriendsModal);
+feedOpenFriendsModalBtn.addEventListener("click", showFriendListModal);
 feedFriendsModalCloseBtn.addEventListener("click", toggleFriendsModal);
 
 feedEditOpenModalBtn.addEventListener("click", showEditModal);
@@ -523,6 +523,7 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
+  console.log("toggleFriendsModal")
   feedFriendsListModal.classList.toggle("hidden");
   window.removeEventListener("click", clickOutsideFriendList);
 }
@@ -539,8 +540,11 @@ function toggleEditModal() {
 }
 
 function clickOutsideEdit(e) {
-  if (!document.getElementById("feedEditProfile").contains(e.target)) {
+  const editButton = e.target.id;
+  if (!document.getElementById("feedEditProfile").contains(e.target) && editButton != "editButton") {
     toggleEditModal();
+  } else if (editButton == "editButton") {
+    window.removeEventListener("click", clickOutsideEdit);
   }
 }
 
@@ -553,6 +557,7 @@ function showSearchModal() {
 function clickOutsideSearch(e) {
   if (!document.getElementById("feedSearchModal").contains(e.target)) {
     toggleSearchModal();
+    console.log("clickOutsideSearch")
   }
 }
 
@@ -625,7 +630,7 @@ function logout() {
 const addFriendsButton = document.querySelectorAll(
   ".feed__friends-suggestions-add-btn"
 );
-const navImage = document.querySelector(".nav__image");
+const navImage = document.querySelector("#friendsIcon");
 const friendListContainer = document.querySelector(".feed__friends-list");
 
 navImage.addEventListener("click", showFriendList);
@@ -652,7 +657,6 @@ function addFriend(event) {
 }
 
 async function showFriendList() {
-  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
                                       <img class="friends-list__img-icon" src="./assets/images/bellEmpty.png" alt="notification icon">
@@ -683,17 +687,17 @@ async function showFriendList() {
   });
   bellIcon.addEventListener("click", showNotifications);
   bellIcon.addEventListener("click", getNotificationsCounter);
+}
+
+function showFriendListModal() {
+  toggleFriendsModal();
+  event.stopPropagation();
   window.addEventListener("click", clickOutsideFriendList);
 }
 
 function clickOutsideFriendList(e) {
-  if (
-    !document
-      .getElementById("feedFriendsList")
-      .contains(
-        e.target
-      ) /* || !document.getElementsByClassName('friends-list__img-icon').contains(e.target) */
-  ) {
+  const bellButton = e.target.classList;
+  if (!document.getElementById("feedFriendsList").contains(e.target) && bellButton != "friends-list__img-icon") {
     toggleFriendsModal();
   }
 }
@@ -825,7 +829,6 @@ function insertComment(event) {
 }
 
 async function showNotifications() {
-  window.removeEventListener("click", clickOutsideFriendList);
   spinner.removeAttribute("hidden");
   friendListContainer.innerHTML = "";
   friendListContainer.innerHTML = ` <div id="counterAlertNotParent" class="friends-list__alert-counter-parent">
@@ -868,7 +871,6 @@ async function showNotifications() {
   const bellIcon = document.querySelector(".friends-list__img-icon");
   bellIcon.addEventListener("click", showFriendList);
   bellIcon.addEventListener("click", getNotificationsCounter);
-  window.addEventListener("click", clickOutsideFriendList);
 }
 
 function denyFollow(event) {

@@ -37,7 +37,7 @@ if (!isset($_SESSION['id'])) {
             <img src="./assets/images/logoBeFriends.png" alt="logo" class="feed__aside-logo" id="beFriendsLogo" />
             <nav class="feed__nav">
                 <div class="feed__nav-item friends-list__alert-counter-parent" id="feedOpenFriendsModalBtn">
-                    <img src=" ./assets/images/friends.png" alt="nav-icon" class="nav__image" />
+                    <img src=" ./assets/images/friends.png" alt="nav-icon" id="friendsIcon" class="nav__image" />
                     <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                 </div>
                 <div class="feed__nav-item" id="feedEditOpenModalBtn">
@@ -101,7 +101,7 @@ if (!isset($_SESSION['id'])) {
                 </div>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">User</p>
-                    <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" value=<?php echo $_SESSION['nickname']; ?> required>
+                    <input class="edit-form__input" id="inputNameEditProfile" type="text" name="inputNameEditProfile" value=<?php echo $_SESSION['nickname']; ?> maxlength="8" required>
                 </div>
                 <div class="edit-form-div__input">
                     <p class="paragraph-placeholder__text">Gender</p>
@@ -116,7 +116,7 @@ if (!isset($_SESSION['id'])) {
                 <div id="editThumbnailContainer" class="feed__edit-thumbnail-container">
                 </div>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
-                <input type="submit" class="edit-form__button" value="Edit">
+                <input type="submit" id="editButton" class="edit-form__button" value="Edit">
                 <button class="edit-form__delete-user" id="deleteAccountBtn">Delete your account</button>
             </form>
         </div>

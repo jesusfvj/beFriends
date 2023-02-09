@@ -110,7 +110,7 @@ if (!isset($_SESSION['id'])) {
                     </select>
                 </div>
                 <label class="edit-profile-image-label" for="updateProfileImgInput">Edit profile image</label>
-                <div id="editThumbnailContainer">
+                <div id="editThumbnailContainer" class="feed__edit-thumbnail-container">
                 </div>
                 <input id="updateProfileImgInput" class="hidden" type="file" />
                 <input type="submit" class="edit-form__button" value="Edit">

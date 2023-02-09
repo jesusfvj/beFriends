@@ -67,7 +67,7 @@ class PostModel extends DbConection
         $queryPost = $this->db->connect()->prepare(            
             "SELECT T.*, U.nickname, U.avatar, U.id FROM
                 (SELECT P.user_id as postOwner, P.content as postContent, P.image, P.created_at, P.id as postId 
-                    FROM post P WHERE P.user_id = 17) as T
+                    FROM post P WHERE P.user_id = $userId) as T
                         INNER JOIN user U ON U.id = T.postOwner
                         ORDER BY T.created_at DESC");
 

@@ -1,5 +1,13 @@
 window.history.forward();
 
+function preventBack() {
+    window.history.forward(); 
+}
+  
+setTimeout("preventBack()", 0);
+  
+window.onunload = function () { null };
+
 const inputUserLogIn = document.querySelector("#inputUserLogIn");
 const inputPasswordLogIn = document.querySelector("#inputPasswordLogIn");
 const logInForm = document.querySelector("#formContainerLogIn");

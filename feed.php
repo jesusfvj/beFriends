@@ -16,8 +16,8 @@ if (!isset($_SESSION['id'])) {
     <link rel="icon" type="image/png" href="./assets/images/logoFavicon.png" />
     <link rel="stylesheet" href="./assets/css/feed.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./assets/css/utils.css?v=<?php echo time(); ?>">
-    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
     <script src="./assets/js/api/user.js?=<?php echo time(); ?>" defer></script>
+    <script src="./assets/js/script.js?v=<?php echo time(); ?>" defer></script>
 </head>
 
 <body class="feed__body">

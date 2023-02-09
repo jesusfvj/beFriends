@@ -1,6 +1,14 @@
 //================ Fetching new methods =================//
 window.history.forward();
 
+function preventBack() {
+    window.history.forward(); 
+}
+  
+setTimeout("preventBack()", 0);
+  
+window.onunload = function () { null };
+
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())

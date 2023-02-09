@@ -73,9 +73,9 @@ class PostModel extends DbConection
 
         $queryComments = $this->db->connect()->prepare(
             "SELECT T.*, user.nickname FROM
-                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId, comment.created_at FROM post 
+                (SELECT post.id as postId, comment.content as postContent, comment.user_id as commentOwnerId, comment.post_id, comment.created_at FROM post 
                     INNER JOIN comment ON post.id = comment.post_id) AS T
-                        INNER JOIN user ON user.id = $userId
+                        INNER JOIN user ON commentOwnerId = user.id
                         ORDER BY T.created_at DESC");
 
         try {

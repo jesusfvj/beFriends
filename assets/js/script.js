@@ -747,8 +747,6 @@ setInterval(() => {
 }, 1000);
 
 function printNotificationsAlert(data){
-  console.log(data)
-  console.log("hola")
   const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
   if(data != "0"){
     alertCounterNot.forEach(element => {

@@ -746,23 +746,34 @@ setInterval(() => {
     });
 }, 1000);
 
-function printNotificationsAlert(data) {
+function printNotificationsAlert(data){
+  console.log(data)
+  console.log("hola")
   const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
-  if (alertCounterNot) {
+  if(data != "0"){
     alertCounterNot.forEach(element => {
-      element.textContent = data;
+      element.style.display = "block";
+    });
+    if(alertCounterNot){
+      alertCounterNot.forEach(element => {
+        element.textContent = data;
+      });
+    }
+  } else {
+    alertCounterNot.forEach(element => {
+      element.style.display = "none";
     });
   }
 }
 
 window.addEventListener("DOMContentLoaded", getNotificationsCounter)
 
-function getNotificationsCounter() {
+function getNotificationsCounter(){
   fetch(
     `./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data[0][0])
+      console.log(data[0][0])
       printNotificationsAlert(data[0][0]);
     });
 }

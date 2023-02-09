@@ -87,15 +87,6 @@ if (!isset($_SESSION['id'])) {
         </div>
     </div>
 
-    <div class="modal hidden" id="feedSearchUsersModal">
-        <div class="feed__friends-list">
-            <p class="modal-close-btn" id="feedSearchModalCloseBtn">x</p>
-            <input type="text" id="feedSearchInput" class="feed__search-input">
-            <div id="feedSearchResult" class="feed__search-result-container">
-            </div>
-        </div>
-    </div>
-
     <!-- edit profile -->
     <div class="modal hidden" id="editProfileModal">
         <div class="feed__edit-profile">

@@ -234,12 +234,12 @@ function getPosts() {
     .then((data) => {
       if (!isAllPostsPageActive) {
         feedPostsContainer.innerHTML = "";
-        isAllPostsPageActive = true;
         feedCreatePostButton.textContent = "Create post";
         feedCreatePostButton.removeEventListener("click", getPosts);
         feedCreatePostButton.addEventListener("click", toggleCreatePostModal);
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+        isAllPostsPageActive = true;
       }
       const posts = data[0];
       const userId = data[1];
@@ -251,16 +251,21 @@ function getPosts() {
 let isAllPostsPageActive = true;
 
 function getPostsByUserId(id) {
-  isAllPostsPageActive = false;
   fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
     .then((res) => res.json())
     .then((data) => {
-      feedPostsContainer.innerHTML = "";
-      feedCreatePostButton.textContent = "Back to all posts";
-      feedCreatePostButton.removeEventListener("click", toggleCreatePostModal);
-      feedCreatePostButton.addEventListener("click", getPosts);
-      feedCreatePostButton.classList.toggle("feed__create-post-button");
-      feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+      if (isAllPostsPageActive) {
+        feedPostsContainer.innerHTML = "";
+        feedCreatePostButton.textContent = "Back to all posts";
+        feedCreatePostButton.removeEventListener(
+          "click",
+          toggleCreatePostModal
+        );
+        feedCreatePostButton.addEventListener("click", getPosts);
+        feedCreatePostButton.classList.toggle("feed__create-post-button");
+        feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
+        isAllPostsPageActive = false;
+      }
       printPosts(data[0], data[1]);
     });
 }

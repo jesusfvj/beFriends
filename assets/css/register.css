@@ -233,25 +233,23 @@ section {
 .modal-error-register__section,
 .modal-error-login__section,
 .modal-coming-soon__section {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  position: absolute;
 }
 
 .modal-success-register__div,
 .modal-error-register__div,
 .modal-error-login__div,
 .modal-coming-soon__div {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-  height: 50%;
-  width: 50%;
-  border: 0.05rem solid rgb(161, 161, 161);
+  height: 80vw;
+  width: 80vw;
+  max-width: 850px;
+  max-height: 450px;
   display: none;
 }
 
@@ -260,8 +258,8 @@ section {
   justify-content: center;
   align-items: center;
   background-color: #1896f5;
-  height: 30%;
-  padding: 2rem 0;
+  height: 25%;
+  border: 1px solid rgb(161, 161, 161);
 }
 
 .modal-error-register__header,
@@ -270,17 +268,17 @@ section {
   justify-content: center;
   align-items: center;
   background-color: rgb(255, 91, 91);
-  height: 30%;
-  padding: 2rem 0;
+  height: 25%;
+  border: 1px solid rgb(161, 161, 161);
 }
 
 .modal-coming-soon__header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(241, 137, 142);
-  height: 30%;
-  padding: 2rem 0;
+  background-color: #1896f5;
+  height: 25%;
+  border: 1px solid rgb(161, 161, 161);
 }
 
 .modal-success-register__title,
@@ -300,9 +298,8 @@ section {
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  height: 70%;
-  gap: 2rem;
-  padding: 3rem 0;
+  height: 75%;
+  border: 1px solid rgb(161, 161, 161);
 }
 
 .modal-success-register__img-container,

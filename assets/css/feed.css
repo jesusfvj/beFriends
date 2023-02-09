@@ -19,10 +19,12 @@
   padding: 0;
   font-family: var(--font);
 	user-select: none;
+	user-select: none;
 }
 
 .feed__body {
   display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
   grid-template-columns: 1fr 2.5fr 1fr;
   width: 100vw;
   min-height: 100vh;
@@ -36,6 +38,8 @@
   justify-content: flex-start;
   padding-top: 4rem;
   background-color: white;
+  padding-top: 4rem;
+  background-color: white;
 }
 
 .feed__aside-nav-container {
@@ -43,6 +47,8 @@
 }
 
 .feed__aside-logo {
+  width: 33%;
+  margin-left: 33%;
   width: 33%;
   margin-left: 33%;
 }
@@ -80,6 +86,8 @@
 
 .feed__create-post-button,
 .feed__back-to-posts-button {
+.feed__create-post-button,
+.feed__back-to-posts-button {
   padding: 0.5rem;
   border-radius: 0.3rem;
   top: 4vh;
@@ -108,10 +116,19 @@
 .feed__back-to-posts-button:hover {
   background-color: green;
 }
+.feed__back-to-posts-button {
+  background-color: green;
+}
+
+.feed__back-to-posts-button:hover {
+  background-color: green;
+}
 
 .feed__post {
   width: 100%;
+  width: 100%;
   margin-top: 12vh;
+  border-radius: 0.3rem;
   border-radius: 0.3rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid var(--border-grey);
@@ -137,6 +154,9 @@
   width: 3rem;
   height: 3rem;
   object-fit: cover;
+}
+.user-info-container {
+  cursor: pointer;
 }
 .user-info-container {
   cursor: pointer;
@@ -168,10 +188,29 @@
   margin-left: auto;
   margin-right: 1rem;
   border-radius: 50px;
+  font-size: 0.7rem;
+}
+
+.feed__post-delete-button {
+  outline: none;
+  border: none;
+  background-color: var(--btn-danger);
+  color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  margin-left: auto;
+  margin-right: 1rem;
+  border-radius: 50px;
 }
 
 .feed__post-img {
   width: 100%;
+  max-height: 50vh;
+  object-fit: cover;
+  margin-top: 1rem;
+  border-radius: 0.3rem;
   max-height: 50vh;
   object-fit: cover;
   margin-top: 1rem;
@@ -230,11 +269,19 @@
   position: fixed;
   margin-top: 1rem;
   margin-left: 5rem;
+  margin-left: 5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
+}
+
+.feed__friends-suggestions-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .feed__friends-suggestions-btn-group {
@@ -252,12 +299,15 @@
   background-color: rgb(150, 150, 255);
   height: 1.25rem;
   width: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
   border: none;
   outline: none;
   border-radius: 50%;
   cursor: pointer;
 }
 
+.feed__notification-follow-back-btn {
 .feed__notification-follow-back-btn {
   margin-left: 1rem;
   height: 1.75rem;
@@ -268,11 +318,14 @@
 }
 
 .feed__friends-suggestions-deny-btn {
+.feed__friends-suggestions-deny-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   background-color: rgb(255, 91, 91);
+  height: 1.25rem;
+  width: 1.25rem;
   height: 1.25rem;
   width: 1.25rem;
   line-height: 2rem;
@@ -282,6 +335,7 @@
   cursor: pointer;
 }
 
+.feed__friends-suggestions-deny-btn:hover {
 .feed__friends-suggestions-deny-btn:hover {
   background-color: rgb(122, 32, 32);
   transition: 400ms;
@@ -344,6 +398,14 @@
   width: 11rem;
 }
 
+.feed__friend-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 11rem;
+}
+
 .feed__post-image-label,
 .edit-profile-image-label {
   font-family: "Roboto";
@@ -394,7 +456,19 @@
   align-items: center;
   justify-content: center;
 }
+.create-post-thumbnail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.create-post-thumbnail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* friends list */
 .create-post-thumbnail-container {
   display: flex;
   align-items: center;
@@ -410,6 +484,7 @@
   justify-content: flex-start;
   gap: 2rem;
   height: 50%;
+  min-width: 20%;
   min-width: 20%;
   padding: 3rem;
   background-color: white;
@@ -429,6 +504,8 @@
 
 .feed__friend-delete,
 .feed__notification-delete {
+.feed__friend-delete,
+.feed__notification-delete {
   margin-right: 1rem;
   background-color: rgb(255, 91, 91);
   line-height: 1rem;
@@ -441,6 +518,8 @@
 
 .feed__friend-delete:hover,
 .feed__notification-delete:hover {
+.feed__friend-delete:hover,
+.feed__notification-delete:hover {
   background-color: rgb(122, 32, 32);
   transition: 400ms;
 }
@@ -448,6 +527,13 @@
 .feed__friends-list {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.feed__notification-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 }
 
 .feed__notification-container{
@@ -470,6 +556,7 @@
   padding: 5rem;
   background-color: white;
   border-radius: 0.3rem;
+  border-radius: 0.3rem;
 }
 
 .edit-form__container {
@@ -488,6 +575,7 @@
 }
 
 .edit-form__input {
+  box-sizing: border-box;
   box-sizing: border-box;
   width: 80%;
   height: 2.5rem;
@@ -607,7 +695,44 @@
 }
 
 .feed__found-user-btn-group {
+.feed__search-input {
+  width: 100%;
+  height: 2.5rem;
+  border: 0.1rem solid rgb(161, 161, 161);
+  background-color: #fafafa;
+  padding: 0 0.5rem;
+}
+
+.feed__search-result-container {
+  width: 90%;
+  height: 80%;
+  overflow-y: auto;
+}
+
+.feed__found-user-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  max-width: 80%;
+  margin-top: 1.5rem;
+}
+
+.feed__found-user-profile-img {
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.feed__found-user-btn-group {
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+.feed__found-user-info-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
@@ -760,12 +885,155 @@
   position: fixed;
   top: 1.5rem;
   left: 3rem;
+.feed__found-user-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(150, 150, 255);
+  height: 2rem;
+  width: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__friend-img {
+  width: 2rem;
+  line-height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__found-user-delete-btn:hover {
+  background-color: rgb(122, 32, 32);
+  transition: 400ms;
+}
+
+.feed__found-user-add-btn:hover {
+  transition-duration: 0.3s;
+  background-color: rgb(113, 113, 251);
+}
+
+.feed__found-user-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+.feed__found-user-info-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.feed__found-user-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(255, 91, 91);
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__found-user-add-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(150, 150, 255);
+  height: 2rem;
+  width: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__friend-img,
+.feed__notification-img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.feed__search-input {
+  width: 100%;
+  height: 2.5rem;
+  border: 0.1rem solid rgb(161, 161, 161);
+  background-color: #fafafa;
+  padding: 0 0.5rem;
+}
+
+.feed__search-result-container {
+  width: 90%;
+  height: 80%;
+  overflow-y: auto;
+}
+
+.feed__found-user-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  max-width: 80%;
+  margin-top: 1.5rem;
+}
+
+.feed__found-user-profile-img {
+  width: 2rem;
+  line-height: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.feed__found-user-delete-btn {
+  margin-right: 1rem;
+  background-color: rgb(255, 91, 91);
+  line-height: 1rem;
+  height: 2rem;
+  width: 2rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+}
+
+.feed__found-user-delete-btn:hover {
+  background-color: rgb(122, 32, 32);
+  transition: 400ms;
+}
+
+.feed__found-user-add-btn:hover {
+  transition-duration: 0.3s;
+  background-color: rgb(113, 113, 251);
+}
+
+.feed__user-login{
+  position: fixed;
+  top: 1.5rem;
+  left: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
+.feed__user-avatar{
 .feed__user-avatar{
   width: 2rem;
   margin-right: 1rem;
@@ -809,6 +1077,19 @@
     height: 2rem;
   }
 }
+@media (max-width: 1200px) {
+  * {
+    font-size: 0.9rem;
+  }
+  .feed__friends-suggestions-friends {
+    margin-left: 3rem;
+  }
+
+  .feed__post-profile-img {
+    width: 2rem;
+    height: 2rem;
+  }
+}
 @media (max-width: 768px) {
   .feed__body {
     display: flex;
@@ -825,6 +1106,7 @@
     justify-content: center;
     padding: 0rem;
     background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     z-index: 300;
   }
 
@@ -840,6 +1122,7 @@
     top: 1rem;
     left: 1rem;
     margin-left: 0%;
+    width: 5rem;
     width: 5rem;
   }
 
@@ -870,6 +1153,7 @@
   .feed__create-post-button {
     border-radius: 0.3rem;
     bottom: 1.5rem;
+    bottom: 1.5rem;
     left: 0;
     right: 0;
     top: auto;
@@ -880,16 +1164,23 @@
     background-color: var(--btn-primary);
     color: white;
     width: 50%;
+    width: 50%;
     position: fixed;
     cursor: pointer;
   }
 
   .feed__main:first-child {
+  .feed__main:first-child {
     margin-top: 15vh;
   }
 
   .feed__post {
+  .feed__post {
     width: 80%;
+  }
+
+  .feed__friends-list{
+    min-width: 20%;
   }
 
   .feed__friends-list{
@@ -915,6 +1206,7 @@
 
   .edit-form__input {
     width: 70%;
+    width: 70%;
   }
 
   .edit-profile-image-label {
@@ -923,6 +1215,33 @@
 
   .feed__friends-suggestions {
     display: none;
+  }
+
+  .feed__post-icons-container {
+    padding-top: 0.25rem;
+    padding-left: 0rem;
+  }
+
+  .feed__post-comments-container {
+    padding-left: 0rem;
+  }
+
+  .feed__user-login{
+    display: none;
+  }
+
+  .feed__notification-follow-back-btn{
+    font-size: 0.6rem;
+    padding: 0 0.5rem;
+    width: fit-content;
+  }
+
+  .feed__notification-nickname{
+    font-size: 0.8rem;
+  }
+
+  .edit-form-div__input {
+    justify-content: center;
   }
 
   .feed__post-icons-container {

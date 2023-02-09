@@ -741,10 +741,20 @@ setInterval(() => {
 }, 1000);
 
 function printNotificationsAlert(data){
+  console.log(data)
   const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
-  if(alertCounterNot){
+  if(data != "0"){
     alertCounterNot.forEach(element => {
-      element.textContent = data;
+      element.style.display = "block";
+    });
+    if(alertCounterNot){
+      alertCounterNot.forEach(element => {
+        element.textContent = data;
+      });
+    }
+  } else {
+    alertCounterNot.forEach(element => {
+      element.style.display = "none";
     });
   }
 }

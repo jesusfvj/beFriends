@@ -3,7 +3,7 @@
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())
-    .then((data) => { });
+    .then((data) => {});
 }
 
 // function getPostsByUserId(userId) {
@@ -20,6 +20,7 @@ document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());
 
 const spinner = document.querySelector(".spinner");
+
 const feedPostsContainer = document.getElementById("feedPostsContainer");
 
 // create post form
@@ -73,7 +74,6 @@ const deleteUserConfirm = document.getElementById("deleteUserConfirm");
 const deleteUserDecline = document.getElementById("deleteUserDecline");
 deleteUserConfirm.addEventListener("click", deleteUser);
 deleteUserDecline.addEventListener("click", toggleDeleteConfirmationModal);
-
 
 //search modal
 const feedOpenSearchModalBtn = document.getElementById(
@@ -193,10 +193,11 @@ function printPosts(posts, userId) {
                         <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p class="feed__post-timestamp">${created_at}</p>
                     </div>
-                  ${userId == postOwner
-        ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
-        : ""
-      }
+                  ${
+                    userId == postOwner
+                      ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
+                      : ""
+                  }
                 </div>
                 <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">
@@ -204,21 +205,22 @@ function printPosts(posts, userId) {
                 </div>
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
-                        <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
-      } alt=""  />
+                        <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
+      isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
+    } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='toggleCreateComment(event)'>
                     </div>
                     <div class="feed__post-comments-container">
                     ${comments
-        .map((comment) => {
-          const { nickname, postContent } = comment;
-          return `<div class = "feed__post-comment">
+                      .map((comment) => {
+                        const { nickname, postContent } = comment;
+                        return `<div class = "feed__post-comment">
                                 <p class="feed__post-comment-author">${nickname}</p>
                                 <p class="feed__post-comment-message">${postContent}</p>
                               </div>`;
-        })
-        .join("")}
+                      })
+                      .join("")}
                     </div>
                 </div>
             </article>
@@ -323,7 +325,7 @@ function getFiles(e) {
 
 async function createPost(e) {
   e.preventDefault();
-  spinner.removeAttribute('hidden');
+  spinner.removeAttribute("hidden");
 
   let text = createPostText.value;
   let image = imageToUpload;
@@ -336,7 +338,6 @@ async function createPost(e) {
   const formData = new FormData();
   formData.append("content", text);
 
-
   await fetch("https://api.cloudinary.com/v1_1/dfjelhshb/image/upload", {
     method: "POST",
     body: imgFormData,
@@ -344,8 +345,7 @@ async function createPost(e) {
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
-      spinner.setAttribute('hidden', '');
-
+      spinner.setAttribute("hidden", "");
     });
 
   if (text.length) {
@@ -358,7 +358,7 @@ async function createPost(e) {
         if (data[0] === true) {
           getPosts();
           toggleCreatePostModal();
-          spinner.setAttribute('hidden', '');
+          spinner.setAttribute("hidden", "");
         }
       });
   }
@@ -372,7 +372,7 @@ function deletePost(event) {
     .then((res) => res.json())
     .then((data) => {
       deletePostElement(event);
-      spinner.setAttribute('hidden', '');
+      spinner.setAttribute("hidden", "");
     });
 }
 
@@ -738,8 +738,7 @@ function naviagateToWall(event) {
 }
 
 setInterval(() => {
-  fetch(
-    `./controllers/friends.php?controller=getnotificationsalertcount`)
+  fetch(`./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
       printNotificationsAlert(data[0][0]);
@@ -747,19 +746,29 @@ setInterval(() => {
 }, 1000);
 
 function printNotificationsAlert(data) {
-  const alertCounterNot = document.querySelectorAll(".friends-list__alert-counter");
-  if (alertCounterNot) {
-    alertCounterNot.forEach(element => {
-      element.textContent = data;
+  const alertCounterNot = document.querySelectorAll(
+    ".friends-list__alert-counter"
+  );
+  if (data != "0") {
+    alertCounterNot.forEach((element) => {
+      element.style.display = "block";
+    });
+    if (alertCounterNot) {
+      alertCounterNot.forEach((element) => {
+        element.textContent = data;
+      });
+    }
+  } else {
+    alertCounterNot.forEach((element) => {
+      element.style.display = "none";
     });
   }
 }
 
-window.addEventListener("DOMContentLoaded", getNotificationsCounter)
+window.addEventListener("DOMContentLoaded", getNotificationsCounter);
 
 function getNotificationsCounter() {
-  fetch(
-    `./controllers/friends.php?controller=getnotificationsalertcount`)
+  fetch(`./controllers/friends.php?controller=getnotificationsalertcount`)
     .then((res) => res.json())
     .then((data) => {
       // console.log(data[0][0])

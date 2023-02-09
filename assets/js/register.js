@@ -6,6 +6,7 @@ const logInText = document.querySelector(".paragraph-log-in__text");
 const registerForm = document.querySelector("#formContainerRegister");
 const registerErrorMessage = document.getElementById('registerError');
 
+const spinner = document.querySelector(".spinner");
 
 const iconsImg = document.querySelectorAll(".icons__img");
 const comingSoonAlert = document.querySelector(".modal-coming-soon__div");
@@ -27,7 +28,7 @@ function showUnderConstModal(){
   comingSoonAlert.style.display = "block";
     setTimeout(() => {
       comingSoonAlert.style.display = "none";
-    }, 2000);
+    }, 2500);
 }
 
 function sendToLogIn(){
@@ -36,6 +37,7 @@ function sendToLogIn(){
 
 function sendRegisterData(event) {
   event.preventDefault();
+  spinner.removeAttribute('hidden');
   if (inputPasswordRepeat.value === inputPasswordRegister.value) {
     const formData = new FormData();
     formData.append("fullname", inputNameRegister.value);
@@ -57,9 +59,11 @@ function sendRegisterData(event) {
           registerErrorMessage.textContent = data[1];
         }
         modalVerifications(data);
+        spinner.setAttribute('hidden', '');
       });
   } else {
     showPasswordVerification();
+    spinner.setAttribute('hidden', '');
   }
 }
 

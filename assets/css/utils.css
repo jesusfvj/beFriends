@@ -1,3 +1,4 @@
+/*====================== Spinner ======================*/
 .spinner:not([hidden]) {
     position: fixed;
     top: 0;

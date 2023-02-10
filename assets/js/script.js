@@ -3,7 +3,7 @@
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
     .then((res) => res.json())
-    .then((data) => {});
+    .then((data) => { });
 }
 
 document.body.addEventListener("load", getUsers());
@@ -20,6 +20,12 @@ const spinnerScroll = document.getElementById("spinnerLoaded");
 document.addEventListener("DOMContentLoaded", infinityScroll);
 let page = 1;
 let pageAllPost = 1;
+let notAllPostPageActive = false;
+
+
+
+
+
 const beFriendsLogo = document.getElementById("beFriendsLogo");
 beFriendsLogo.addEventListener("click", getPosts);
 const profileInfoTopLeft = document.getElementById("profileInfoTopLeft");
@@ -209,11 +215,10 @@ function printPosts(posts, userId) {
                         <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
                         <p userId=${postOwner} class="feed__post-timestamp">${created_at}</p>
                     </div>
-                  ${
-                    userId == postOwner
-                      ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
-                      : ""
-                  }
+                  ${userId == postOwner
+        ? `<button class="feed__post-delete-button" postId=${postId} onclick='deletePost(event)'>Delete</button>`
+        : ""
+      }
                 </div>
                 <img class="feed__post-img" src=${image} alt="" />
                 <div class="feed__post-message-container">
@@ -221,34 +226,33 @@ function printPosts(posts, userId) {
                 </div>
                 <div class="feed__article-comments-container">
                     <div class="feed__post-icons-container">
-                        <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${
-      isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
-    } alt=""  />
+                        <img onclick="checkUncheckLike(event)" postId=${postId} class="feed__post-icon" src=${isLiked ? "./assets/images/likeGiven.png" : "./assets/images/giveLike.png"
+      } alt=""  />
                         <p id="likes_${postId}">${likesCount} likes</p>
                         <img class="feed__post-icon" postId=${postId} src="./assets/images/message.png" alt="" onclick='showCommentModal(event)'>
                     </div>
                     <div class="feed__post-comments-container comments-container-${postId}">
                     ${comments
-                      .map((comment) => {
-                        const { nickname, postContent } = comment;
-                        return `<div class = "feed__post-comment">
+        .map((comment) => {
+          const { nickname, postContent } = comment;
+          return `<div class = "feed__post-comment">
                                 <p class="feed__post-comment-author">${nickname}</p>
                                 <p class="feed__post-comment-message">${postContent}</p>
                               </div>`;
-                      })
-                      .join("")}
+        })
+        .join("")}
                     </div>
                 </div>
             </article>
             `;
-  // spinner.setAttribute('hidden', '');
+    // spinner.setAttribute('hidden', '');
   });
 }
 let isAllPostsPageActive = true;
 
 function getPosts(pageAllPost) {
 
-  if(typeof pageAllPost !== "number"){
+  if (typeof pageAllPost !== "number") {
     pageAllPost = 1
   }
   fetch(`./controllers/posts.php?controller=getposts&pageAllPost=${pageAllPost}`)
@@ -263,14 +267,17 @@ function getPosts(pageAllPost) {
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = true;
         page = 1;
-        if(spinnerScroll.classList.contains("hidden")){
+        if (spinnerScroll.classList.contains("hidden")) {
           spinnerScroll.classList.toggle("hidden");
         };
       }
       const posts = data[0];
       const userId = data[1];
       if (posts.length < 5) {
-        spinnerScroll.classList.toggle("hidden");
+        if (!spinnerScroll.classList.contains("hidden")) {
+          spinnerScroll.classList.toggle("hidden");
+        };
+
       }
       printPosts(posts, userId, page);
     });
@@ -281,11 +288,12 @@ function getPostsByUserId(id, page, event) {
   if (id.target) {
     id = id.target.getAttribute("userId");
   }
-  if(event){
+  if (event) {
     postsByUserId = event.target.getAttribute("userId");
   }
   // spinner.removeAttribute("hidden");
- 
+  console.log(id);
+  console.log(page);
   fetch(`./controllers/posts.php?userId=${id}&page=${page}&controller=getpostsbyuserid`)
     .then((res) => res.json())
     .then((data) => {
@@ -301,17 +309,21 @@ function getPostsByUserId(id, page, event) {
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = false;
         pageAllPost = 1;
-        if(spinnerScroll.classList.contains("hidden")){
+
+        if (spinnerScroll.classList.contains("hidden")) {
           spinnerScroll.classList.toggle("hidden");
         };
       }
-      if(!event){
-      printPosts(data[0], data[1]);
+      if (!event) {
+        printPosts(data[0], data[1]);
       }
-      console.log(data)
-       if (data[0].length < 5) {
-        console.log('here')
-        spinnerScroll.classList.toggle("hidden");
+
+      if (data[0].length < 5 /*& !data[0].length*/) {
+        console.log(data[0]);
+        if (!spinnerScroll.classList.contains("hidden")) {
+          notAllPostPageActive = true;
+          infinityScroll();
+        }
       }
     });
 }
@@ -399,11 +411,11 @@ async function createPost(e) {
     .then((data) => {
       formData.append("image", data.secure_url);
       // spinner.setAttribute('hidden', '');
-          if(spinnerScroll.classList.contains("hidden")){
-            spinnerScroll.classList.toggle("hidden");
-          };
-          
-          page = 1;
+      if (spinnerScroll.classList.contains("hidden")) {
+        spinnerScroll.classList.toggle("hidden");
+      };
+
+      page = 1;
     });
 
   if (text.length) {
@@ -966,19 +978,24 @@ function getNotificationsCounter() {
     });
 }
 
-function infinityScroll() {
+async function infinityScroll() {
 
   const observeSpinner = async listPost => {
     if (listPost[0].isIntersecting) {
-      if(isAllPostsPageActive===true){
+      if (isAllPostsPageActive === true) {
         await getPosts(pageAllPost);
         pageAllPost++
-      } else if(isAllPostsPageActive===false){
-        await getPostsByUserId(postsByUserId,page);
+      } else if (isAllPostsPageActive === false) {
+        await getPostsByUserId(postsByUserId, page);
         page++
       }
-      
+
     }
+  }
+  if (notAllPostPageActive) {
+    spinnerScroll.classList.toggle("hidden");
+    await getPostsByUserId(postsByUserId, page);
+    notAllPostPageActive = false;
   }
   const options = {
     threshold: 0.9
@@ -986,4 +1003,6 @@ function infinityScroll() {
   let observer = new IntersectionObserver(observeSpinner, options);
 
   observer.observe(spinnerScroll)
+
 }
+

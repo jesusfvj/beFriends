@@ -1,4 +1,4 @@
-//================ Fetching new methods =================//
+//================ Fetching new methods =================//getPostById
 
 function getPostById(id) {
   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
@@ -19,7 +19,7 @@ const feedPostsContainer = document.getElementById("feedPostsContainer");
 const spinnerScroll = document.getElementById("spinnerLoaded");
 document.addEventListener("DOMContentLoaded", infinityScroll);
 let page = 1;
-
+let pageAllPost = 1;
 const beFriendsLogo = document.getElementById("beFriendsLogo");
 beFriendsLogo.addEventListener("click", getPosts);
 const profileInfoTopLeft = document.getElementById("profileInfoTopLeft");
@@ -205,9 +205,9 @@ function printPosts(posts, userId) {
             <article class="feed__post">
                 <div class="feed__article-header">
                     <img class="feed__post-profile-img profile-img-${postOwner}" src=${avatar} alt="" />
-                    <div userId=${postOwner}" class="user-info-container" onclick="getPostsByUserId(${postOwner})">
+                    <div userId=${postOwner} class="user-info-container" onclick="getPostsByUserId(${postOwner},${page}, event)">
                         <p userId=${postOwner} class="feed__post-profile-name">${nickname}</p>
-                        <p class="feed__post-timestamp">${created_at}</p>
+                        <p userId=${postOwner} class="feed__post-timestamp">${created_at}</p>
                     </div>
                   ${
                     userId == postOwner
@@ -246,8 +246,12 @@ function printPosts(posts, userId) {
 }
 let isAllPostsPageActive = true;
 
-function getPosts(page) {
-  fetch(`./controllers/posts.php?controller=getposts&page=${page}`)
+function getPosts(pageAllPost) {
+
+  if(typeof pageAllPost !== "number"){
+    pageAllPost = 1
+  }
+  fetch(`./controllers/posts.php?controller=getposts&pageAllPost=${pageAllPost}`)
     .then((res) => res.json())
     .then((data) => {
       if (!isAllPostsPageActive) {
@@ -258,22 +262,31 @@ function getPosts(page) {
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = true;
+        page = 1;
+        if(spinnerScroll.classList.contains("hidden")){
+          spinnerScroll.classList.toggle("hidden");
+        };
       }
       const posts = data[0];
       const userId = data[1];
       if (posts.length < 5) {
         spinnerScroll.classList.toggle("hidden");
       }
-      printPosts(posts, userId);
+      printPosts(posts, userId, page);
     });
 }
+let postsByUserId;
 
-function getPostsByUserId(id) {
+function getPostsByUserId(id, page, event) {
   if (id.target) {
     id = id.target.getAttribute("userId");
   }
-  spinner.removeAttribute("hidden");
-  fetch(`./controllers/posts.php?userId=${id}&controller=getpostsbyuserid`)
+  if(event){
+    postsByUserId = event.target.getAttribute("userId");
+  }
+  // spinner.removeAttribute("hidden");
+ 
+  fetch(`./controllers/posts.php?userId=${id}&page=${page}&controller=getpostsbyuserid`)
     .then((res) => res.json())
     .then((data) => {
       if (isAllPostsPageActive) {
@@ -287,9 +300,19 @@ function getPostsByUserId(id) {
         feedCreatePostButton.classList.toggle("feed__create-post-button");
         feedCreatePostButton.classList.toggle("feed__back-to-posts-button");
         isAllPostsPageActive = false;
-        printPosts(data[0], data[1]);
+        pageAllPost = 1;
+        if(spinnerScroll.classList.contains("hidden")){
+          spinnerScroll.classList.toggle("hidden");
+        };
       }
-      spinner.setAttribute("hidden", "");
+      if(!event){
+      printPosts(data[0], data[1]);
+      }
+      console.log(data)
+       if (data[0].length < 5) {
+        console.log('here')
+        spinnerScroll.classList.toggle("hidden");
+      }
     });
 }
 
@@ -355,7 +378,7 @@ function getFiles(e) {
 
 async function createPost(e) {
   e.preventDefault();
-  spinner.removeAttribute("hidden");
+  // spinner.removeAttribute("hidden");
 
   let text = createPostText.value;
   let image = imageToUpload;
@@ -375,8 +398,7 @@ async function createPost(e) {
     .then((res) => res.json())
     .then((data) => {
       formData.append("image", data.secure_url);
-      spinner.setAttribute('hidden', '');
-      feedPostsContainer.innerHTML = "";
+      // spinner.setAttribute('hidden', '');
           if(spinnerScroll.classList.contains("hidden")){
             spinnerScroll.classList.toggle("hidden");
           };
@@ -392,9 +414,11 @@ async function createPost(e) {
       .then((res) => res.json())
       .then((data) => {
         if (data[0] === true) {
-          getPosts();
+          feedPostsContainer.innerHTML = "";
+          pageAllPost = 1
+          // getPosts(pageAllPost);
           toggleCreatePostModal();
-          spinner.setAttribute("hidden", "");
+          // spinner.setAttribute("hidden", "");
         }
       });
   }
@@ -946,8 +970,14 @@ function infinityScroll() {
 
   const observeSpinner = async listPost => {
     if (listPost[0].isIntersecting) {
-      await getPosts(page);
-      page++
+      if(isAllPostsPageActive===true){
+        await getPosts(pageAllPost);
+        pageAllPost++
+      } else if(isAllPostsPageActive===false){
+        await getPostsByUserId(postsByUserId,page);
+        page++
+      }
+      
     }
   }
   const options = {

@@ -31,9 +31,9 @@ switch ($controller) {
 
 function getPosts()
 {
-    $page = $_GET['page'];
+    $pageAllPost = $_GET['pageAllPost'];
     $getPosts = new PostModel();
-    echo json_encode($getPosts->get($page));
+    echo json_encode($getPosts->get($pageAllPost));
 }
 
 function getPostById()
@@ -47,9 +47,9 @@ function getPostById()
 function getPostsByUserId()
 {
     $userId = intval($_GET['userId']);
-
+    $page = intval($_GET['page']);
     $getPostsByUserId = new PostModel();
-    echo json_encode($getPostsByUserId->getPostsByUserId($userId));
+    echo json_encode($getPostsByUserId->getPostsByUserId($userId,$page));
 }
 
 function createPost()

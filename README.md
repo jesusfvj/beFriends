@@ -1,7 +1,7 @@
 `#html` `#css` `#javascript` `#php` `#final-project` `#master-in-software-development`
 
 # beFriends Social Network
-![Logo](/assets/imgages/logoBeFriends.png)
+![Logo](/assets/images/logoBeFriends.png)
 [Deployed Project] 
 
 ### Authors
@@ -14,7 +14,6 @@
 First database E/R diagram:
 ![E/R DB](/assets/wireframes/ER_beFriends.png)
 
-Browser view:
 ![Wireframe](/assets/wireframes/wireframe-1.png)
 ![Wireframe](/assets/wireframes/wireframe-2.png)
 ![Wireframe](/assets/wireframes/wireframe-3.png)

@@ -1,9 +1,3 @@
-function getPostById(id) {
-  fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
-    .then((res) => res.json())
-    .then((data) => {});
-}
-
 document.body.addEventListener("load", getUsers());
 document.body.addEventListener("load", getPosts());
 document.body.addEventListener("load", getLogedUser());
@@ -533,7 +527,6 @@ function toggleCreatePostModal() {
 }
 
 function toggleFriendsModal() {
-  console.log("toggleFriendsModal");
   feedFriendsListModal.classList.toggle("hidden");
   window.removeEventListener("click", clickOutsideFriendList);
 }
@@ -570,7 +563,6 @@ function showSearchModal() {
 function clickOutsideSearch(e) {
   if (!document.getElementById("feedSearchModal").contains(e.target)) {
     toggleSearchModal();
-    console.log("clickOutsideSearch");
   }
 }
 
@@ -676,7 +668,7 @@ async function showFriendList() {
                                       <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                                     </div>
                                     <h2>Friends</h2>
-                                    <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>
+                                    <p class="modal-close-btn hidden" onclick="toggleFriendsModal()">x</p>
                                     `;
 
   await fetch(`./controllers/friends.php?controller=getfriends`)
@@ -852,7 +844,7 @@ async function showNotifications() {
                                       <div id="counterAlertNot" class="friends-list__alert-counter"></div>
                                     </div>
                                     <h2>Notifications</h2>
-                                    <p class="modal-close-btn" onclick="toggleFriendsModal()">x</p>`;
+                                    <p class="modal-close-btn hidden" onclick="toggleFriendsModal()">x</p>`;
 
   await fetch(`./controllers/friends.php?controller=getnotifications`)
     .then((res) => res.json())
@@ -945,3 +937,9 @@ function getNotificationsCounter() {
       printNotificationsAlert(data[0][0]);
     });
 }
+
+// function getPostById(id) {
+//   fetch(`./controllers/posts.php?id=${id}&controller=getpostbyid`)
+//     .then((res) => res.json())
+//     .then((data) => {});
+// }

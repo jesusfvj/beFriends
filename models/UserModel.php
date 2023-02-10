@@ -65,10 +65,10 @@ class UserModel extends DbConection
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
 
-        // if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
-        //     $msg = $message->throwErrorMessage('password-strength');
-        //     return ['password-strength', $msg];
-        // }
+        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+            $msg = $message->throwErrorMessage('password-strength');
+            return ['password-strength', $msg];
+        }
 
         if (strlen($username) < 3 || strlen($username) > 8) {
             $msg = $message->throwErrorMessage('username-length');

@@ -2,7 +2,7 @@
 
 # beFriends Social Network
 ![Logo](/assets/images/logoBeFriends.png)
-[Deployed Project] 
+- [Deployed Project] 
 
 ### Authors
 - [Daniel Jesus Villena Wilson]

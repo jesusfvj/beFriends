@@ -155,7 +155,7 @@ function getUsers() {
                 <button onclick="deleteFriend(event)" class="feed__friends-suggestions-deny-btn" userId=${user.id}>x</button>
             </div>
                 <img class="feed__post-profile-img profile-img-${user.id}" src=${user.avatar} alt="" userId=${user.id}/>
-                <p>${user.nickname}</p>
+                <p class="feed__post-profile-nickname" onclick="getPostsByUserId(${user.id})">${user.nickname}</p>
             </div>
     `;
           }

@@ -228,6 +228,10 @@
   gap: 0.6rem;
 }
 
+.feed__post-profile-nickname {
+  cursor: pointer;
+}
+
 .feed__friends-suggestions-friends {
   position: fixed;
   margin-top: 1rem;

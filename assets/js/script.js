@@ -358,6 +358,7 @@ async function createPost(e) {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       formData.append("image", data.secure_url);
       spinner.setAttribute("hidden", "");
     });
